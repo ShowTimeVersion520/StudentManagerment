@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="page">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>登陆</title>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../media/css/bootstrap.min.css">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="../media/css/bootstrap-theme.min.css">
+    <!-- 该页面自定义css -->
+    <link rel="stylesheet" href="../media/css/index/index.css">
+
+    <!-- jquery js， 一定要比bootstrap前面引入 -->
+    <script src="../media/js/jquery-1.12.4/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="../media/js/bootstrap-3.3.7/bootstrap.min.js"></script>
+    <!-- angular js 引入 -->
+    <script src="../media/js/angular-1.6.4/angular.min.js" ></script>
+    <!-- angular route js 引入 -->
+    <script src="../media/js/angular-1.6.4/angular-resource.min.js" ></script>
+    <!-- angular route js 引入 -->
+    <script src="../media/js/angular-1.6.4/angular-route.min.js" ></script>
+
+    <!-- 项目共同方法 - global.js -->
+    <script src="../media/js/global.js"></script>
+    <!-- 项目共同定义 - global-config.js -->
+    <script src="../media/js/global-config.js"></script>
+
+    <!-- 以上是默认加载 -->
+    <!-- 以下是页面加载 -->
+    <!-- 引入页面css -->
+    <link rel="stylesheet" href="../media/css/login/index.css">
+
+</head>
+<body class="form-bg absolute-center" >
+    <div class="container center-container" ng-controller="dashboard">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="col-sm-12 text-center info">{{accessInfo}}</div>
+                <form class="form-horizontal " action="/torinosrc/login"  method="post" role="form" onsubmit="saveUsername()"> <!--  ng-app="login" ng-controller="login"-->
+                    <span class="heading">用户登录</span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="username" placeholder="用户名" ng-model="username" name="username">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </div>
+                    <div class="form-group help">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="密　码" ng-model="password" name="password">
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <a href="#" class="fa fa-question-circle"></a>
+                    </div>
+                    <div class="form-group">
+                        <div class="main-checkbox">
+                            <input type="checkbox" value="None" id="checkbox1" name="check"/>
+                            <label for="checkbox1"></label>
+                        </div>
+                        <span class="text">记住我</span>
+                        <button type="submit" class="btn btn-default">登&nbsp;&nbsp;录</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function saveUsername() {
+            localStorage.setItem("username", $("#username").val());
+            localStorage.removeItem("sysUser");
+        }
+
+    </script>
+
+    <script src="../media/js/login/index.js"></script>
+</body>
+</html>

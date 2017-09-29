@@ -1,0 +1,111 @@
+/*背景色*/
+.index-backgroup{
+    /*background-color: #3d3d3d;*/
+    background-color: #fcfcfc;
+}
+
+.header{
+    margin-bottom: 50px;
+}
+
+.navbar-background {
+    margin: 5px 0px 5px 5px;
+    width: 260px;
+    float: left;
+    position: fixed;
+    border: 1px solid #202020;
+    border-width: 0 1px 0 0;
+    background-color: #202020;
+}
+
+.navbar-side {
+    margin: 5px 0px 5px -15px;
+    width: 260px;
+    float: left;
+    position: relative;
+    border: 1px solid #202020;
+    /*padding-bottom: 1000px;*/
+}
+
+nav>ul>li{
+    border-top: 1px solid #5c5c5c !important;
+}
+
+nav a:hover{
+    text-decoration:none;
+    /*background-color: #eea236!important;*/
+    border-radius: 6px;
+}
+
+.sidebar-begin {
+    border-top: 0px solid #5c5c5c !important;
+}
+
+@media (max-width:767px) {
+    .content{
+        height: 100%;
+        min-height: 600px;
+        margin-top: 105px;
+        /*background-color: #444;*/
+        padding: 12px 12px 12px 12px;
+        color: black;
+    }
+}
+@media (min-width: 768px) {
+    .content{
+        min-height: 600px;
+        margin-left: 272px;
+        /*background-color: #444;*/
+        padding: 12px 12px 12px 12px;
+        color: black;
+    }
+}
+
+.dashboard{
+    padding-bottom: 100px;
+}
+
+.breadcrumb>li>a,a:hover{
+    color: #333;
+}
+
+.breadcrumb>li+li:before{
+    padding:0 5px;
+    color:#333;
+    content:">\00a0"
+}
+/*
+左边导航栏
+*/
+.title{
+    margin-left: 5px;
+    color: #9d9d9d;
+}
+.sidebar{
+    color: #9d9d9d;
+}
+.sidebar i,span {
+    color: #9d9d9d;
+}
+.sidebar a:hover{
+    text-decoration:none;
+    background-color:black!important;
+}
+/*
+页脚
+*/
+footer{
+    color: black;
+    background-color:black!important;
+}
+.footer-height{
+    height: 50px;
+    padding-top: 10px;
+}
+.copyright{
+    color: #f7f7f7;
+}
+.copyright a, a:hover {
+    color: #f7f7f7;
+    text-decoration: none;
+}

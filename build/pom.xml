@@ -1,0 +1,74 @@
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.showtime</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../parent</relativePath>
+    </parent>
+
+    <modules>
+        <module>../misc</module>
+        <module>../config</module>
+        <module>../model</module>
+        <module>../commons</module>
+        <module>../core</module>
+        <module>../rs</module>
+    </modules>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.showtime</groupId>
+    <artifactId>build</artifactId>
+    <version>1.0.0</version>
+
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+
+    <properties>
+        <project-name>rs</project-name>
+    </properties>
+
+    <profiles>
+        <profile>
+            <!-- 持续集成自动测试环境 -->
+            <id>jenkins</id>
+            <properties>
+                <deploy.env>jenkins</deploy.env>
+                <swagger-host>120.24.241.243:8080</swagger-host>
+            </properties>
+        </profile>
+
+        <profile>
+            <!-- 本地环境 -->
+            <id>local</id>
+            <properties>
+                <deploy.env>local</deploy.env>
+                <swagger-host>127.0.0.1:8080</swagger-host>
+            </properties>
+        </profile>
+
+
+        <profile>
+            <!-- 开发环境 -->
+            <id>dev</id>
+            <properties>
+                <deploy.env>dev</deploy.env>
+                <swagger-host>120.24.241.243:8080</swagger-host>
+            </properties>
+        </profile>
+
+        <profile>
+            <!-- 开发环境 -->
+            <id>prod</id>
+            <properties>
+                <deploy.env>prod</deploy.env>
+                <swagger-host>120.24.241.243:8080</swagger-host>
+            </properties>
+        </profile>
+    </profiles>
+    
+</project>

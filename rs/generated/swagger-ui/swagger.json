@@ -1,0 +1,1363 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "RESTful API文档",
+    "version" : "v1.0",
+    "title" : "RESTful API文档",
+    "termsOfService" : "http://www.showtime.com/",
+    "contact" : {
+      "name" : "showtime",
+      "url" : "http://www.showtime.com",
+      "email" : "594470882@qq.com"
+    }
+  },
+  "basePath" : "/rs",
+  "tags" : [ {
+    "name" : "上传模块"
+  }, {
+    "name" : "后台管理权限接口"
+  }, {
+    "name" : "后台管理用户接口"
+  }, {
+    "name" : "后台管理角色接口"
+  }, {
+    "name" : "后缀生成接口"
+  }, {
+    "name" : "轮播图接口"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "paths" : {
+    "/api/v1/banners" : {
+      "get" : {
+        "tags" : [ "轮播图接口" ],
+        "summary" : "获取轮播图列表",
+        "description" : "通过查询条件获取轮播图列表",
+        "operationId" : "getBanners",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "search",
+          "in" : "query",
+          "description" : "搜索",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "enabled",
+          "in" : "query",
+          "description" : "状态",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "轮播图接口" ],
+        "summary" : "创建轮播图",
+        "description" : "创建一个轮播图",
+        "operationId" : "createBanner",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "轮播图",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/BannerView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "轮播图接口" ],
+        "summary" : "删除轮播图",
+        "description" : "批量删除轮播图",
+        "operationId" : "deleteBanners",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "轮播图ids，样例 - 1,2,3",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/banners/{id}" : {
+      "get" : {
+        "tags" : [ "轮播图接口" ],
+        "summary" : "获取单个轮播图",
+        "description" : "通过id获取轮播图",
+        "operationId" : "getBanner",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "轮播图id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "轮播图接口" ],
+        "summary" : "更新轮播图",
+        "description" : "更新轮播图信息",
+        "operationId" : "updateUser",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "轮播图id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "轮播图信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/BannerView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "轮播图接口" ],
+        "summary" : "删除轮播图",
+        "description" : "通过id删除轮播图",
+        "operationId" : "deleteBanner",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "轮播图id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/generators" : {
+      "get" : {
+        "tags" : [ "后缀生成接口" ],
+        "summary" : "获取后缀生成列表",
+        "description" : "通过查询条件获取后缀生成列表",
+        "operationId" : "getGenerators",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "enabled",
+          "in" : "query",
+          "description" : "状态",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "后缀生成接口" ],
+        "summary" : "创建后缀生成",
+        "description" : "创建一个后缀生成",
+        "operationId" : "createGenerator",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "后缀生成",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/GeneratorView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "后缀生成接口" ],
+        "summary" : "删除后缀生成",
+        "description" : "批量删除后缀生成",
+        "operationId" : "deleteGenerators",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "后缀生成ids，样例 - 1,2,3",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/generators/{id}" : {
+      "get" : {
+        "tags" : [ "后缀生成接口" ],
+        "summary" : "获取单个后缀生成",
+        "description" : "通过id获取后缀生成",
+        "operationId" : "getGenerator",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "后缀生成id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "后缀生成接口" ],
+        "summary" : "更新后缀生成",
+        "description" : "更新后缀生成信息",
+        "operationId" : "updateGenerators",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "后缀生成id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "后缀生成信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/GeneratorView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "后缀生成接口" ],
+        "summary" : "删除后缀生成",
+        "description" : "通过id删除后缀生成",
+        "operationId" : "deleteGenerator",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "后缀生成id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/sysauthorities" : {
+      "get" : {
+        "tags" : [ "后台管理权限接口" ],
+        "summary" : "获取后台管理权限列表",
+        "description" : "通过查询条件获取后台管理权限列表",
+        "operationId" : "getSysAuthoritys",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "description" : "权限",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "enabled",
+          "in" : "query",
+          "description" : "状态",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "后台管理权限接口" ],
+        "summary" : "创建后台管理权限",
+        "description" : "创建一个后台管理权限",
+        "operationId" : "createSysAuthority",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "后台管理权限",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SysAuthorityView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "后台管理权限接口" ],
+        "summary" : "删除后台管理权限",
+        "description" : "批量删除后台管理权限",
+        "operationId" : "deleteSysAuthoritys",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "后台管理权限ids",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/sysauthorities/{id}" : {
+      "get" : {
+        "tags" : [ "后台管理权限接口" ],
+        "summary" : "获取后台管理权限",
+        "description" : "通过id获取后台管理权限",
+        "operationId" : "getSysAuthority",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "后台管理权限id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "后台管理权限接口" ],
+        "summary" : "更新后台管理权限",
+        "description" : "更新后台管理权限信息",
+        "operationId" : "updateSysAuthority",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "权限id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "权限信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SysAuthorityView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "后台管理权限接口" ],
+        "summary" : "删除后台管理权限",
+        "description" : "通过id删除后台管理权限",
+        "operationId" : "deleteSysAuthority",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "后台管理权限id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/sysroles" : {
+      "get" : {
+        "tags" : [ "后台管理角色接口" ],
+        "summary" : "获取后台管理角色列表",
+        "description" : "通过查询条件获取后台管理角色列表",
+        "operationId" : "getSysRoles",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "chineseName",
+          "in" : "query",
+          "description" : "角色中文名",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "enabled",
+          "in" : "query",
+          "description" : "状态",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "后台管理角色接口" ],
+        "summary" : "创建后台管理角色",
+        "description" : "创建一个后台管理角色",
+        "operationId" : "createSysRole",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "后台管理角色",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SysRoleView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "后台管理角色接口" ],
+        "summary" : "批量删除后台管理角色",
+        "description" : "批量删除后台管理角色",
+        "operationId" : "deleteSysRoles",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "后台管理角色ids",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/sysroles/{id}" : {
+      "get" : {
+        "tags" : [ "后台管理角色接口" ],
+        "summary" : "获取后台管理角色",
+        "description" : "通过id获取后台管理角色",
+        "operationId" : "getSysRole",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "后台管理角色id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "后台管理角色接口" ],
+        "summary" : "更新后台管理角色",
+        "description" : "更新后台管理角色信息",
+        "operationId" : "updateRole",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "角色id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "角色信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SysRoleView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "后台管理角色接口" ],
+        "summary" : "删除后台管理角色",
+        "description" : "通过id删除后台管理角色",
+        "operationId" : "deleteSysRole",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "后台管理角色id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/sysusers" : {
+      "get" : {
+        "tags" : [ "后台管理用户接口" ],
+        "summary" : "获取后台管理用户列表",
+        "description" : "通过查询条件获取后台管理用户列表",
+        "operationId" : "getSysUsers",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "userName",
+          "in" : "query",
+          "description" : "用户名",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "enabled",
+          "in" : "query",
+          "description" : "状态",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "后台管理用户接口" ],
+        "summary" : "创建后台管理用户",
+        "description" : "创建一个后台管理用户",
+        "operationId" : "createSysUser",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "后台管理用户",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SysUserView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "后台管理用户接口" ],
+        "summary" : "删除后台管理用户",
+        "description" : "批量删除后台管理用户",
+        "operationId" : "deleteSysUsers",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "后台管理用户ids",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/sysusers/username/{username}" : {
+      "get" : {
+        "tags" : [ "后台管理用户接口" ],
+        "summary" : "获取后台管理用户",
+        "description" : "通过id获取后台管理用户",
+        "operationId" : "getSysUserByUserName",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "path",
+          "description" : "后台管理用户userName",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/sysusers/{id}" : {
+      "get" : {
+        "tags" : [ "后台管理用户接口" ],
+        "summary" : "获取后台管理用户",
+        "description" : "通过id获取后台管理用户",
+        "operationId" : "getSysUser",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "后台管理用户id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "后台管理用户接口" ],
+        "summary" : "更新后台管理用户",
+        "description" : "更新后台管理用户信息",
+        "operationId" : "updateUser",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "用户id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "用户信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SysUserView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "后台管理用户接口" ],
+        "summary" : "删除后台管理用户",
+        "description" : "通过id删除后台管理用户",
+        "operationId" : "deleteSysUser",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "后台管理用户id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/upload/banner/pic" : {
+      "post" : {
+        "tags" : [ "上传模块" ],
+        "summary" : "上传轮播图",
+        "description" : "上传轮播图",
+        "operationId" : "uploadBannerHeadImage",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "BannerView" : {
+      "type" : "object",
+      "required" : [ "createTime", "updateTime" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "updateTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditors" : {
+          "type" : "string"
+        },
+        "auditStatus" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditContent" : {
+          "type" : "string"
+        },
+        "auditTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "content" : {
+          "type" : "string"
+        },
+        "subTitle" : {
+          "type" : "string"
+        },
+        "imageUrl" : {
+          "type" : "string"
+        },
+        "redirectUrl" : {
+          "type" : "string"
+        },
+        "sequence" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "search" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeneratorView" : {
+      "type" : "object",
+      "required" : [ "createTime", "updateTime" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "updateTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditors" : {
+          "type" : "string"
+        },
+        "auditStatus" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditContent" : {
+          "type" : "string"
+        },
+        "auditTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "numberSuffix" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SysAuthority" : {
+      "type" : "object",
+      "required" : [ "createTime", "updateTime" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "updateTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditors" : {
+          "type" : "string"
+        },
+        "auditStatus" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditContent" : {
+          "type" : "string"
+        },
+        "auditTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "hasAuthority" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SysAuthorityView" : {
+      "type" : "object",
+      "required" : [ "createTime", "updateTime" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "updateTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditors" : {
+          "type" : "string"
+        },
+        "auditStatus" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditContent" : {
+          "type" : "string"
+        },
+        "auditTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "hasAuthority" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SysRole" : {
+      "type" : "object",
+      "required" : [ "createTime", "updateTime" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "updateTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditors" : {
+          "type" : "string"
+        },
+        "auditStatus" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditContent" : {
+          "type" : "string"
+        },
+        "auditTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "hasRole" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "englishName" : {
+          "type" : "string"
+        },
+        "chineseName" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "sysAuthorities" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SysAuthority"
+          }
+        }
+      }
+    },
+    "SysRoleView" : {
+      "type" : "object",
+      "required" : [ "createTime", "updateTime" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "updateTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditors" : {
+          "type" : "string"
+        },
+        "auditStatus" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditContent" : {
+          "type" : "string"
+        },
+        "auditTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "hasRole" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "englishName" : {
+          "type" : "string"
+        },
+        "chineseName" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "sysAuthorities" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SysAuthority"
+          }
+        },
+        "sysAuthoritiesWithRole" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SysAuthority"
+          }
+        }
+      }
+    },
+    "SysUserView" : {
+      "type" : "object",
+      "required" : [ "createTime", "updateTime" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "updateTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditors" : {
+          "type" : "string"
+        },
+        "auditStatus" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "auditContent" : {
+          "type" : "string"
+        },
+        "auditTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "userName" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "sysRole" : {
+          "$ref" : "#/definitions/SysRole"
+        }
+      }
+    }
+  }
+}
