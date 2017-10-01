@@ -28,462 +28,6 @@ RESTful API文档
 # APIs
 
 
-## /api/v1/banners
-
-
-### GET
-
-<a id="getBanners">获取轮播图列表</a>
-
-通过查询条件获取轮播图列表
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>search</th>
-    <td>query</td>
-    <td>no</td>
-    <td>搜索</td>
-    <td> - </td>
-
-    
-            <td>string </td>
-    
-
-</tr>
-
-<tr>
-    <th>enabled</th>
-    <td>query</td>
-    <td>no</td>
-    <td>状态</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-<tr>
-    <th>pageNumber</th>
-    <td>query</td>
-    <td>no</td>
-    <td>页数</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-<tr>
-    <th>pageSize</th>
-    <td>query</td>
-    <td>no</td>
-    <td>每页加载量</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-### POST
-
-
-<a id="createBanner">创建轮播图</a>
-
-创建一个轮播图
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>轮播图</td>
-    <td> - </td>
-
-    <td>
-    
-    <a href="#/definitions/BannerView">BannerView</a> 
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 201    | successful operation |  - |
-| 409    | conflict |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-### DELETE
-
-<a id="deleteBanners">删除轮播图</a>
-
-批量删除轮播图
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>轮播图ids，样例 - 1,2,3</td>
-    <td> - </td>
-
-    <td>
-    
-    
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-## /api/v1/banners/{id}
-
-
-### GET
-
-<a id="getBanner">获取单个轮播图</a>
-
-通过id获取轮播图
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>id</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>轮播图id</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-### PUT
-
-<a id="updateUser">更新轮播图</a>
-
-更新轮播图信息
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>id</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>轮播图id</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>轮播图信息</td>
-    <td> - </td>
-
-    <td>
-    
-    <a href="#/definitions/BannerView">BannerView</a> 
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful |  - |
-| 404    | not found |  - |
-| 409    | conflict |  - |
-| 500    | internal Server Error |  - |
-
-
-
-
-
-
-
-### DELETE
-
-<a id="deleteBanner">删除轮播图</a>
-
-通过id删除轮播图
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>id</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>轮播图id</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
 ## /api/v1/generators
 
 
@@ -893,6 +437,1165 @@ RESTful API文档
     <td>path</td>
     <td>yes</td>
     <td>后缀生成id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/scs
+
+
+### GET
+
+<a id="getScs">获取成绩列表</a>
+
+通过查询条件获取成绩列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>updateTime</th>
+    <td>query</td>
+    <td>no</td>
+    <td>更新时间</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>studentNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>学号</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>courseNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>课程号</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+### POST
+
+
+<a id="createSc">创建成绩</a>
+
+创建一个成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>成绩</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/ScView">ScView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 201    | successful operation |  - |
+| 409    | conflict |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteScs">删除成绩</a>
+
+批量删除成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>成绩ids，样例 - 1,2,3</td>
+    <td> - </td>
+
+    <td>
+    
+    
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** text/plain
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/scs/search
+
+
+### GET
+
+<a id="getScByKeyword">通过关键字搜索成绩</a>
+
+通过关键字搜索成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>keyword</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>关键字</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/scs/{id}
+
+
+### GET
+
+<a id="getSc">获取单个成绩</a>
+
+通过id获取成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>成绩id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+### PUT
+
+<a id="updateScs">更新成绩</a>
+
+更新成绩信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>成绩id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>成绩信息</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/ScView">ScView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteSc">删除成绩</a>
+
+通过id删除成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>成绩id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/students
+
+
+### GET
+
+<a id="getStudents">获取学生列表</a>
+
+通过查询条件获取学生列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>name</th>
+    <td>query</td>
+    <td>no</td>
+    <td>姓名</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>gender</th>
+    <td>query</td>
+    <td>no</td>
+    <td>性别 1-男 0-女</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>nativePlace</th>
+    <td>query</td>
+    <td>no</td>
+    <td>籍贯</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>className</th>
+    <td>query</td>
+    <td>no</td>
+    <td>班级名称</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+### POST
+
+
+<a id="createStudent">创建学生</a>
+
+创建一个学生
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>学生</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/StudentView">StudentView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 201    | successful operation |  - |
+| 409    | conflict |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteStudents">删除学生</a>
+
+批量删除学生
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>学生ids，样例 - 1,2,3</td>
+    <td> - </td>
+
+    <td>
+    
+    
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** text/plain
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/students/search
+
+
+### GET
+
+<a id="getStudentByKeyword">通过关键字搜索学生</a>
+
+通过关键字搜索学生
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>keyword</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>关键字</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/students/{id}
+
+
+### GET
+
+<a id="getStudent">获取单个学生</a>
+
+通过id获取学生
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>学生id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+### PUT
+
+<a id="updateStudents">更新学生</a>
+
+更新学生信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>学生id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>学生信息</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/StudentView">StudentView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteStudent">删除学生</a>
+
+通过id删除学生
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>学生id</td>
     <td> - </td>
 
     
@@ -2430,214 +3133,6 @@ RESTful API文档
 
 # Definitions
 
-## <a name="/definitions/BannerView">BannerView</a>
-
-<table border="1">
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>required</th>
-        <th>description</th>
-        <th>example</th>
-    </tr>
-    
-        <tr>
-            <td>id</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>createTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>updateTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>enabled</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditors</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditStatus</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditContent</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>title</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>content</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>subTitle</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>imageUrl</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>redirectUrl</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>sequence</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>search</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-</table>
-
 ## <a name="/definitions/GeneratorView">GeneratorView</a>
 
 <table border="1">
@@ -2651,97 +3146,6 @@ RESTful API文档
     
         <tr>
             <td>id</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>createTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>updateTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>enabled</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditors</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditStatus</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditContent</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditTime</td>
             <td>
                 
                     
@@ -2781,7 +3185,7 @@ RESTful API文档
     
 </table>
 
-## <a name="/definitions/SysAuthority">SysAuthority</a>
+## <a name="/definitions/ScView">ScView</a>
 
 <table border="1">
     <tr>
@@ -2806,19 +3210,6 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>createTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
             <td>updateTime</td>
             <td>
                 
@@ -2826,26 +3217,13 @@ RESTful API文档
                     integer (int64)
                 
             </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>enabled</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
             <td>optional</td>
             <td>-</td>
             <td></td>
         </tr>
     
         <tr>
-            <td>auditors</td>
+            <td>studentNumber</td>
             <td>
                 
                     
@@ -2858,11 +3236,37 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>auditStatus</td>
+            <td>courseNumber</td>
             <td>
                 
                     
-                    integer (int32)
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
+## <a name="/definitions/StudentView">StudentView</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
                 
             </td>
             <td>optional</td>
@@ -2871,7 +3275,7 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>auditContent</td>
+            <td>name</td>
             <td>
                 
                     
@@ -2884,7 +3288,72 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>auditTime</td>
+            <td>gender</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>nativePlace</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>grade</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>className</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
+## <a name="/definitions/SysAuthority">SysAuthority</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
             <td>
                 
                     
@@ -2962,97 +3431,6 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>createTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>updateTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>enabled</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditors</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditStatus</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditContent</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
             <td>hasAuthority</td>
             <td>
                 
@@ -3106,97 +3484,6 @@ RESTful API文档
     
         <tr>
             <td>id</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>createTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>updateTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>enabled</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditors</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditStatus</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditContent</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditTime</td>
             <td>
                 
                     
@@ -3290,97 +3577,6 @@ RESTful API文档
     
         <tr>
             <td>id</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>createTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>updateTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>enabled</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditors</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditStatus</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditContent</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditTime</td>
             <td>
                 
                     
@@ -3489,97 +3685,6 @@ RESTful API文档
     
         <tr>
             <td>id</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>createTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>updateTime</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>required</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>enabled</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditors</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditStatus</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditContent</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>auditTime</td>
             <td>
                 
                     

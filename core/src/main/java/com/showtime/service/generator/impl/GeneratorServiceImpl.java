@@ -88,17 +88,13 @@ public class GeneratorServiceImpl implements GeneratorService {
             public Predicate toPredicate(Root<Generator> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
 
-                // enabled
-                if(generatorView.getEnabled() != Integer.MIN_VALUE ){
-                    predicates.add(criteriaBuilder.equal(root.get("enabled").as(Integer.class), generatorView.getEnabled()));
-                }
                 criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
                 return criteriaQuery.getRestriction();
             }
         };
 
         // 设置排序
-        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
         // 设置分页
         Pageable pageable = new PageRequest(currentPage, pageSize, sort);
 
@@ -140,9 +136,9 @@ public class GeneratorServiceImpl implements GeneratorService {
         Generator generator = new Generator();
         viewToDaoCopier.copy(generatorView, generator, null);
         // user数据库映射传给dao进行存储
-        generator.setCreateTime(new Date().getTime());
-        generator.setUpdateTime(new Date().getTime());
-        generator.setEnabled(1);
+//        generator.setCreateTime(new Date().getTime());
+//        generator.setUpdateTime(new Date().getTime());
+//        generator.setEnabled(1);
         generatorDao.save(generator);
         return String.valueOf(generator.getId());
     }
@@ -184,8 +180,8 @@ public class GeneratorServiceImpl implements GeneratorService {
         //    generator1.setPassword(new StandardPasswordEncoder().encode(generator.getPassword()));
         //}
         // generator1.setCreateTime(generator1.getCreateTime());
-        generator.setUpdateTime(new Date().getTime());
-        generator.setCreateTime(generator1.getCreateTime());
+        //generator.setUpdateTime(new Date().getTime());
+        //generator.setCreateTime(generator1.getCreateTime());
         //generator1.setSysRole(generator.getSysRole());
         ReflectUtils.flushModel(generator,generator1);
         generatorDao.save(generator);

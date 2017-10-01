@@ -86,7 +86,7 @@ public class SysAuthorityServiceImpl implements SysAuthorityService {
         };
 
         // 设置排序
-        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
         // 设置分页
         Pageable pageable = new PageRequest(currentPage, pageSize, sort);
 
@@ -128,8 +128,8 @@ public class SysAuthorityServiceImpl implements SysAuthorityService {
         SysAuthority sysAuthority = new SysAuthority();
         viewToDaoCopier.copy(sysAuthorityView, sysAuthority, null);
         // user数据库映射传给dao进行存储
-        sysAuthority.setCreateTime(new Date().getTime());
-        sysAuthority.setUpdateTime(new Date().getTime());
+//        sysAuthority.setCreateTime(new Date().getTime());
+//        sysAuthority.setUpdateTime(new Date().getTime());
         sysAuthority.setEnabled(1);
         sysAuthorityDao.save(sysAuthority);
         return String.valueOf(sysAuthority.getId());
@@ -165,7 +165,7 @@ public class SysAuthorityServiceImpl implements SysAuthorityService {
         sysAuthority1.setName(sysAuthority.getName());
         sysAuthority1.setDescription(sysAuthority.getDescription());
         // sysAuthority1.setCreateTime(sysAuthority1.getCreateTime());
-        sysAuthority1.setUpdateTime(new Date().getTime());
+//        sysAuthority1.setUpdateTime(new Date().getTime());
         sysAuthority1.setEnabled(sysAuthority.getEnabled());
         sysAuthorityDao.save(sysAuthority1);
     }

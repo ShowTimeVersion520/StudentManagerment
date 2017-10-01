@@ -158,7 +158,6 @@ public class GeneratorController {
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
             GeneratorView generatorView = new GeneratorView();
-            generatorView.setEnabled(enabled);
             Page<GeneratorView> generatorViews = generatorService
                     .getEntitiesByParms(generatorView, pageNumber, pageSize);
             // 封装返回信息

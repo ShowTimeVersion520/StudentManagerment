@@ -23,199 +23,12 @@
   }, {
     "name" : "后缀生成接口"
   }, {
-    "name" : "轮播图接口"
+    "name" : "学生接口"
+  }, {
+    "name" : "成绩接口"
   } ],
   "schemes" : [ "http", "https" ],
   "paths" : {
-    "/api/v1/banners" : {
-      "get" : {
-        "tags" : [ "轮播图接口" ],
-        "summary" : "获取轮播图列表",
-        "description" : "通过查询条件获取轮播图列表",
-        "operationId" : "getBanners",
-        "produces" : [ "application/json;charset=UTF-8" ],
-        "parameters" : [ {
-          "name" : "search",
-          "in" : "query",
-          "description" : "搜索",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "enabled",
-          "in" : "query",
-          "description" : "状态",
-          "required" : false,
-          "type" : "integer",
-          "format" : "int32"
-        }, {
-          "name" : "pageNumber",
-          "in" : "query",
-          "description" : "页数",
-          "required" : false,
-          "type" : "integer",
-          "default" : 0,
-          "format" : "int32"
-        }, {
-          "name" : "pageSize",
-          "in" : "query",
-          "description" : "每页加载量",
-          "required" : false,
-          "type" : "integer",
-          "default" : 10,
-          "format" : "int32"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful request"
-          },
-          "500" : {
-            "description" : "internal server error"
-          }
-        }
-      },
-      "post" : {
-        "tags" : [ "轮播图接口" ],
-        "summary" : "创建轮播图",
-        "description" : "创建一个轮播图",
-        "operationId" : "createBanner",
-        "produces" : [ "application/json;charset=UTF-8" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "轮播图",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/BannerView"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "successful operation",
-            "headers" : {
-              "location" : {
-                "type" : "string",
-                "description" : "URL of new created resource"
-              }
-            }
-          },
-          "409" : {
-            "description" : "conflict"
-          },
-          "500" : {
-            "description" : "internal server error"
-          }
-        }
-      },
-      "delete" : {
-        "tags" : [ "轮播图接口" ],
-        "summary" : "删除轮播图",
-        "description" : "批量删除轮播图",
-        "operationId" : "deleteBanners",
-        "produces" : [ "application/json;charset=UTF-8" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "轮播图ids，样例 - 1,2,3",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful request"
-          },
-          "500" : {
-            "description" : "internal server error"
-          }
-        }
-      }
-    },
-    "/api/v1/banners/{id}" : {
-      "get" : {
-        "tags" : [ "轮播图接口" ],
-        "summary" : "获取单个轮播图",
-        "description" : "通过id获取轮播图",
-        "operationId" : "getBanner",
-        "produces" : [ "application/json;charset=UTF-8" ],
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "轮播图id",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful request"
-          },
-          "500" : {
-            "description" : "internal server error"
-          }
-        }
-      },
-      "put" : {
-        "tags" : [ "轮播图接口" ],
-        "summary" : "更新轮播图",
-        "description" : "更新轮播图信息",
-        "operationId" : "updateUser",
-        "produces" : [ "application/json;charset=UTF-8" ],
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "轮播图id",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "轮播图信息",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/BannerView"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful"
-          },
-          "404" : {
-            "description" : "not found"
-          },
-          "409" : {
-            "description" : "conflict"
-          },
-          "500" : {
-            "description" : "internal Server Error"
-          }
-        }
-      },
-      "delete" : {
-        "tags" : [ "轮播图接口" ],
-        "summary" : "删除轮播图",
-        "description" : "通过id删除轮播图",
-        "operationId" : "deleteBanner",
-        "produces" : [ "application/json;charset=UTF-8" ],
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "轮播图id",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful request"
-          },
-          "500" : {
-            "description" : "internal server error"
-          }
-        }
-      }
-    },
     "/api/v1/generators" : {
       "get" : {
         "tags" : [ "后缀生成接口" ],
@@ -385,6 +198,481 @@
           "name" : "id",
           "in" : "path",
           "description" : "后缀生成id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/scs" : {
+      "get" : {
+        "tags" : [ "成绩接口" ],
+        "summary" : "获取成绩列表",
+        "description" : "通过查询条件获取成绩列表",
+        "operationId" : "getScs",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "updateTime",
+          "in" : "query",
+          "description" : "更新时间",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "studentNumber",
+          "in" : "query",
+          "description" : "学号",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "courseNumber",
+          "in" : "query",
+          "description" : "课程号",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "成绩接口" ],
+        "summary" : "创建成绩",
+        "description" : "创建一个成绩",
+        "operationId" : "createSc",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "成绩",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ScView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "成绩接口" ],
+        "summary" : "删除成绩",
+        "description" : "批量删除成绩",
+        "operationId" : "deleteScs",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "成绩ids，样例 - 1,2,3",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/scs/search" : {
+      "get" : {
+        "tags" : [ "成绩接口" ],
+        "summary" : "通过关键字搜索成绩",
+        "description" : "通过关键字搜索成绩",
+        "operationId" : "getScByKeyword",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "关键字",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/scs/{id}" : {
+      "get" : {
+        "tags" : [ "成绩接口" ],
+        "summary" : "获取单个成绩",
+        "description" : "通过id获取成绩",
+        "operationId" : "getSc",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "成绩id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "成绩接口" ],
+        "summary" : "更新成绩",
+        "description" : "更新成绩信息",
+        "operationId" : "updateScs",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "成绩id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "成绩信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ScView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "成绩接口" ],
+        "summary" : "删除成绩",
+        "description" : "通过id删除成绩",
+        "operationId" : "deleteSc",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "成绩id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/students" : {
+      "get" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "获取学生列表",
+        "description" : "通过查询条件获取学生列表",
+        "operationId" : "getStudents",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "description" : "姓名",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "gender",
+          "in" : "query",
+          "description" : "性别 1-男 0-女",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "nativePlace",
+          "in" : "query",
+          "description" : "籍贯",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "className",
+          "in" : "query",
+          "description" : "班级名称",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "创建学生",
+        "description" : "创建一个学生",
+        "operationId" : "createStudent",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "学生",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/StudentView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "删除学生",
+        "description" : "批量删除学生",
+        "operationId" : "deleteStudents",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "学生ids，样例 - 1,2,3",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/students/search" : {
+      "get" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "通过关键字搜索学生",
+        "description" : "通过关键字搜索学生",
+        "operationId" : "getStudentByKeyword",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "关键字",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/students/{id}" : {
+      "get" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "获取单个学生",
+        "description" : "通过id获取学生",
+        "operationId" : "getStudent",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "学生id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "更新学生",
+        "description" : "更新学生信息",
+        "operationId" : "updateStudents",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "学生id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "学生信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/StudentView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "删除学生",
+        "description" : "通过id删除学生",
+        "operationId" : "deleteStudent",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "学生id",
           "required" : true,
           "type" : "integer",
           "format" : "int64"
@@ -1006,95 +1294,10 @@
     }
   },
   "definitions" : {
-    "BannerView" : {
-      "type" : "object",
-      "required" : [ "createTime", "updateTime" ],
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "createTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "updateTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "enabled" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditors" : {
-          "type" : "string"
-        },
-        "auditStatus" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditContent" : {
-          "type" : "string"
-        },
-        "auditTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "title" : {
-          "type" : "string"
-        },
-        "content" : {
-          "type" : "string"
-        },
-        "subTitle" : {
-          "type" : "string"
-        },
-        "imageUrl" : {
-          "type" : "string"
-        },
-        "redirectUrl" : {
-          "type" : "string"
-        },
-        "sequence" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "search" : {
-          "type" : "string"
-        }
-      }
-    },
     "GeneratorView" : {
       "type" : "object",
-      "required" : [ "createTime", "updateTime" ],
       "properties" : {
         "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "createTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "updateTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "enabled" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditors" : {
-          "type" : "string"
-        },
-        "auditStatus" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditContent" : {
-          "type" : "string"
-        },
-        "auditTime" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -1106,15 +1309,10 @@
         }
       }
     },
-    "SysAuthority" : {
+    "ScView" : {
       "type" : "object",
-      "required" : [ "createTime", "updateTime" ],
       "properties" : {
         "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "createTime" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -1122,21 +1320,42 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "enabled" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditors" : {
+        "studentNumber" : {
           "type" : "string"
         },
-        "auditStatus" : {
+        "courseNumber" : {
+          "type" : "string"
+        }
+      }
+    },
+    "StudentView" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int64"
         },
-        "auditContent" : {
+        "name" : {
           "type" : "string"
         },
-        "auditTime" : {
+        "gender" : {
+          "type" : "string"
+        },
+        "nativePlace" : {
+          "type" : "string"
+        },
+        "grade" : {
+          "type" : "string"
+        },
+        "className" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SysAuthority" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -1154,35 +1373,8 @@
     },
     "SysAuthorityView" : {
       "type" : "object",
-      "required" : [ "createTime", "updateTime" ],
       "properties" : {
         "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "createTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "updateTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "enabled" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditors" : {
-          "type" : "string"
-        },
-        "auditStatus" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditContent" : {
-          "type" : "string"
-        },
-        "auditTime" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -1200,35 +1392,8 @@
     },
     "SysRole" : {
       "type" : "object",
-      "required" : [ "createTime", "updateTime" ],
       "properties" : {
         "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "createTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "updateTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "enabled" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditors" : {
-          "type" : "string"
-        },
-        "auditStatus" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditContent" : {
-          "type" : "string"
-        },
-        "auditTime" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -1255,35 +1420,8 @@
     },
     "SysRoleView" : {
       "type" : "object",
-      "required" : [ "createTime", "updateTime" ],
       "properties" : {
         "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "createTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "updateTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "enabled" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditors" : {
-          "type" : "string"
-        },
-        "auditStatus" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditContent" : {
-          "type" : "string"
-        },
-        "auditTime" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -1316,35 +1454,8 @@
     },
     "SysUserView" : {
       "type" : "object",
-      "required" : [ "createTime", "updateTime" ],
       "properties" : {
         "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "createTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "updateTime" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "enabled" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditors" : {
-          "type" : "string"
-        },
-        "auditStatus" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "auditContent" : {
-          "type" : "string"
-        },
-        "auditTime" : {
           "type" : "integer",
           "format" : "int64"
         },

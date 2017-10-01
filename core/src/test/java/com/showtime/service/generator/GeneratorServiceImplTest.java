@@ -68,13 +68,10 @@ public class GeneratorServiceImplTest {
         //Assert.assertEquals("lvxin_test1@torinosrc.com", generatorView1.getUserName());
 
         for (Long Lid: ids) {
-            Integer num = 0;
             GeneratorView generatorView = new GeneratorView();
             generatorView.setId(Lid);
-            generatorView.setEnabled(num);
             generatorService.updateEntity(generatorView);
             GeneratorView generatorView1 = generatorService.getEntity(Lid);
-            Assert.assertEquals(num, generatorView1.getEnabled());
         }
     }
 

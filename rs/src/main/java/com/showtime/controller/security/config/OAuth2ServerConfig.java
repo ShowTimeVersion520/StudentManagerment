@@ -43,7 +43,7 @@ import javax.sql.DataSource;
 @Configuration
 public class OAuth2ServerConfig {
 
-	private static final String RESOURCE_ID = "TORINOSRC_RESOURCE";
+	private static final String RESOURCE_ID = "SHOWTIME_RESOURCE";
 
 	@Configuration
 	@EnableResourceServer
@@ -81,7 +81,7 @@ public class OAuth2ServerConfig {
 	protected static class AuthorizationServerConfiguration extends
 			AuthorizationServerConfigurerAdapter {
 
-		private static String REALM="TORINOSRC_OAUTH_REALM";
+		private static String REALM="SHOWTIME_OAUTH_REALM";
 
 		@Autowired
 		private DataSource dataSource;

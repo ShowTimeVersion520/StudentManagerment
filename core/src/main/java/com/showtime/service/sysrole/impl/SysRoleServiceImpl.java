@@ -139,7 +139,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         };
 
         // 设置排序
-        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
         // 设置分页
         Pageable pageable = new PageRequest(currentPage, pageSize, sort);
 
@@ -196,9 +196,9 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         sysRole.setSysAuthorities(sysAuthorities);
         // 设置保存时间
-        sysRole.setCreateTime(new Date().getTime());
-        // 设置更新时间
-        sysRole.setUpdateTime(new Date().getTime());
+//        sysRole.setCreateTime(new Date().getTime());
+//        // 设置更新时间
+//        sysRole.setUpdateTime(new Date().getTime());
         // 设置记录启用
         sysRole.setEnabled(1);
         // 保存
@@ -250,7 +250,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         sysRole1.setChineseName(sysRole.getChineseName());
         sysRole1.setDescription(sysRole.getDescription());
         // sysRole1.setCreateTime(sysRole1.getCreateTime());
-        sysRole1.setUpdateTime(new Date().getTime());
+//        sysRole1.setUpdateTime(new Date().getTime());
         sysRole1.setEnabled(sysRole.getEnabled());
 //        sysRoleDao.save(sysRole1);
     }

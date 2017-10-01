@@ -97,7 +97,7 @@ public class SysUserServiceImpl implements SysUserService {
         };
 
         // 设置排序
-        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
         // 设置分页
         Pageable pageable = new PageRequest(currentPage, pageSize, sort);
 
@@ -140,8 +140,8 @@ public class SysUserServiceImpl implements SysUserService {
         viewToDaoCopier.copy(sysUserView, sysUser, null);
         // user数据库映射传给dao进行存储
         sysUser.setPassword(new StandardPasswordEncoder().encode(sysUser.getPassword()));
-        sysUser.setCreateTime(new Date().getTime());
-        sysUser.setUpdateTime(new Date().getTime());
+//        sysUser.setCreateTime(new Date().getTime());
+//        sysUser.setUpdateTime(new Date().getTime());
         sysUser.setEnabled(1);
         sysUserDao.save(sysUser);
         return String.valueOf(sysUser.getId());
@@ -182,7 +182,7 @@ public class SysUserServiceImpl implements SysUserService {
             sysUser1.setPassword(new StandardPasswordEncoder().encode(sysUser.getPassword()));
         }
         // sysUser1.setCreateTime(sysUser1.getCreateTime());
-        sysUser1.setUpdateTime(new Date().getTime());
+//        sysUser1.setUpdateTime(new Date().getTime());
         sysUser1.setEnabled(sysUser.getEnabled());
         sysUser1.setSysRole(sysUser.getSysRole());
         sysUserDao.save(sysUser1);

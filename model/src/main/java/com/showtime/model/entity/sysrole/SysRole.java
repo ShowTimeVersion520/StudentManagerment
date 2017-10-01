@@ -21,6 +21,16 @@ public class SysRole extends BaseEntity implements Serializable {
     /**
      * The SysUser name.
      */
+    @Column(name = "enabled")
+    private Integer enabled;
+
+    public Integer getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Integer enabled) {
+        this.enabled = enabled;
+    }
 
     @Column(name = "english_name")
     private String englishName;

@@ -1,8 +1,8 @@
 // 获取展示表格
-var table = $('#tb_role');
+var table = $('#tb_user');
 
 // 全局变量
-var apiUrl = "/api/v1/sysroles";
+var apiUrl = "/api/v1/students";//TODO:this
 
 // 定义当前angularjs的实例
 var app = angular.module('page',['ngResource', 'ngRoute']);
@@ -73,70 +73,83 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
             detailView: false, //是否显示父子表
             //checkboxHeader: true,
             columns: [{
-                field: 'state',
-                checkbox: true,
-                align: 'center'
-            }, {
-                field: 'id',
-                title: '序号',
+            field: 'state',
+            checkbox: true,
+            align: 'center'
+            },
+                        {
+                field: 'studentNumber',
+                title: '学号',
                 align: 'left',
-                visible: false
-            }, {
-                field: 'englishName',
-                title: '角色英文名称',
+                width: 165,
+            },
+                        {
+                field: 'name',
+                title: '姓名',
                 align: 'left',
-                visible: false
+                width: 165,
+            },
+                        {
+                field: 'gender',
+                title: '性别 1-男 0-女',
+                align: 'left',
+                width: 165,
+            },
+                        {
+                field: 'native_place',
+                title: '籍贯',
+                align: 'left',
+                width: 165,
+            },
+                        {
+                field: 'grade',
+                title: '年纪',
+                align: 'left',
+                width: 165,
+            },
+                        {
+                field: 'className',
+                title: '班级名称',
+                align: 'left',
+                width: 165,
+            },
+                        {
+                field: 'scholarship_level',
+                title: '奖学金等级',
+                align: 'left',
+                width: 165,
             }, {
-                field: 'chineseName',
-                title: '角色中文名称',
-                align: 'left'
-            }, {
-                field: 'description',
-                title: '描述',
-                align: 'left'
-            }, {
-                field: 'enabled',
-                title: '状态',
-                align: 'center',
-                formatter: function(value, row, index) {
-                    if(value == 1) {
-                        return '<img id="editActive" style="width:45px;height:25px" src="../media/img/active.png"/>';
-                    } else {
-                        return '<img id="editNoActive" style="width:45px;height:25px" src="../media/img/noactive.png" />';
-                    }
-                }
-            }, {
-                field: 'ss',
-                title: '操作',
-                align: 'center',
-                formatter: function(value, row, index) {
-                    return [
-                        '<button class="edit btn btn-success btn-sm" type="button">',
+            field: 'ss',
+            title: '操作',
+            align: 'center',
+            formatter: function(value, row, index) {
+                return [
+                    '<button class="edit btn btn-success btn-sm" type="button">',
                         '<i class="glyphicon glyphicon-edit"></i>&nbsp编辑',
                         '</button>  ',
-                        "<button class='remove btn btn-success btn-sm' type='button'>",
+                    "<button class='remove btn btn-success btn-sm' type='button'>",
                         '<i class="glyphicon glyphicon-remove"></i>&nbsp删除',
                         '</button>  ',
-                    ].join('');
-                },
-                events: {
-                    //事件
-                    'click .remove': function(e, value, row, index) {
-                        //formatter中点击删除按钮事件
-                        //机制：click表示点击，.remove表示class名
-                        //$table.bootstrapTable('check', index);
-                        getDelete(row.id);
+                ].join('');
+            },
+            events: {
+                //事件
+                'click .remove': function(e, value, row, index) {
+                    //formatter中点击删除按钮事件
+                    //机制：click表示点击，.remove表示class名
+                    //$table.bootstrapTable('check', index);
+                    getDelete(row.id);
 
-                    },
-                    'click .edit': function(e, value, row, index) {
-                        //formatter中点击删除按钮事件
-                        //机制：click表示点击，.remove表示class名
-                        window.location.href = "/admin/sysrole/sysroleedit.html?id=" + row.id;
-                    },
-                }
-            }, ]
-        });
-    };
+                },
+                'click .edit': function(e, value, row, index) {
+                    //formatter中点击删除按钮事件
+                    //机制：click表示点击，.remove表示class名
+                    window.location.href = "/admin/student/studentedit.html?id=" + row.id;//TODO:this
+                },
+            }
+        }, ]
+    });
+};
 
     // 分页设置，设置和服务器交互的分页字段
     queryParams = function(params) {
@@ -146,7 +159,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             pageSize: params.limit,  //页面大小
             pageNumber: pageNumber,  //页码
-            chineseName: $scope.formData.chineseName,
+            userName: $scope.formData.userName,
             enabled: $scope.formData.enabled,
 
         };
@@ -191,7 +204,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
             $("#qx").click(function() { //点击取消按钮关闭模态框
                 $("#myModal").modal('hide');
             });
-        }
+    }
     }
 
     // 批量删除
@@ -239,6 +252,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
     // 调用bootstrap-table
     myBootstrapTable();
 
-    // ********************************* Bootstrap Table ********************************* //
+// ********************************* Bootstrap Table ********************************* //
     $scope.process = "";
 }]);
+

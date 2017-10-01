@@ -89,12 +89,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/**"))
                 .disable()
                 .logout()
-                .logoutUrl("/torinosrc/logout")
+                .logoutUrl("/showtime/logout")
                 .logoutSuccessUrl("/admin/login/index.html")
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/admin/index.html")
-                .loginProcessingUrl("/torinosrc/login")
+                .loginProcessingUrl("/showtime/login")
                 .failureUrl("/admin/login/index.html?authentication_error=true&access=fail")
                 .loginPage("/admin/login/index.html");
         // @formatter:on

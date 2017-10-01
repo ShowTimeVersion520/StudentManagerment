@@ -19,7 +19,6 @@ import javax.transaction.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Rollback(false)
 @Transactional
 public class SysRoleServiceImplTest {
     /**
@@ -54,7 +53,7 @@ public class SysRoleServiceImplTest {
 
     @Test
     public void test2GetEntity() throws Exception {
-        SysRoleView sysRoleView = sysRoleService.getEntity(Long.valueOf(id));
+        SysRoleView sysRoleView = sysRoleService.getEntity(Long.valueOf(1));
         Assert.assertEquals("LVXIN_TEST", sysRoleView.getEnglishName());
     }
 

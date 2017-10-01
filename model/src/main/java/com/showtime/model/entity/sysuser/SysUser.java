@@ -35,6 +35,17 @@ public class SysUser extends BaseEntity implements Serializable {
     @Column(name="password")
     private String password;
 
+    @Column(name = "enabled")
+    private Integer enabled;
+
+    public Integer getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Integer enabled) {
+        this.enabled = enabled;
+    }
+
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(cascade = CascadeType.MERGE, fetch=FetchType.LAZY)
     @JoinTable(name = "t_sys_user_role",

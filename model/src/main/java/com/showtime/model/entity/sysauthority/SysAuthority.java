@@ -30,6 +30,17 @@ public class SysAuthority extends BaseEntity implements Serializable {
     @Column(name="description")
     private String description;
 
+    @Column(name = "enabled")
+    private Integer enabled;
+
+    public Integer getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Integer enabled) {
+        this.enabled = enabled;
+    }
+
     public String getName() {
         return name;
     }
