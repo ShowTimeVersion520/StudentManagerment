@@ -13,7 +13,7 @@ import java.io.Serializable;
  * <p/>
  * Student的具体实现
  * <p/>
- * <b>Creation Time:</b> Sun Oct 01 17:25:33 CST 2017.
+ * <b>Creation Time:</b> Tue Oct 03 00:00:13 CST 2017.
  *
  * @author qinJianLun
  * @version 1.0.0
@@ -33,6 +33,9 @@ public class Student extends BaseEntity implements Serializable {
     public Student(){
         super();
     }
+    //学号
+    @Column(name = "student_number")
+    private String studentNumber;
     //姓名
     @Column(name = "name")
     private String name;
@@ -48,15 +51,17 @@ public class Student extends BaseEntity implements Serializable {
     //班级名称
     @Column(name = "class_name")
     private String className;
+    //奖学金等级
+    @Column(name = "scholarship_level")
+    private Integer scholarshipLevel;
 
-    public String getGrade() {
-        return grade;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
-
     public String getName() {
         return name;
     }
@@ -78,12 +83,26 @@ public class Student extends BaseEntity implements Serializable {
     public void setNativePlace(String nativePlace) {
         this.nativePlace = nativePlace;
     }
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
     public String getClassName() {
         return className;
     }
 
     public void setClassName(String className) {
         this.className = className;
+    }
+    public Integer getScholarshipLevel() {
+        return scholarshipLevel;
+    }
+
+    public void setScholarshipLevel(Integer scholarshipLevel) {
+        this.scholarshipLevel = scholarshipLevel;
     }
 
 }
