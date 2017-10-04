@@ -28,6 +28,566 @@ RESTful API文档
 # APIs
 
 
+## /api/v1/changes
+
+
+### GET
+
+<a id="getChanges">获取变动表列表</a>
+
+通过查询条件获取变动表列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>scChange</th>
+    <td>query</td>
+    <td>no</td>
+    <td>成绩变动 0-未变动 1-已变动</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>studentChange</th>
+    <td>query</td>
+    <td>no</td>
+    <td>学生信息变动 0-未变动 1-已变动</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+### POST
+
+
+<a id="createChange">创建变动表</a>
+
+创建一个变动表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>变动表</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/ChangeView">ChangeView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 201    | successful operation |  - |
+| 409    | conflict |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteChanges">删除变动表</a>
+
+批量删除变动表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>变动表ids，样例 - 1,2,3</td>
+    <td> - </td>
+
+    <td>
+    
+    
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** text/plain
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/changes/search
+
+
+### GET
+
+<a id="getChangeByKeyword">通过关键字搜索变动表</a>
+
+通过关键字搜索变动表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>keyword</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>关键字</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/changes/{id}
+
+
+### GET
+
+<a id="getChange">获取单个变动表</a>
+
+通过id获取变动表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>变动表id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+### PUT
+
+<a id="updateChanges">更新变动表</a>
+
+更新变动表信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>变动表id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>变动表信息</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/ChangeView">ChangeView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteChange">删除变动表</a>
+
+通过id删除变动表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>变动表id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
 ## /api/v1/generators
 
 
@@ -505,6 +1065,19 @@ RESTful API文档
 
 
 <tr>
+    <th>createTime</th>
+    <td>query</td>
+    <td>no</td>
+    <td>添加时间</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
     <th>updateTime</th>
     <td>query</td>
     <td>no</td>
@@ -539,6 +1112,71 @@ RESTful API文档
 
     
             <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>fraction</th>
+    <td>query</td>
+    <td>no</td>
+    <td>成绩</td>
+    <td> - </td>
+
+    
+            <td>number </td>
+    
+
+</tr>
+
+<tr>
+    <th>gradeRanking</th>
+    <td>query</td>
+    <td>no</td>
+    <td>全级排名</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>gradeRankingPercent</th>
+    <td>query</td>
+    <td>no</td>
+    <td>全级排名百分比</td>
+    <td> - </td>
+
+    
+            <td>number </td>
+    
+
+</tr>
+
+<tr>
+    <th>classRanking</th>
+    <td>query</td>
+    <td>no</td>
+    <td>班级排名</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>classRankingPercent</th>
+    <td>query</td>
+    <td>no</td>
+    <td>班级排名百分比</td>
+    <td> - </td>
+
+    
+            <td>number </td>
     
 
 </tr>
@@ -1094,7 +1732,7 @@ RESTful API文档
     <th>gender</th>
     <td>query</td>
     <td>no</td>
-    <td>性别 1-男 0-女</td>
+    <td>性别</td>
     <td> - </td>
 
     
@@ -1300,6 +1938,59 @@ RESTful API文档
 |-------------|-------------|----------------|
 | 200    | successful request |  - |
 | 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/students/classNames/all
+
+
+### GET
+
+<a id="getAllClassNames">获取班级列表</a>
+
+获取班级列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+
+
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
 
 
 
@@ -3133,6 +3824,71 @@ RESTful API文档
 
 # Definitions
 
+## <a name="/definitions/ChangeView">ChangeView</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>scChange</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>studentChange</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>courseChange</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
 ## <a name="/definitions/GeneratorView">GeneratorView</a>
 
 <table border="1">
@@ -3210,6 +3966,19 @@ RESTful API文档
         </tr>
     
         <tr>
+            <td>createTime</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
             <td>updateTime</td>
             <td>
                 
@@ -3248,6 +4017,71 @@ RESTful API文档
             <td></td>
         </tr>
     
+        <tr>
+            <td>fraction</td>
+            <td>
+                
+                    
+                    number
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>gradeRanking</td>
+            <td>
+                
+                    
+                    integer (int32)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>gradeRankingPercent</td>
+            <td>
+                
+                    
+                    number
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>classRanking</td>
+            <td>
+                
+                    
+                    integer (int32)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>classRankingPercent</td>
+            <td>
+                
+                    
+                    number
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
 </table>
 
 ## <a name="/definitions/StudentView">StudentView</a>
@@ -3267,6 +4101,19 @@ RESTful API文档
                 
                     
                     integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>studentNumber</td>
+            <td>
+                
+                    
+                    string
                 
             </td>
             <td>optional</td>
@@ -3339,6 +4186,19 @@ RESTful API文档
             <td></td>
         </tr>
     
+        <tr>
+            <td>scholarshipLevel</td>
+            <td>
+                
+                    
+                    integer (int32)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
 </table>
 
 ## <a name="/definitions/SysAuthority">SysAuthority</a>
@@ -3397,6 +4257,19 @@ RESTful API文档
                 
                     
                     string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>enabled</td>
+            <td>
+                
+                    
+                    integer (int32)
                 
             </td>
             <td>optional</td>
@@ -3469,6 +4342,19 @@ RESTful API文档
             <td></td>
         </tr>
     
+        <tr>
+            <td>enabled</td>
+            <td>
+                
+                    
+                    integer (int32)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
 </table>
 
 ## <a name="/definitions/SysRole">SysRole</a>
@@ -3501,6 +4387,19 @@ RESTful API文档
                 
                     
                     boolean
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>enabled</td>
+            <td>
+                
+                    
+                    integer (int32)
                 
             </td>
             <td>optional</td>
@@ -3594,6 +4493,19 @@ RESTful API文档
                 
                     
                     boolean
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>enabled</td>
+            <td>
+                
+                    
+                    integer (int32)
                 
             </td>
             <td>optional</td>
@@ -3715,6 +4627,19 @@ RESTful API文档
                 
                     
                     string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>enabled</td>
+            <td>
+                
+                    
+                    integer (int32)
                 
             </td>
             <td>optional</td>

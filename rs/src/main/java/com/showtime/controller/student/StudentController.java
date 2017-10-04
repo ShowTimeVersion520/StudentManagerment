@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 /**
  * <b><code>StudentController</code></b>
  * <p/>
@@ -98,7 +100,7 @@ public class StudentController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful request"),
             @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/students", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/students", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> deleteStudents(
             @ApiParam(value = "学生ids，样例 - 1,2,3", required = true) @RequestBody String ids) {
         try {
@@ -163,14 +165,16 @@ public class StudentController {
             @ApiResponse(code = 500, message = "internal server error") })
     @RequestMapping(value = "/students", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> getStudents(
+            @ApiParam(value = "学号", defaultValue = "", required = false) @RequestParam(value = "studentNumber", defaultValue = "",  required = false) String studentNumber,
             @ApiParam(value = "姓名", defaultValue = "", required = false) @RequestParam(value = "name", defaultValue = "",  required = false) String name,
-            @ApiParam(value = "性别 1-男 0-女", defaultValue = "", required = false) @RequestParam(value = "gender", defaultValue = "",  required = false) String gender,
+            @ApiParam(value = "性别", defaultValue = "", required = false) @RequestParam(value = "gender", defaultValue = "",  required = false) String gender,
             @ApiParam(value = "籍贯", defaultValue = "", required = false) @RequestParam(value = "nativePlace", defaultValue = "",  required = false) String nativePlace,
             @ApiParam(value = "班级名称", defaultValue = "", required = false) @RequestParam(value = "className", defaultValue = "",  required = false) String className,
             @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
             StudentView studentView = new StudentView();
+                    studentView.setStudentNumber(studentNumber);
                     studentView.setName(name);
                     studentView.setGender(gender);
                     studentView.setNativePlace(nativePlace);
@@ -212,4 +216,79 @@ public class StudentController {
         }
     }
 
+    @ApiOperation(value = "获取班级列表", notes = "获取班级列表")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful request"),
+            @ApiResponse(code = 500, message = "internal server error") })
+    @RequestMapping(value = "/students/classNames/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getAllClassNames() {
+        try {
+            List<String> studentViews = studentService.getAllClassNames();
+            // 封装返回信息
+            Message<List<String>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, studentViews);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Throwable t) {
+            String error = MessageDescription.OPERATION_QUERY_FAILURE;
+            LOG.error(error, t);
+            Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
+            return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);
+        }
+    }
+
+    @ApiOperation(value = "获取年级列表", notes = "获取年级列表")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful request"),
+            @ApiResponse(code = 500, message = "internal server error") })
+    @RequestMapping(value = "/students/grades/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getAllGrades() {
+        try {
+            List<String> studentViews = studentService.getAllGrades();
+            // 封装返回信息
+            Message<List<String>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, studentViews);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Throwable t) {
+            String error = MessageDescription.OPERATION_QUERY_FAILURE;
+            LOG.error(error, t);
+            Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
+            return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);
+        }
+    }
+
+    @ApiOperation(value = "获取性别列表", notes = "获取性别列表")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful request"),
+            @ApiResponse(code = 500, message = "internal server error") })
+    @RequestMapping(value = "/students/genders/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getAllGenders() {
+        try {
+            List<String> studentViews = studentService.getAllGenders();
+            // 封装返回信息
+            Message<List<String>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, studentViews);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Throwable t) {
+            String error = MessageDescription.OPERATION_QUERY_FAILURE;
+            LOG.error(error, t);
+            Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
+            return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);
+        }
+    }
+
+    @ApiOperation(value = "获取奖学金等级列表", notes = "获取奖学金等级列表")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful request"),
+            @ApiResponse(code = 500, message = "internal server error") })
+    @RequestMapping(value = "/students/scholarshipLevels/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getAllScholarshipLevels() {
+        try {
+            List<String> studentViews = studentService.getAllScholarshipLevels();
+            // 封装返回信息
+            Message<List<String>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, studentViews);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Throwable t) {
+            String error = MessageDescription.OPERATION_QUERY_FAILURE;
+            LOG.error(error, t);
+            Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
+            return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);
+        }
+    }
 }

@@ -91,16 +91,16 @@ app.controller('form', ['$scope', '$location', '$http', '$window', function($sco
             method: 'GET',
             url:apiUrlUser + '/' + id
         }).then(function successCallback(response) {
-            $scope.formData = response.data;
+            $scope.formData = response.data.data;
 
             $scope.process = "";
                         $("#studentNumber").attr("readonly", "readonly")
                                 $("#name").attr("readonly", "readonly")
                                 $("#gender").attr("readonly", "readonly")
-                                $("#native_place").attr("readonly", "readonly")
+                                $("#nativePlace").attr("readonly", "readonly")
                                 $("#grade").attr("readonly", "readonly")
                                 $("#className").attr("readonly", "readonly")
-                                $("#scholarship_level").attr("readonly", "readonly")
+                                $("#scholarshipLevel").attr("readonly", "readonly")
                     }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.

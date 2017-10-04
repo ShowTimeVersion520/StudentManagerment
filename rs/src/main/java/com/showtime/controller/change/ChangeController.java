@@ -1,14 +1,14 @@
-package com.showtime.controller.sc;
+package com.showtime.controller.change;
 
 import com.showtime.model.message.ErrorResponseMessage;
 import com.showtime.model.message.Message;
-import com.showtime.model.view.sc.ScView;
+import com.showtime.model.view.change.ChangeView;
 import com.showtime.service.commons.utils.message.MessageCode;
 import com.showtime.service.commons.utils.message.MessageDescription;
 import com.showtime.service.commons.utils.message.MessageStatus;
 import com.showtime.service.commons.utils.message.MessageUtils;
 import com.showtime.service.exception.ServiceExceptionUtils;
-import com.showtime.service.sc.ScService;
+import com.showtime.service.change.ChangeService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,52 +21,50 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.math.BigDecimal;
-
 /**
- * <b><code>ScController</code></b>
+ * <b><code>ChangeController</code></b>
  * <p/>
- * Sc的具体实现
+ * Change的具体实现
  * <p/>
- * <b>Creation Time:</b> Tue Oct 03 12:14:16 CST 2017.
+ * <b>Creation Time:</b> Tue Oct 03 11:57:14 CST 2017.
  *
  * @author qinJianLun
  * @version 1.0.0
  * @since andy-rs 1.0.0
  */
-@Api(value = "成绩接口")
+@Api(value = "变动表接口")
 @RestController
 @RequestMapping(value = "/api/v1")
-public class ScController {
+public class ChangeController {
 
     /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory
-            .getLogger(ScController.class);
+            .getLogger(ChangeController.class);
 
     /** The service. */
     @Autowired
-    private ScService scService;
+    private ChangeService changeService;
 
-    @ApiOperation(value = "创建成绩", notes = "创建一个成绩")
+    @ApiOperation(value = "创建变动表", notes = "创建一个变动表")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "successful operation", responseHeaders = @ResponseHeader(name = "location", description = "URL of new created resource", response = String.class) ),
             @ApiResponse(code = 409, message = "conflict"),
             @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/scs", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> createSc(
-            @ApiParam(value = "成绩", required = true) @RequestBody ScView scView,
+    @RequestMapping(value = "/changes", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> createChange(
+            @ApiParam(value = "变动表", required = true) @RequestBody ChangeView changeView,
             UriComponentsBuilder ucBuilder) {
         try {
             // 保存实体
-            String id = scService.saveEntity(scView);
+            String id = changeService.saveEntity(changeView);
             // 获取刚刚保存的实体
-            ScView scView1 = scService.getEntity(Long.parseLong(id));
+            ChangeView changeView1 = changeService.getEntity(Long.parseLong(id));
             // 设置http的headers
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(ucBuilder.path("/api/v1/scs/{id}")
+            headers.setLocation(ucBuilder.path("/api/v1/changes/{id}")
                     .buildAndExpand(id).toUri());
             // 封装返回信息
-            Message<ScView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_INSERT_SUCCESS, scView1);
+            Message<ChangeView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_INSERT_SUCCESS, changeView1);
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_INSERT_FAILURE;;
@@ -76,17 +74,17 @@ public class ScController {
         }
     }
 
-    @ApiOperation(value = "删除成绩", notes = "通过id删除成绩")
+    @ApiOperation(value = "删除变动表", notes = "通过id删除变动表")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful request"),
             @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/scs/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> deleteSc(
-            @ApiParam(value = "成绩id", required = true) @PathVariable(value = "id") long id) {
+    @RequestMapping(value = "/changes/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> deleteChange(
+            @ApiParam(value = "变动表id", required = true) @PathVariable(value = "id") long id) {
         try {
-            scService.deleteEntity(id);
+            changeService.deleteEntity(id);
             // 封装返回信息
-            Message<ScView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_DELETE_SUCCESS, null);
+            Message<ChangeView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_DELETE_SUCCESS, null);
             return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_DELETE_FAILURE;
@@ -96,17 +94,17 @@ public class ScController {
         }
     }
 
-    @ApiOperation(value = "删除成绩", notes = "批量删除成绩")
+    @ApiOperation(value = "删除变动表", notes = "批量删除变动表")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful request"),
             @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/scs", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> deleteScs(
-            @ApiParam(value = "成绩ids，样例 - 1,2,3", required = true) @RequestBody String ids) {
+    @RequestMapping(value = "/changes", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<?> deleteChanges(
+            @ApiParam(value = "变动表ids，样例 - 1,2,3", required = true) @RequestBody String ids) {
         try {
-            scService.deleteEntities(ids);
+            changeService.deleteEntities(ids);
             // 封装返回信息
-            Message<ScView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_DELETE_SUCCESS, null);
+            Message<ChangeView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_DELETE_SUCCESS, null);
             return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_DELETE_FAILURE;
@@ -116,20 +114,20 @@ public class ScController {
         }
     }
 
-    @ApiOperation(value = "更新成绩", notes = "更新成绩信息")
+    @ApiOperation(value = "更新变动表", notes = "更新变动表信息")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "successful"),
             @ApiResponse(code = 404, message = "not found"),
             @ApiResponse(code = 409, message = "conflict"),
             @ApiResponse(code = 500, message = "internal Server Error") })
-    @RequestMapping(value = "/scs/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateScs(
-            @ApiParam(value = "成绩id", required = true) @PathVariable(value = "id") long id,
-            @ApiParam(value = "成绩信息", required = true) @RequestBody ScView scView) {
+    @RequestMapping(value = "/changes/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> updateChanges(
+            @ApiParam(value = "变动表id", required = true) @PathVariable(value = "id") long id,
+            @ApiParam(value = "变动表信息", required = true) @RequestBody ChangeView changeView) {
         try {
-            scView.setId(id);
-            scService.updateEntity(scView);
+            changeView.setId(id);
+            changeService.updateEntity(changeView);
             // 封装返回信息
-            Message<ScView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_UPDATE_SUCCESS, scView);
+            Message<ChangeView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_UPDATE_SUCCESS, changeView);
             return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_UPDATE_FAILURE;
@@ -139,17 +137,17 @@ public class ScController {
         }
     }
 
-    @ApiOperation(value = "获取单个成绩", notes = "通过id获取成绩")
+    @ApiOperation(value = "获取单个变动表", notes = "通过id获取变动表")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful request"),
             @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/scs/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getSc(
-            @ApiParam(value = "成绩id", required = true) @PathVariable(value = "id") long id) {
+    @RequestMapping(value = "/changes/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getChange(
+            @ApiParam(value = "变动表id", required = true) @PathVariable(value = "id") long id) {
         try {
-            final ScView scView = scService.getEntity(id);
+            final ChangeView changeView = changeService.getEntity(id);
             // 封装返回信息
-            Message<ScView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, scView);
+            Message<ChangeView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, changeView);
             return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_QUERY_FAILURE;
@@ -159,39 +157,25 @@ public class ScController {
         }
     }
 
-    @ApiOperation(value = "获取成绩列表", notes = "通过查询条件获取成绩列表")
+    @ApiOperation(value = "获取变动表列表", notes = "通过查询条件获取变动表列表")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful request"),
             @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/scs", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getScs(
-                    @ApiParam(value = "添加时间", defaultValue = "", required = false) @RequestParam(value = "createTime", defaultValue = "-2147483648",  required = false) Long createTime,
-                    @ApiParam(value = "更新时间", defaultValue = "", required = false) @RequestParam(value = "updateTime", defaultValue = "-2147483648",  required = false) Long updateTime,
-                    @ApiParam(value = "学号", defaultValue = "", required = false) @RequestParam(value = "studentNumber", defaultValue = "",  required = false) String studentNumber,
-                    @ApiParam(value = "课程号", defaultValue = "", required = false) @RequestParam(value = "courseNumber", defaultValue = "",  required = false) String courseNumber,
-                    @ApiParam(value = "成绩", defaultValue = "", required = false) @RequestParam(value = "fraction",   required = false) BigDecimal fraction,
-                    @ApiParam(value = "全级排名", defaultValue = "", required = false) @RequestParam(value = "gradeRanking", defaultValue = "-2147483648",  required = false) Integer gradeRanking,
-                    @ApiParam(value = "全级排名百分比", defaultValue = "", required = false) @RequestParam(value = "gradeRankingPercent",   required = false) BigDecimal gradeRankingPercent,
-                    @ApiParam(value = "班级排名", defaultValue = "", required = false) @RequestParam(value = "classRanking", defaultValue = "-2147483648",  required = false) Integer classRanking,
-                    @ApiParam(value = "班级排名百分比", defaultValue = "", required = false) @RequestParam(value = "classRankingPercent",   required = false) BigDecimal classRankingPercent,
+    @RequestMapping(value = "/changes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getChanges(
+                    @ApiParam(value = "成绩变动 0-未变动 1-已变动", defaultValue = "", required = false) @RequestParam(value = "scChange", defaultValue = "",  required = false) String scChange,
+                    @ApiParam(value = "学生信息变动 0-未变动 1-已变动", defaultValue = "", required = false) @RequestParam(value = "studentChange", defaultValue = "",  required = false) String studentChange,
                     @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
-            ScView scView = new ScView();
-                    scView.setCreateTime(createTime);
-                    scView.setUpdateTime(updateTime);
-                    scView.setStudentNumber(studentNumber);
-                    scView.setCourseNumber(courseNumber);
-                    scView.setFraction(fraction);
-                    scView.setGradeRanking(gradeRanking);
-                    scView.setGradeRankingPercent(gradeRankingPercent);
-                    scView.setClassRanking(classRanking);
-                    scView.setClassRankingPercent(classRankingPercent);
+            ChangeView changeView = new ChangeView();
+                    changeView.setScChange(scChange);
+                    changeView.setStudentChange(studentChange);
         
-            Page<ScView> scViews = scService
-                    .getEntitiesByParms(scView, pageNumber, pageSize);
+            Page<ChangeView> changeViews = changeService
+                    .getEntitiesByParms(changeView, pageNumber, pageSize);
             // 封装返回信息
-            Message<Page<ScView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, scViews);
+            Message<Page<ChangeView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, changeViews);
                 return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_QUERY_FAILURE;
@@ -201,20 +185,20 @@ public class ScController {
         }
     }
 
-    @ApiOperation(value = "通过关键字搜索成绩", notes = "通过关键字搜索成绩")
+    @ApiOperation(value = "通过关键字搜索变动表", notes = "通过关键字搜索变动表")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "successful request"),
         @ApiResponse(code = 500, message = "internal server error")})
-    @RequestMapping(value = "/scs/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getScByKeyword(
+    @RequestMapping(value = "/changes/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> getChangeByKeyword(
             @ApiParam(value = "关键字", required = true) @RequestParam(value = "keyword", defaultValue = "0", required = false) String keyword,
             @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
-            Page<ScView> scViews = scService
-                    .getScByKeyword(keyword, pageNumber, pageSize);
+            Page<ChangeView> changeViews = changeService
+                    .getChangeByKeyword(keyword, pageNumber, pageSize);
             // 封装返回信息
-            Message<Page<ScView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, scViews);
+            Message<Page<ChangeView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, changeViews);
             return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_QUERY_FAILURE;

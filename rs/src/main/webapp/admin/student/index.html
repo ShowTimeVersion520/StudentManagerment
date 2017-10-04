@@ -71,24 +71,61 @@
         <!-- 开发填入相关开发页面代码 -->
         <div id="toolbar_box">
             <form class="form-inline" role="form" >
-                <div class="form-group">
-                    <label for="enabled">状态：</label>
-                    <select id="enabled" name="enabled" class="form-control" ng-init="formData.enabled" ng-model="formData.enabled" ng-options="x.id as x.value  for x in enableds">
-                    </select>
-                </div>
-                <button id="search-btn" class="btn btn-primary" type="submit" ng-click="search();">查询</button>
-                <div class="text-right" style="float: right;">
-                    <button id="delete-multi-btn" class="btn btn-primary" >批量删除</button>
-                    <!-- TODO:-->
-                    <a href="/admin/student/studentedit.html" id="add-btn" class="btn btn-primary" type="button" target="_self">添加</a>
-                </div>
+                <div class="row">
+                    <div class="col-sm-8">
 
+                        <div class="form-group">
+                            <label for="studentNumber">学号：</label>
+                            <input id="studentNumber" type="text" class="form-control"  placeholder="请输入学号" ng-model="formData.studentNumber">
+                            </input>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">姓名：</label>
+                            <input id="name" type="text" class="form-control" placeholder="请输入学号" ng-model="formData.name">
+                            </input>
+                        </div>
+                        <div class="form-group">
+                            <label for="nativePlace">籍贯：</label>
+                            <input id="nativePlace" type="text" class="form-control" placeholder="请输入学号" ng-model="formData.nativePlace">
+                            </input>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">性别：</label>
+                            <select id="gender" name="gender" class="form-control" ng-init="formData.gender" ng-model="formData.gender" ng-options="x for x in genders">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade">年级：</label>
+                            <select id="grade" name="grade" class="form-control" ng-init="formData.grade" ng-model="formData.grade" ng-options="x for x in grades">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="className">班级：</label>
+                            <select id="className" name="className" class="form-control" ng-init="formData.className" ng-model="formData.className" ng-options="x for x in classNames">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="scholarshipLevel">奖学金等级：</label>
+                            <select id="scholarshipLevel" name="scholarshipLevel" class="form-control" ng-init="formData.scholarshipLevel" ng-model="formData.scholarshipLevel" ng-options="x for x in scholarshipLevels">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button id="search-btn" class="btn btn-primary" type="submit" ng-click="search();">查询</button>
+                        </div>
+                    </div>
+                    <div class="text-right" style="float: right;">
+                        <button id="delete-multi-btn" class="btn btn-primary" >批量删除</button>
+                        <!-- TODO:-->
+                        <a href="/admin/student/studentedit.html" id="add-btn" class="btn btn-primary" type="button" target="_self">添加</a>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="control-group">
             <table id="tb_user"></table>
         </div>
     </div>
+
 </div>
 
 <!-- 引入弹出层模态框 -->
@@ -98,6 +135,6 @@
 <div ng-include="'../footer.html'" ></div>
 
 <!-- TODO:引入 页面js -->
-    <script src="../media/js/student/index.js"></script>
+<script src="../media/js/student/index.js"></script>
 </body>
 </html>

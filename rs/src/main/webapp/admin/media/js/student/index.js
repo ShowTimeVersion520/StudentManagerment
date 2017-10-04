@@ -7,6 +7,9 @@ var apiUrl = "/api/v1/students";//TODO:this
 // 定义当前angularjs的实例
 var app = angular.module('page',['ngResource', 'ngRoute']);
 
+
+
+
 // 设置location
 app.config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode({
@@ -20,15 +23,53 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
 
     $scope.process = "初始化控件";
 
-    $scope.enableds = [
-        {id:"", value: "全部"},
-        {id:0, value: "禁用"},
-        {id:1,value: "启用"}
-    ];
+
+    $(document).ready(function () {
+        var classNameList = [""];
+        $.get("/api/v1/students/classNames/all",function(data,status){
+            for(i=0;i<data.data.length;++i){
+                classNameList.push(data.data[i])
+            }
+            $scope.classNames = classNameList;
+        });
+    });
+
+    $(document).ready(function () {
+        var gradeList = [""];
+        $.get("/api/v1/students/grades/all",function(data,status){
+            for(i=0;i<data.data.length;++i){
+                gradeList.push(data.data[i])
+            }
+            $scope.grades = gradeList;
+        });
+    });
+
+    $(document).ready(function () {
+        var genderList = [""];
+        $.get("/api/v1/students/genders/all",function(data,status){
+            for(i=0;i<data.data.length;++i){
+                genderList.push(data.data[i])
+            }
+            $scope.genders = genderList;
+        });
+    });
+
+    $(document).ready(function () {
+        var scholarshipLevelList = [""];
+        $.get("/api/v1/students/scholarshipLevels/all",function(data,status){
+            for(i=0;i<data.data.length;++i){
+                scholarshipLevelList.push(data.data[i])
+            }
+            $scope.scholarshipLevels = scholarshipLevelList;
+        });
+    });
 
     // 定义form的数据存储地方
     $scope.formData = {
-        enabled: "" // 初始化select的值，1为启用，参考 $scope.enableds
+        className: "", // 初始化select的值，1为启用，参考 $scope.enableds
+        grade:"",
+        gender:"",
+        scholarshipLevel:""
     };
 
 
@@ -91,30 +132,28 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
             },
                         {
                 field: 'gender',
-                title: '性别 1-男 0-女',
+                title: '性别',
                 align: 'left',
                 width: 165,
             },
                         {
-                field: 'native_place',
+                field: 'nativePlace',
                 title: '籍贯',
                 align: 'left',
                 width: 165,
             },
                         {
                 field: 'grade',
-                title: '年纪',
+                title: '年级',
                 align: 'left',
                 width: 165,
-            },
-                        {
+            },{
                 field: 'className',
                 title: '班级名称',
                 align: 'left',
                 width: 165,
-            },
-                        {
-                field: 'scholarship_level',
+            },{
+                field: 'scholarshipLevel',
                 title: '奖学金等级',
                 align: 'left',
                 width: 165,
@@ -159,9 +198,13 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             pageSize: params.limit,  //页面大小
             pageNumber: pageNumber,  //页码
-            userName: $scope.formData.userName,
-            enabled: $scope.formData.enabled,
-
+            studentNumber:$scope.formData.studentNumber,
+            className: $scope.formData.className,
+            name:$scope.formData.name,
+            gender:$scope.formData.gender,
+            nativePlace:$scope.formData.nativePlace,
+            grade:$scope.formData.grade,
+            scholarshipLevel:$scope.formData.scholarshipLevel
         };
         return temp;
     };

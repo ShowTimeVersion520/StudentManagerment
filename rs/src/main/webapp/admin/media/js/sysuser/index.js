@@ -90,15 +90,6 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
                 title: '角色',
                 align: 'left'
             }, {
-                field: 'updateTime',
-                title: '最后登录时间',
-                align: 'left',
-                width: 165,
-                formatter: function (value, row, index) {
-                    return formatDateTime(new Date(value));
-                }
-
-            }, {
                 field: 'enabled',
                 title: '状态',
                 align: 'center',

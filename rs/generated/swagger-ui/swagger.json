@@ -15,6 +15,8 @@
   "tags" : [ {
     "name" : "上传模块"
   }, {
+    "name" : "变动表接口"
+  }, {
     "name" : "后台管理权限接口"
   }, {
     "name" : "后台管理用户接口"
@@ -29,6 +31,234 @@
   } ],
   "schemes" : [ "http", "https" ],
   "paths" : {
+    "/api/v1/changes" : {
+      "get" : {
+        "tags" : [ "变动表接口" ],
+        "summary" : "获取变动表列表",
+        "description" : "通过查询条件获取变动表列表",
+        "operationId" : "getChanges",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "scChange",
+          "in" : "query",
+          "description" : "成绩变动 0-未变动 1-已变动",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "studentChange",
+          "in" : "query",
+          "description" : "学生信息变动 0-未变动 1-已变动",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "变动表接口" ],
+        "summary" : "创建变动表",
+        "description" : "创建一个变动表",
+        "operationId" : "createChange",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "变动表",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ChangeView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "变动表接口" ],
+        "summary" : "删除变动表",
+        "description" : "批量删除变动表",
+        "operationId" : "deleteChanges",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "变动表ids，样例 - 1,2,3",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/changes/search" : {
+      "get" : {
+        "tags" : [ "变动表接口" ],
+        "summary" : "通过关键字搜索变动表",
+        "description" : "通过关键字搜索变动表",
+        "operationId" : "getChangeByKeyword",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "关键字",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/changes/{id}" : {
+      "get" : {
+        "tags" : [ "变动表接口" ],
+        "summary" : "获取单个变动表",
+        "description" : "通过id获取变动表",
+        "operationId" : "getChange",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "变动表id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "变动表接口" ],
+        "summary" : "更新变动表",
+        "description" : "更新变动表信息",
+        "operationId" : "updateChanges",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "变动表id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "变动表信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ChangeView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "变动表接口" ],
+        "summary" : "删除变动表",
+        "description" : "通过id删除变动表",
+        "operationId" : "deleteChange",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "变动表id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
     "/api/v1/generators" : {
       "get" : {
         "tags" : [ "后缀生成接口" ],
@@ -220,6 +450,13 @@
         "operationId" : "getScs",
         "produces" : [ "application/json;charset=UTF-8" ],
         "parameters" : [ {
+          "name" : "createTime",
+          "in" : "query",
+          "description" : "添加时间",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
           "name" : "updateTime",
           "in" : "query",
           "description" : "更新时间",
@@ -238,6 +475,38 @@
           "description" : "课程号",
           "required" : false,
           "type" : "string"
+        }, {
+          "name" : "fraction",
+          "in" : "query",
+          "description" : "成绩",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "gradeRanking",
+          "in" : "query",
+          "description" : "全级排名",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "gradeRankingPercent",
+          "in" : "query",
+          "description" : "全级排名百分比",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "classRanking",
+          "in" : "query",
+          "description" : "班级排名",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "classRankingPercent",
+          "in" : "query",
+          "description" : "班级排名百分比",
+          "required" : false,
+          "type" : "number"
         }, {
           "name" : "pageNumber",
           "in" : "query",
@@ -463,7 +732,7 @@
         }, {
           "name" : "gender",
           "in" : "query",
-          "description" : "性别 1-男 0-女",
+          "description" : "性别",
           "required" : false,
           "type" : "string"
         }, {
@@ -552,6 +821,23 @@
             "type" : "string"
           }
         } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/students/classNames/all" : {
+      "get" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "获取班级列表",
+        "description" : "获取班级列表",
+        "operationId" : "getAllClassNames",
+        "produces" : [ "application/json;charset=UTF-8" ],
         "responses" : {
           "200" : {
             "description" : "successful request"
@@ -1294,6 +1580,24 @@
     }
   },
   "definitions" : {
+    "ChangeView" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "scChange" : {
+          "type" : "string"
+        },
+        "studentChange" : {
+          "type" : "string"
+        },
+        "courseChange" : {
+          "type" : "string"
+        }
+      }
+    },
     "GeneratorView" : {
       "type" : "object",
       "properties" : {
@@ -1316,6 +1620,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "createTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "updateTime" : {
           "type" : "integer",
           "format" : "int64"
@@ -1325,6 +1633,23 @@
         },
         "courseNumber" : {
           "type" : "string"
+        },
+        "fraction" : {
+          "type" : "number"
+        },
+        "gradeRanking" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "gradeRankingPercent" : {
+          "type" : "number"
+        },
+        "classRanking" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "classRankingPercent" : {
+          "type" : "number"
         }
       }
     },
@@ -1334,6 +1659,9 @@
         "id" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "studentNumber" : {
+          "type" : "string"
         },
         "name" : {
           "type" : "string"
@@ -1349,6 +1677,10 @@
         },
         "className" : {
           "type" : "string"
+        },
+        "scholarshipLevel" : {
+          "type" : "integer",
+          "format" : "int32"
         }
       }
     },
@@ -1368,6 +1700,10 @@
         },
         "description" : {
           "type" : "string"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
         }
       }
     },
@@ -1387,6 +1723,10 @@
         },
         "description" : {
           "type" : "string"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
         }
       }
     },
@@ -1400,6 +1740,10 @@
         "hasRole" : {
           "type" : "boolean",
           "default" : false
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
         },
         "englishName" : {
           "type" : "string"
@@ -1428,6 +1772,10 @@
         "hasRole" : {
           "type" : "boolean",
           "default" : false
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
         },
         "englishName" : {
           "type" : "string"
@@ -1464,6 +1812,10 @@
         },
         "password" : {
           "type" : "string"
+        },
+        "enabled" : {
+          "type" : "integer",
+          "format" : "int32"
         },
         "sysRole" : {
           "$ref" : "#/definitions/SysRole"
