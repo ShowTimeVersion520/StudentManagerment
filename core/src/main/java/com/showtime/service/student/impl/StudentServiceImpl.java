@@ -1,6 +1,6 @@
 package com.showtime.service.student.impl;
 
-import com.showtime.dao.student.StudentDao;
+import com.showtime.dao.student.*;
 import com.showtime.model.entity.student.Student;
 import com.showtime.model.view.student.StudentView;
 import com.showtime.service.commons.utils.ReflectUtils;
@@ -47,6 +47,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentDao studentDao;
+    @Autowired
+    private ScholarshipDao scholarshipDao;
+    @Autowired
+    private ClassNameDao classNameDao;
+    @Autowired
+    private GradeDao gradeDao;
+    @Autowired
+    private GenderDao genderDao;
 
     private BeanCopier viewToDaoCopier = BeanCopier.create(StudentView.class, Student.class,
             false);
@@ -85,11 +93,15 @@ public class StudentServiceImpl implements StudentService {
             @Override
             public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
+                // 学号
+                if(!"".equals(studentView.getStudentNumber())){
+                    predicates.add(criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentView.getStudentNumber()));
+                }
                                 // 姓名
                 if(!"".equals(studentView.getName())){
                     predicates.add(criteriaBuilder.equal(root.get("name").as(String.class), studentView.getName()));
                 }
-                                // 性别 1-男 0-女
+                                // 性别
                 if(!"".equals(studentView.getGender())){
                     predicates.add(criteriaBuilder.equal(root.get("gender").as(String.class), studentView.getGender()));
                 }
@@ -107,7 +119,7 @@ public class StudentServiceImpl implements StudentService {
         };
 
         // 设置排序
-        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Sort sort = new Sort(Sort.Direction.ASC, "studentNumber");
         // 设置分页
         Pageable pageable = new PageRequest(currentPage, pageSize, sort);
 
@@ -209,7 +221,7 @@ public class StudentServiceImpl implements StudentService {
 
                 if (!ObjectUtils.isEmpty(keywords)) {
                     for (String word : keywords) {
-                        predicates1.add(criteriaBuilder.like(root.get("").as(String.class), "%" + word + "%"));
+                        predicates1.add(criteriaBuilder.like(root.get("name").as(String.class), "%" + word + "%"));
                     }
                     predicates.add(criteriaBuilder.or(predicates1.toArray(new Predicate[predicates1.size()])));
                 }
@@ -220,7 +232,7 @@ public class StudentServiceImpl implements StudentService {
         };
 
         // 设置排序
-        Sort sort = new Sort(Sort.Direction.DESC, "");
+        Sort sort = new Sort(Sort.Direction.ASC, "studentNumber");
 
         // 设置分页
         Pageable pageable = new PageRequest(currentPage, pageSize, sort);
@@ -237,5 +249,25 @@ public class StudentServiceImpl implements StudentService {
             }
         };
         return students.map(c);
+    }
+
+    @Override
+    public List<String> getAllClassNames() {
+        return classNameDao.getAllClassNames();
+    }
+
+    @Override
+    public List<String> getAllGrades() {
+        return gradeDao.getAllGrades();
+    }
+
+    @Override
+    public List<String> getAllGenders() {
+        return genderDao.getAllGenders();
+    }
+
+    @Override
+    public List<String> getAllScholarshipLevels() {
+        return scholarshipDao.getAllScholarshipLevels();
     }
 }

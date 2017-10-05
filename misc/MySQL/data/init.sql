@@ -1,8 +1,17 @@
+-- 添加性别
+INSERT INTO `t_gender`(`gender`) VALUE('男');
+INSERT INTO `t_gender`(`gender`) VALUE('女');
+
+-- 添加年级
+INSERT INTO `t_grade`(`grade`) VALUE('14级');
+INSERT INTO `t_grade`(`grade`) VALUE('15级');
+INSERT INTO `t_grade`(`grade`) VALUE('16级');
+
 -- 添加班级
-INSERT INTO `t_class_name`(`class_name`) VALUE('物联网1班');
-INSERT INTO `t_class_name`(`class_name`) VALUE('物联网2班');
-INSERT INTO `t_class_name`(`class_name`) VALUE('物联网3班');
-INSERT INTO `t_class_name`(`class_name`) VALUE('物联网4班');
+INSERT INTO `t_class_name`(`class_name`) VALUE('1班');
+INSERT INTO `t_class_name`(`class_name`) VALUE('2班');
+INSERT INTO `t_class_name`(`class_name`) VALUE('3班');
+INSERT INTO `t_class_name`(`class_name`) VALUE('4班');
 
 -- 添加奖学金
 INSERT INTO `t_scholarship`(`scholarship_level`, `money`) VALUE(1,1000);

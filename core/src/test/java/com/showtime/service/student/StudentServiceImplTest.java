@@ -92,6 +92,7 @@ public class StudentServiceImplTest {
         int pageNumber = 0;
         int pageSize = 10;
         StudentView studentView = new StudentView();
+        studentView.setClassName("物联网1班");
         ReflectUtils.fillModelByDefault(studentView);
         Page<StudentView>  studentViews =  studentService.getEntitiesByParms(studentView,pageNumber,pageSize);
     }

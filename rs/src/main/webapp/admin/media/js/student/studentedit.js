@@ -75,16 +75,49 @@ app.controller('form', ['$scope', '$location', '$http', '$window', function($sco
     }
 
     
-    
-    
-    
-    
+    //初始化
+    $http({
+        method: 'GET',
+        url:"/api/v1/students/classNames/all"
+    }).then(function successCallback(response) {
+        $scope.classNames = response.data.data;
+        $scope.process = "";
+    }, function errorCallback(response) {
+        $scope.process = "提交数据失败！";
+    });
+    $http({
+        method: 'GET',
+        url:"/api/v1/students/grades/all"
+    }).then(function successCallback(response) {
+        $scope.grades = response.data.data;
+        $scope.process = "";
+    }, function errorCallback(response) {
+        $scope.process = "提交数据失败！";
+    });
+    $http({
+        method: 'GET',
+        url:"/api/v1/students/genders/all"
+    }).then(function successCallback(response) {
+        $scope.genders = response.data.data;
+        $scope.process = "";
+    }, function errorCallback(response) {
+        $scope.process = "提交数据失败！";
+    });
+    $http({
+        method: 'GET',
+        url:"/api/v1/students/scholarshipLevels/all"
+    }).then(function successCallback(response) {
+        $scope.scholarshipLevels = response.data.data;
+        $scope.process = "";
+    }, function errorCallback(response) {
+        $scope.process = "提交数据失败！";
+    });
     
     
     // 获取url上的参数 - id
     var id =  $location.search().id;
 
-    // 当id不存在时，判定为新增
+    // 更新
     if(id !== undefined){
         // 更新时的操作
         $http({
@@ -92,15 +125,8 @@ app.controller('form', ['$scope', '$location', '$http', '$window', function($sco
             url:apiUrlUser + '/' + id
         }).then(function successCallback(response) {
             $scope.formData = response.data.data;
-
             $scope.process = "";
                         $("#studentNumber").attr("readonly", "readonly")
-                                $("#name").attr("readonly", "readonly")
-                                $("#gender").attr("readonly", "readonly")
-                                $("#nativePlace").attr("readonly", "readonly")
-                                $("#grade").attr("readonly", "readonly")
-                                $("#className").attr("readonly", "readonly")
-                                $("#scholarshipLevel").attr("readonly", "readonly")
                     }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.

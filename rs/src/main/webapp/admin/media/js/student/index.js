@@ -23,45 +23,42 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
 
     $scope.process = "初始化控件";
 
-
-    $(document).ready(function () {
-        var classNameList = [""];
-        $.get("/api/v1/students/classNames/all",function(data,status){
-            for(i=0;i<data.data.length;++i){
-                classNameList.push(data.data[i])
-            }
-            $scope.classNames = classNameList;
-        });
+    $http({
+        method: 'GET',
+        url:"/api/v1/students/classNames/all"
+    }).then(function successCallback(response) {
+        $scope.classNames = response.data.data;
+        $scope.process = "";
+    }, function errorCallback(response) {
+        $scope.process = "提交数据失败！";
     });
 
-    $(document).ready(function () {
-        var gradeList = [""];
-        $.get("/api/v1/students/grades/all",function(data,status){
-            for(i=0;i<data.data.length;++i){
-                gradeList.push(data.data[i])
-            }
-            $scope.grades = gradeList;
-        });
+    $http({
+        method: 'GET',
+        url:"/api/v1/students/grades/all"
+    }).then(function successCallback(response) {
+        $scope.grades = response.data.data;
+        $scope.process = "";
+    }, function errorCallback(response) {
+        $scope.process = "提交数据失败！";
     });
-
-    $(document).ready(function () {
-        var genderList = [""];
-        $.get("/api/v1/students/genders/all",function(data,status){
-            for(i=0;i<data.data.length;++i){
-                genderList.push(data.data[i])
-            }
-            $scope.genders = genderList;
-        });
+    $http({
+        method: 'GET',
+        url:"/api/v1/students/genders/all"
+    }).then(function successCallback(response) {
+        $scope.genders = response.data.data;
+        $scope.process = "";
+    }, function errorCallback(response) {
+        $scope.process = "提交数据失败！";
     });
-
-    $(document).ready(function () {
-        var scholarshipLevelList = [""];
-        $.get("/api/v1/students/scholarshipLevels/all",function(data,status){
-            for(i=0;i<data.data.length;++i){
-                scholarshipLevelList.push(data.data[i])
-            }
-            $scope.scholarshipLevels = scholarshipLevelList;
-        });
+    $http({
+        method: 'GET',
+        url:"/api/v1/students/scholarshipLevels/all"
+    }).then(function successCallback(response) {
+        $scope.scholarshipLevels = response.data.data;
+        $scope.process = "";
+    }, function errorCallback(response) {
+        $scope.process = "提交数据失败！";
     });
 
     // 定义form的数据存储地方

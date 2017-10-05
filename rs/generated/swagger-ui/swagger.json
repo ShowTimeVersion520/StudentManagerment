@@ -25,9 +25,17 @@
   }, {
     "name" : "后缀生成接口"
   }, {
+    "name" : "奖学金接口"
+  }, {
     "name" : "学生接口"
   }, {
+    "name" : "年级接口"
+  }, {
+    "name" : "性别接口"
+  }, {
     "name" : "成绩接口"
+  }, {
+    "name" : "班级接口"
   } ],
   "schemes" : [ "http", "https" ],
   "paths" : {
@@ -259,6 +267,450 @@
         }
       }
     },
+    "/api/v1/classnames" : {
+      "get" : {
+        "tags" : [ "班级接口" ],
+        "summary" : "获取班级列表",
+        "description" : "通过查询条件获取班级列表",
+        "operationId" : "getClassNames",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "className",
+          "in" : "query",
+          "description" : "班级名称",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "班级接口" ],
+        "summary" : "创建班级",
+        "description" : "创建一个班级",
+        "operationId" : "createClassName",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "班级",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ClassNameView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "班级接口" ],
+        "summary" : "删除班级",
+        "description" : "批量删除班级",
+        "operationId" : "deleteClassNames",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "班级ids，样例 - 1,2,3",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/classnames/search" : {
+      "get" : {
+        "tags" : [ "班级接口" ],
+        "summary" : "通过关键字搜索班级",
+        "description" : "通过关键字搜索班级",
+        "operationId" : "getClassNameByKeyword",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "关键字",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/classnames/{id}" : {
+      "get" : {
+        "tags" : [ "班级接口" ],
+        "summary" : "获取单个班级",
+        "description" : "通过id获取班级",
+        "operationId" : "getClassName",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "班级id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "班级接口" ],
+        "summary" : "更新班级",
+        "description" : "更新班级信息",
+        "operationId" : "updateClassNames",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "班级id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "班级信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ClassNameView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "班级接口" ],
+        "summary" : "删除班级",
+        "description" : "通过id删除班级",
+        "operationId" : "deleteClassName",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "班级id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/genders" : {
+      "get" : {
+        "tags" : [ "性别接口" ],
+        "summary" : "获取性别列表",
+        "description" : "通过查询条件获取性别列表",
+        "operationId" : "getGenders",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "gender",
+          "in" : "query",
+          "description" : "性别",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "性别接口" ],
+        "summary" : "创建性别",
+        "description" : "创建一个性别",
+        "operationId" : "createGender",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "性别",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/GenderView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "性别接口" ],
+        "summary" : "删除性别",
+        "description" : "批量删除性别",
+        "operationId" : "deleteGenders",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "性别ids，样例 - 1,2,3",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/genders/search" : {
+      "get" : {
+        "tags" : [ "性别接口" ],
+        "summary" : "通过关键字搜索性别",
+        "description" : "通过关键字搜索性别",
+        "operationId" : "getGenderByKeyword",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "关键字",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/genders/{id}" : {
+      "get" : {
+        "tags" : [ "性别接口" ],
+        "summary" : "获取单个性别",
+        "description" : "通过id获取性别",
+        "operationId" : "getGender",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "性别id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "性别接口" ],
+        "summary" : "更新性别",
+        "description" : "更新性别信息",
+        "operationId" : "updateGenders",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "性别id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "性别信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/GenderView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "性别接口" ],
+        "summary" : "删除性别",
+        "description" : "通过id删除性别",
+        "operationId" : "deleteGender",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "性别id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
     "/api/v1/generators" : {
       "get" : {
         "tags" : [ "后缀生成接口" ],
@@ -428,6 +880,457 @@
           "name" : "id",
           "in" : "path",
           "description" : "后缀生成id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/grades" : {
+      "get" : {
+        "tags" : [ "年级接口" ],
+        "summary" : "获取年级列表",
+        "description" : "通过查询条件获取年级列表",
+        "operationId" : "getGrades",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "grade",
+          "in" : "query",
+          "description" : "年级",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "年级接口" ],
+        "summary" : "创建年级",
+        "description" : "创建一个年级",
+        "operationId" : "createGrade",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "年级",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/GradeView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "年级接口" ],
+        "summary" : "删除年级",
+        "description" : "批量删除年级",
+        "operationId" : "deleteGrades",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "年级ids，样例 - 1,2,3",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/grades/search" : {
+      "get" : {
+        "tags" : [ "年级接口" ],
+        "summary" : "通过关键字搜索年级",
+        "description" : "通过关键字搜索年级",
+        "operationId" : "getGradeByKeyword",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "关键字",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/grades/{id}" : {
+      "get" : {
+        "tags" : [ "年级接口" ],
+        "summary" : "获取单个年级",
+        "description" : "通过id获取年级",
+        "operationId" : "getGrade",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "年级id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "年级接口" ],
+        "summary" : "更新年级",
+        "description" : "更新年级信息",
+        "operationId" : "updateGrades",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "年级id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "年级信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/GradeView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "年级接口" ],
+        "summary" : "删除年级",
+        "description" : "通过id删除年级",
+        "operationId" : "deleteGrade",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "年级id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/scholarships" : {
+      "get" : {
+        "tags" : [ "奖学金接口" ],
+        "summary" : "获取奖学金列表",
+        "description" : "通过查询条件获取奖学金列表",
+        "operationId" : "getScholarships",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "scholarshipLevel",
+          "in" : "query",
+          "description" : "奖学金等级",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "money",
+          "in" : "query",
+          "description" : "奖学金数目",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "奖学金接口" ],
+        "summary" : "创建奖学金",
+        "description" : "创建一个奖学金",
+        "operationId" : "createScholarship",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "奖学金",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ScholarshipView"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "successful operation",
+            "headers" : {
+              "location" : {
+                "type" : "string",
+                "description" : "URL of new created resource"
+              }
+            }
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "奖学金接口" ],
+        "summary" : "删除奖学金",
+        "description" : "批量删除奖学金",
+        "operationId" : "deleteScholarships",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "奖学金ids，样例 - 1,2,3",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/scholarships/search" : {
+      "get" : {
+        "tags" : [ "奖学金接口" ],
+        "summary" : "通过关键字搜索奖学金",
+        "description" : "通过关键字搜索奖学金",
+        "operationId" : "getScholarshipByKeyword",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "关键字",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pageNumber",
+          "in" : "query",
+          "description" : "页数",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "每页加载量",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/scholarships/{id}" : {
+      "get" : {
+        "tags" : [ "奖学金接口" ],
+        "summary" : "获取单个奖学金",
+        "description" : "通过id获取奖学金",
+        "operationId" : "getScholarship",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "奖学金id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "奖学金接口" ],
+        "summary" : "更新奖学金",
+        "description" : "更新奖学金信息",
+        "operationId" : "updateScholarships",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "奖学金id",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "奖学金信息",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ScholarshipView"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "奖学金接口" ],
+        "summary" : "删除奖学金",
+        "description" : "通过id删除奖学金",
+        "operationId" : "deleteScholarship",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "奖学金id",
           "required" : true,
           "type" : "integer",
           "format" : "int64"
@@ -724,6 +1627,12 @@
         "operationId" : "getStudents",
         "produces" : [ "application/json;charset=UTF-8" ],
         "parameters" : [ {
+          "name" : "studentNumber",
+          "in" : "query",
+          "description" : "学号",
+          "required" : false,
+          "type" : "string"
+        }, {
           "name" : "name",
           "in" : "query",
           "description" : "姓名",
@@ -811,7 +1720,7 @@
         "summary" : "删除学生",
         "description" : "批量删除学生",
         "operationId" : "deleteStudents",
-        "produces" : [ "text/plain" ],
+        "produces" : [ "application/json;charset=UTF-8" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -837,6 +1746,57 @@
         "summary" : "获取班级列表",
         "description" : "获取班级列表",
         "operationId" : "getAllClassNames",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/students/genders/all" : {
+      "get" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "获取性别列表",
+        "description" : "获取性别列表",
+        "operationId" : "getAllGenders",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/students/grades/all" : {
+      "get" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "获取年级列表",
+        "description" : "获取年级列表",
+        "operationId" : "getAllGrades",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful request"
+          },
+          "500" : {
+            "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/students/scholarshipLevels/all" : {
+      "get" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "获取奖学金等级列表",
+        "description" : "获取奖学金等级列表",
+        "operationId" : "getAllScholarshipLevels",
         "produces" : [ "application/json;charset=UTF-8" ],
         "responses" : {
           "200" : {
@@ -1598,6 +2558,30 @@
         }
       }
     },
+    "ClassNameView" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "className" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GenderView" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "gender" : {
+          "type" : "string"
+        }
+      }
+    },
     "GeneratorView" : {
       "type" : "object",
       "properties" : {
@@ -1609,6 +2593,18 @@
           "type" : "string"
         },
         "numberSuffix" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GradeView" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "grade" : {
           "type" : "string"
         }
       }
@@ -1649,6 +2645,22 @@
           "format" : "int32"
         },
         "classRankingPercent" : {
+          "type" : "number"
+        }
+      }
+    },
+    "ScholarshipView" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "scholarshipLevel" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "money" : {
           "type" : "number"
         }
       }

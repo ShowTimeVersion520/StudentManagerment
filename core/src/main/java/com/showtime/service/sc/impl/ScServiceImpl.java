@@ -14,6 +14,7 @@ import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -22,7 +23,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,7 +33,7 @@ import java.util.List;
 * <p/>
 * Sc的具体实现
 * <p/>
-* <b>Creation Time:</b> Sun Oct 01 17:20:57 CST 2017.
+* <b>Creation Time:</b> Tue Oct 03 12:14:16 CST 2017.
 *
 * @author qinJianLun
 * @version 1.0.0
@@ -85,6 +88,10 @@ public class ScServiceImpl implements ScService {
             @Override
             public Predicate toPredicate(Root<Sc> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
+                                // 添加时间
+                if(!"".equals(scView.getCreateTime())){
+                    predicates.add(criteriaBuilder.equal(root.get("createTime").as(Long.class), scView.getCreateTime()));
+                }
                                 // 更新时间
                 if(!"".equals(scView.getUpdateTime())){
                     predicates.add(criteriaBuilder.equal(root.get("updateTime").as(Long.class), scView.getUpdateTime()));
@@ -96,6 +103,26 @@ public class ScServiceImpl implements ScService {
                                 // 课程号
                 if(!"".equals(scView.getCourseNumber())){
                     predicates.add(criteriaBuilder.equal(root.get("courseNumber").as(String.class), scView.getCourseNumber()));
+                }
+                                // 成绩
+                if(!"".equals(scView.getFraction())){
+                    predicates.add(criteriaBuilder.equal(root.get("fraction").as(BigDecimal.class), scView.getFraction()));
+                }
+                                // 全级排名
+                if(!"".equals(scView.getGradeRanking())){
+                    predicates.add(criteriaBuilder.equal(root.get("gradeRanking").as(Integer.class), scView.getGradeRanking()));
+                }
+                                // 全级排名百分比
+                if(!"".equals(scView.getGradeRankingPercent())){
+                    predicates.add(criteriaBuilder.equal(root.get("gradeRankingPercent").as(BigDecimal.class), scView.getGradeRankingPercent()));
+                }
+                                // 班级排名
+                if(!"".equals(scView.getClassRanking())){
+                    predicates.add(criteriaBuilder.equal(root.get("classRanking").as(Integer.class), scView.getClassRanking()));
+                }
+                                // 班级排名百分比
+                if(!"".equals(scView.getClassRankingPercent())){
+                    predicates.add(criteriaBuilder.equal(root.get("classRankingPercent").as(BigDecimal.class), scView.getClassRankingPercent()));
                 }
                                 criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
                 return criteriaQuery.getRestriction();

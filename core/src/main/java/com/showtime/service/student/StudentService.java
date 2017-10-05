@@ -29,4 +29,27 @@ public interface StudentService extends BaseService<StudentView> {
     */
     Page<StudentView> getStudentByKeyword(String keyword, int currentPage, int pageSize);
 
+    /**
+     * 获取班级列表
+     * @return
+     */
+    List<String> getAllClassNames();
+
+    /**
+     * 获取全部年级信息
+     * @return
+     */
+    List<String> getAllGrades();
+
+    /**
+     * 获取全部性别信息
+     * @return
+     */
+    List<String> getAllGenders();
+
+    /**
+     * 获取全部奖学金等级信息
+     * @return
+     */
+    List<String> getAllScholarshipLevels();
 }

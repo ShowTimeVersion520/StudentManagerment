@@ -588,6 +588,1100 @@ RESTful API文档
 
 
 
+## /api/v1/classnames
+
+
+### GET
+
+<a id="getClassNames">获取班级列表</a>
+
+通过查询条件获取班级列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>className</th>
+    <td>query</td>
+    <td>no</td>
+    <td>班级名称</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+### POST
+
+
+<a id="createClassName">创建班级</a>
+
+创建一个班级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>班级</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/ClassNameView">ClassNameView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 201    | successful operation |  - |
+| 409    | conflict |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteClassNames">删除班级</a>
+
+批量删除班级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>班级ids，样例 - 1,2,3</td>
+    <td> - </td>
+
+    <td>
+    
+    
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/classnames/search
+
+
+### GET
+
+<a id="getClassNameByKeyword">通过关键字搜索班级</a>
+
+通过关键字搜索班级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>keyword</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>关键字</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/classnames/{id}
+
+
+### GET
+
+<a id="getClassName">获取单个班级</a>
+
+通过id获取班级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>班级id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+### PUT
+
+<a id="updateClassNames">更新班级</a>
+
+更新班级信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>班级id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>班级信息</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/ClassNameView">ClassNameView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteClassName">删除班级</a>
+
+通过id删除班级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>班级id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/genders
+
+
+### GET
+
+<a id="getGenders">获取性别列表</a>
+
+通过查询条件获取性别列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>gender</th>
+    <td>query</td>
+    <td>no</td>
+    <td>性别</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+### POST
+
+
+<a id="createGender">创建性别</a>
+
+创建一个性别
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>性别</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/GenderView">GenderView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 201    | successful operation |  - |
+| 409    | conflict |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteGenders">删除性别</a>
+
+批量删除性别
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>性别ids，样例 - 1,2,3</td>
+    <td> - </td>
+
+    <td>
+    
+    
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/genders/search
+
+
+### GET
+
+<a id="getGenderByKeyword">通过关键字搜索性别</a>
+
+通过关键字搜索性别
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>keyword</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>关键字</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/genders/{id}
+
+
+### GET
+
+<a id="getGender">获取单个性别</a>
+
+通过id获取性别
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>性别id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+### PUT
+
+<a id="updateGenders">更新性别</a>
+
+更新性别信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>性别id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>性别信息</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/GenderView">GenderView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteGender">删除性别</a>
+
+通过id删除性别
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>性别id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
 ## /api/v1/generators
 
 
@@ -997,6 +2091,1113 @@ RESTful API文档
     <td>path</td>
     <td>yes</td>
     <td>后缀生成id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/grades
+
+
+### GET
+
+<a id="getGrades">获取年级列表</a>
+
+通过查询条件获取年级列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>grade</th>
+    <td>query</td>
+    <td>no</td>
+    <td>年级</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+### POST
+
+
+<a id="createGrade">创建年级</a>
+
+创建一个年级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>年级</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/GradeView">GradeView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 201    | successful operation |  - |
+| 409    | conflict |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteGrades">删除年级</a>
+
+批量删除年级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>年级ids，样例 - 1,2,3</td>
+    <td> - </td>
+
+    <td>
+    
+    
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/grades/search
+
+
+### GET
+
+<a id="getGradeByKeyword">通过关键字搜索年级</a>
+
+通过关键字搜索年级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>keyword</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>关键字</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/grades/{id}
+
+
+### GET
+
+<a id="getGrade">获取单个年级</a>
+
+通过id获取年级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>年级id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+### PUT
+
+<a id="updateGrades">更新年级</a>
+
+更新年级信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>年级id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>年级信息</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/GradeView">GradeView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteGrade">删除年级</a>
+
+通过id删除年级
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>年级id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/scholarships
+
+
+### GET
+
+<a id="getScholarships">获取奖学金列表</a>
+
+通过查询条件获取奖学金列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>scholarshipLevel</th>
+    <td>query</td>
+    <td>no</td>
+    <td>奖学金等级</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>money</th>
+    <td>query</td>
+    <td>no</td>
+    <td>奖学金数目</td>
+    <td> - </td>
+
+    
+            <td>number </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+### POST
+
+
+<a id="createScholarship">创建奖学金</a>
+
+创建一个奖学金
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>奖学金</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/ScholarshipView">ScholarshipView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 201    | successful operation |  - |
+| 409    | conflict |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteScholarships">删除奖学金</a>
+
+批量删除奖学金
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>奖学金ids，样例 - 1,2,3</td>
+    <td> - </td>
+
+    <td>
+    
+    
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/scholarships/search
+
+
+### GET
+
+<a id="getScholarshipByKeyword">通过关键字搜索奖学金</a>
+
+通过关键字搜索奖学金
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>keyword</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>关键字</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/scholarships/{id}
+
+
+### GET
+
+<a id="getScholarship">获取单个奖学金</a>
+
+通过id获取奖学金
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>奖学金id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+### PUT
+
+<a id="updateScholarships">更新奖学金</a>
+
+更新奖学金信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>奖学金id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>奖学金信息</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/ScholarshipView">ScholarshipView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteScholarship">删除奖学金</a>
+
+通过id删除奖学金
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>奖学金id</td>
     <td> - </td>
 
     
@@ -1716,6 +3917,19 @@ RESTful API文档
 
 
 <tr>
+    <th>studentNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>学号</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
     <th>name</th>
     <td>query</td>
     <td>no</td>
@@ -1931,7 +4145,7 @@ RESTful API文档
 
 #### Response
 
-**Content-Type: ** text/plain
+**Content-Type: ** application/json;charset=UTF-8
 
 
 | Status Code | Reason      | Response Model |
@@ -1958,6 +4172,165 @@ RESTful API文档
 <a id="getAllClassNames">获取班级列表</a>
 
 获取班级列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+
+
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/students/genders/all
+
+
+### GET
+
+<a id="getAllGenders">获取性别列表</a>
+
+获取性别列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+
+
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/students/grades/all
+
+
+### GET
+
+<a id="getAllGrades">获取年级列表</a>
+
+获取年级列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+
+
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/students/scholarshipLevels/all
+
+
+### GET
+
+<a id="getAllScholarshipLevels">获取奖学金等级列表</a>
+
+获取奖学金等级列表
 
 
 
@@ -3889,6 +6262,84 @@ RESTful API文档
     
 </table>
 
+## <a name="/definitions/ClassNameView">ClassNameView</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>className</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
+## <a name="/definitions/GenderView">GenderView</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>gender</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
 ## <a name="/definitions/GeneratorView">GeneratorView</a>
 
 <table border="1">
@@ -3928,6 +6379,45 @@ RESTful API文档
     
         <tr>
             <td>numberSuffix</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
+## <a name="/definitions/GradeView">GradeView</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>grade</td>
             <td>
                 
                     
@@ -4071,6 +6561,58 @@ RESTful API文档
     
         <tr>
             <td>classRankingPercent</td>
+            <td>
+                
+                    
+                    number
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
+## <a name="/definitions/ScholarshipView">ScholarshipView</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>scholarshipLevel</td>
+            <td>
+                
+                    
+                    integer (int32)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>money</td>
             <td>
                 
                     

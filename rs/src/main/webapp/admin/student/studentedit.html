@@ -100,8 +100,8 @@
                     <div class="form-group">
                 <label for="gender" class="col-sm-2 control-label">性别</label>
                 <div class="col-sm-10">
-                    <input id="gender" type="text" class="form-control" placeholder="性别" ng-model="formData.gender">
-                    </input>
+                    <select id="gender" name="gender" class="form-control" ng-init="formData.gender" ng-model="formData.gender" ng-options="x for x in genders">
+                    </select>
                 </div>
             </div>
                     <div class="form-group">
@@ -112,30 +112,23 @@
                 </div>
             </div>
                     <div class="form-group">
-                <label for="grade" class="col-sm-2 control-label">年纪</label>
+                <label for="grade" class="col-sm-2 control-label">年级</label>
                 <div class="col-sm-10">
-                    <input id="grade" type="text" class="form-control" placeholder="年纪" ng-model="formData.grade">
-                    </input>
+                    <select id="grade" name="grade" class="form-control" ng-init="formData.grade" ng-model="formData.grade" ng-options="x for x in grades">
+                    </select>
                 </div>
             </div>
                     <div class="form-group">
                 <label for="className" class="col-sm-2 control-label">班级名称</label>
                 <div class="col-sm-10">
-                    <input id="className" type="text" class="form-control" placeholder="班级名称" ng-model="formData.className">
-                    </input>
+                    <select id="className" name="className" class="form-control" ng-init="formData.className" ng-model="formData.className" ng-options="x for x in classNames">
+                    </select>
                 </div>
             </div>
                     <div class="form-group">
                 <label for="scholarshipLevel" class="col-sm-2 control-label">奖学金等级</label>
                 <div class="col-sm-10">
-                    <input id="scholarshipLevel" type="text" class="form-control" placeholder="奖学金等级" ng-model="formData.scholarshipLevel">
-                    </input>
-                </div>
-            </div>
-                    <div class="form-group">
-                <label for="enabled" class="col-sm-2 control-label">状态</label>
-                <div class="col-sm-10">
-                    <select id="enabled" class="form-control" ng-init="formData.enabled" ng-model="formData.enabled" ng-options="x.id as x.value  for x in enableds">
+                    <select id="scholarshipLevel" name="scholarshipLevel" class="form-control" ng-init="formData.scholarshipLevel" ng-model="formData.scholarshipLevel" ng-options="x for x in scholarshipLevels">
                     </select>
                 </div>
             </div>
