@@ -2,8 +2,10 @@ package com.showtime.dao.student;
 
 
 import com.showtime.model.entity.student.Student;
+import org.jboss.logging.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -23,4 +25,13 @@ import java.util.List;
 @Repository
 public interface StudentDao extends JpaRepository<Student, Long>, JpaSpecificationExecutor<Student> {
 
+    @Query("select count(s) from Student as s where s.className=?1")
+    Integer getCountByClassName( String className);
+
+    @Query("select count(s) from Student as s where s.grade=?1")
+    Integer getCountByGrade( String grade);
+
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE t_student AS s INNER JOIN v_student_sum_fraction AS sf ON s.student_number = sf.student_number SET s.sum_fraction = sf.sum_fraction", nativeQuery = true)
+    int updateStudentSumFractions();
 }

@@ -1,5 +1,7 @@
 package com.showtime.service.generator.impl;
 
+import com.showtime.service.commons.constants.GeneratorNumberConstant;
+import com.showtime.service.commons.utils.BigDecimalUtils;
 import com.showtime.service.commons.utils.CommonUtils;
 import com.showtime.service.generator.GeneratorService;
 import com.showtime.dao.generator.GeneratorDao;
@@ -187,17 +189,18 @@ public class GeneratorServiceImpl implements GeneratorService {
         generatorDao.save(generator);
     }
 
-//    @Override
-//    public String getPurchaseNumberSuffix() {
-//
-//        Generator generator = generatorDao.getByName(OrderConfigConstant.PURCHASE_NAME_DB);
-//        Long num = Long.parseLong(generator.getNumberSuffix());
-//        //num+1后用autoGenericCode调整为6位数后，set进去
-//        generator.setNumberSuffix(BigDecimalUtils.autoGenericCode(String.valueOf((++num)%1000000), 6));
-//        return generator.getNumberSuffix();
-//    }
+    @Override
+    public String getCourseNumberSuffix() {
+
+        Generator generator = generatorDao.getByName(GeneratorNumberConstant.COURSE_NAME_DB);
+        Long num = Long.parseLong(generator.getNumberSuffix());
+        //num+1后用autoGenericCode调整为6位数后，set进去
+        generator.setNumberSuffix(BigDecimalUtils.autoGenericCode(String.valueOf((++num)%1000000), 6));
+        return generator.getNumberSuffix();
+    }
 
 
+    //每天凌晨1点清理
     @Scheduled(cron = "0 0 1 * * ?")
     @Transactional(rollbackOn = { Exception.class })
     public void clearGenerator() {

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="page">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- TODO:上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>成绩管理</title>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../media/css/bootstrap.min.css">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="../media/css/bootstrap-theme.min.css">
+    <!-- 该页面自定义css -->
+    <link rel="stylesheet" href="../media/css/index/index.css">
+
+    <!-- jquery js， 一定要比bootstrap前面引入 -->
+    <script src="../media/js/jquery-1.12.4/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="../media/js/bootstrap-3.3.7/bootstrap.min.js"></script>
+    <!-- angular js 引入 -->
+    <script src="../media/js/angular-1.6.4/angular.min.js" ></script>
+    <!-- angular route js 引入 -->
+    <script src="../media/js/angular-1.6.4/angular-resource.min.js" ></script>
+    <!-- angular route js 引入 -->
+    <script src="../media/js/angular-1.6.4/angular-route.min.js" ></script>
+
+    <!-- 项目共同方法 - global.js -->
+    <script src="../media/js/global.js"></script>
+    <!-- 项目共同定义 - global-config.js -->
+    <script src="../media/js/global-config.js"></script>
+
+    <!-- 以上是默认加载 -->
+    <!-- 以下是页面加载 -->
+
+    <!-- 引入页面css -->
+    <link rel="stylesheet" href="../media/css/sysuser/index.css">
+
+    <!-- bootstrap table组件以及中文包的引用 -->
+    <link href="../media/css/bootstrap-table.min.css" rel="stylesheet" />
+
+    <!-- bootstrap table组件以及中文包的引用 -->
+    <script src="../media/js/bootstrap-table.min.js"></script>
+    <script src="../media/js/bootstrap-table-zh-CN.min.js"></script>
+    <!-- bootstrap table组件以及中文包的引用 -->
+
+</head>
+<body class="index-backgroup">
+
+<!-- 引入Header -->
+<div ng-include="'../header.html'"  class="header"></div>
+
+<!-- 引入left -->
+<div ng-include="'../left.html'"></div>
+
+<!-- 主内容显示地区 -->
+<div id="content" class="content" >
+    <!-- 路径导航 -->
+    <div id="breadcrumb">
+        <ol class="breadcrumb">
+            <i class="glyphicon glyphicon-home"></i>&nbsp;&nbsp;
+            <li class=""><a href="/admin/index.html" target="_self">主页</a></li>
+            <!-- TODO:-->
+            <li class="active">成绩管理</li>
+        </ol>
+    </div>
+
+    <!-- 内容 -->
+    <div id="dashboard" class="dashboard" ng-controller="dashboard">
+        <div id="process" class="text-center"></div>
+        <!-- 开发填入相关开发页面代码 -->
+        <div id="toolbar_box">
+            <form class="form-inline" role="form" >
+                <div class="row">
+                    <div class="col-sm-8">
+                                                <div class="form-group">
+                            <label for="studentNumber">学号：</label>
+                            <input type="text" class="form-control" id="studentNumber" placeholder="请输入学号" ng-model="formData.studentNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentName">学生姓名：</label>
+                            <input type="text" class="form-control" id="studentName" placeholder="请输入学生姓名" ng-model="formData.studentName">
+                        </div>
+                        <div class="form-group">
+                            <label for="className">班级：</label>
+                            <select id="className" name="className" class="form-control" ng-init="formData.className" ng-model="formData.className" ng-options="x for x in classNames">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade">年级：</label>
+                            <select id="grade" name="grade" class="form-control" ng-init="formData.grade" ng-model="formData.grade" ng-options="x for x in grades">
+                            </select>
+                        </div>
+                                                <div class="form-group">
+                            <label for="courseNumber">课程号：</label>
+                            <input type="text" class="form-control" id="courseNumber" placeholder="请输入课程号" ng-model="formData.courseNumber">
+                        </div>
+                                                <div class="form-group">
+                            <label for="courseName">课程名称：</label>
+                            <input type="text" class="form-control" id="courseName" placeholder="请输入课程名称" ng-model="formData.courseName">
+                        </div>
+                        <div class="form-group">
+                            <label for="fraction">成绩：</label>
+                            <select id="fraction" name="fraction" class="form-control" ng-init="formData.fraction" ng-model="formData.fraction" ng-options="x.id as x.value  for x in fractions">
+                            </select>
+                        </div>
+                                                <div class="form-group">
+                            <label for="gradeRanking">全级排名：</label>
+                            <input type="text" class="form-control" id="gradeRanking" placeholder="请输入全级排名" ng-model="formData.gradeRanking">
+                        </div>
+                                                <div class="form-group">
+                            <label for="classRanking">班级排名：</label>
+                            <input type="text" class="form-control" id="classRanking" placeholder="请输入班级排名" ng-model="formData.classRanking">
+                        </div>
+                        <div class="form-group">
+                            <label for="sort">排序：</label>
+                            <select id="sort" name="sort" class="form-control" ng-init="formData.sort" ng-model="formData.sort" ng-options="x.id as x.value  for x in sorts">
+                            </select>
+                        </div>
+                         <div class="form-group">
+                            <label for="sortDirection">排序方式：</label>
+                            <select id="sortDirection" name="sortDirection" class="form-control" ng-init="formData.sortDirection" ng-model="formData.sortDirection" ng-options="x.id as x.value  for x in sortDirections">
+                            </select>
+                        </div>
+
+                                                <!--
+                        <div class="form-group">
+                            <label for="enabled">状态：</label>
+                            <select id="enabled" name="enabled" class="form-control" ng-init="formData.enabled" ng-model="formData.enabled" ng-options="x.id as x.value  for x in enableds">
+                            </select>
+                        </div>
+                        -->
+                        <div class="form-group">
+                            <button id="search-btn" class="btn btn-primary" type="submit" ng-click="search();">查询</button>
+                        </div>
+                    </div>
+                    <div class="text-right" style="float: right;">
+                        <button id="delete-multi-btn" class="btn btn-primary" >批量删除</button>
+                        <!-- TODO:-->
+                        <a href="/admin/sc/scedit.html" id="add-btn" class="btn btn-primary" type="button" target="_self">添加</a>
+
+                        <button id="update-ranking-multi-btn" class="btn btn-primary" >生成成绩排名</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="control-group">
+            <table id="tb_user"></table>
+        </div>
+    </div>
+</div>
+
+<!-- 引入弹出层模态框 -->
+<div ng-include="'../modal.html'" ></div>
+
+<!-- 引入footer -->
+<div ng-include="'../footer.html'" ></div>
+
+<!-- TODO:引入 页面js -->
+<script src="../media/js/sc/index.js"></script>
+</body>
+</html>

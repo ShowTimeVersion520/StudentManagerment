@@ -52,4 +52,10 @@ public interface StudentService extends BaseService<StudentView> {
      * @return
      */
     List<String> getAllScholarshipLevels();
+
+    /**
+     * 更新学生总成绩
+     * @return
+     */
+    void updateStudentSumFractions();
 }

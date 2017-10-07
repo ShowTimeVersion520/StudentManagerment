@@ -100,11 +100,11 @@
     <orderEntry type="library" name="Maven: io.swagger:swagger-models:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: io.swagger:swagger-annotations:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
-    <orderEntry type="module" module-name="commons" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi:3.16" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.1" level="project" />
+    <orderEntry type="module" module-name="commons" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
     <orderEntry type="module-library">
       <library name="Maven: taobao-sdk-java-auto-jar:taobao-sdk-java-auto-jar:1.0">
         <CLASSES>

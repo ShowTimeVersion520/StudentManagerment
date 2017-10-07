@@ -28,14 +28,14 @@ RESTful API文档
 # APIs
 
 
-## /api/v1/changes
+## /api/v1/avgfractions
 
 
 ### GET
 
-<a id="getChanges">获取变动表列表</a>
+<a id="getAvgFractions">获取课程平均成绩列表</a>
 
-通过查询条件获取变动表列表
+通过查询条件获取课程平均成绩列表
 
 
 
@@ -62,10 +62,10 @@ RESTful API文档
 
 
 <tr>
-    <th>scChange</th>
+    <th>courseNumber</th>
     <td>query</td>
     <td>no</td>
-    <td>成绩变动 0-未变动 1-已变动</td>
+    <td>课程编号</td>
     <td> - </td>
 
     
@@ -75,10 +75,570 @@ RESTful API文档
 </tr>
 
 <tr>
-    <th>studentChange</th>
+    <th>avgFraction</th>
     <td>query</td>
     <td>no</td>
-    <td>学生信息变动 0-未变动 1-已变动</td>
+    <td>平均成绩</td>
+    <td> - </td>
+
+    
+            <td>number </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+### POST
+
+
+<a id="createAvgFraction">创建课程平均成绩</a>
+
+创建一个课程平均成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>课程平均成绩</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/AvgFractionView">AvgFractionView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 201    | successful operation |  - |
+| 409    | conflict |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteAvgFractions">删除课程平均成绩</a>
+
+批量删除课程平均成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>课程平均成绩ids，样例 - 1,2,3</td>
+    <td> - </td>
+
+    <td>
+    
+    
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/avgfractions/search
+
+
+### GET
+
+<a id="getAvgFractionByKeyword">通过关键字搜索课程平均成绩</a>
+
+通过关键字搜索课程平均成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>keyword</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>关键字</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/avgfractions/{id}
+
+
+### GET
+
+<a id="getAvgFraction">获取单个课程平均成绩</a>
+
+通过id获取课程平均成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>课程平均成绩id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+### PUT
+
+<a id="updateAvgFractions">更新课程平均成绩</a>
+
+更新课程平均成绩信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>课程平均成绩id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>课程平均成绩信息</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/AvgFractionView">AvgFractionView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteAvgFraction">删除课程平均成绩</a>
+
+通过id删除课程平均成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>课程平均成绩id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/changes
+
+
+### GET
+
+<a id="getChanges">获取变动列表</a>
+
+通过查询条件获取变动列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>changeName</th>
+    <td>query</td>
+    <td>no</td>
+    <td>变动</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>isChange</th>
+    <td>query</td>
+    <td>no</td>
+    <td>0-未变动 1-已变动</td>
     <td> - </td>
 
     
@@ -137,9 +697,9 @@ RESTful API文档
 ### POST
 
 
-<a id="createChange">创建变动表</a>
+<a id="createChange">创建变动</a>
 
-创建一个变动表
+创建一个变动
 
 
 
@@ -169,7 +729,7 @@ RESTful API文档
     <th>body</th>
     <td>body</td>
     <td>yes</td>
-    <td>变动表</td>
+    <td>变动</td>
     <td> - </td>
 
     <td>
@@ -202,9 +762,9 @@ RESTful API文档
 
 ### DELETE
 
-<a id="deleteChanges">删除变动表</a>
+<a id="deleteChanges">删除变动</a>
 
-批量删除变动表
+批量删除变动
 
 
 
@@ -234,7 +794,7 @@ RESTful API文档
     <th>body</th>
     <td>body</td>
     <td>yes</td>
-    <td>变动表ids，样例 - 1,2,3</td>
+    <td>变动ids，样例 - 1,2,3</td>
     <td> - </td>
 
     <td>
@@ -251,7 +811,7 @@ RESTful API文档
 
 #### Response
 
-**Content-Type: ** text/plain
+**Content-Type: ** application/json;charset=UTF-8
 
 
 | Status Code | Reason      | Response Model |
@@ -275,9 +835,9 @@ RESTful API文档
 
 ### GET
 
-<a id="getChangeByKeyword">通过关键字搜索变动表</a>
+<a id="getChangeByKeyword">通过关键字搜索变动</a>
 
-通过关键字搜索变动表
+通过关键字搜索变动
 
 
 
@@ -379,9 +939,9 @@ RESTful API文档
 
 ### GET
 
-<a id="getChange">获取单个变动表</a>
+<a id="getChange">获取单个变动</a>
 
-通过id获取变动表
+通过id获取变动
 
 
 
@@ -411,7 +971,7 @@ RESTful API文档
     <th>id</th>
     <td>path</td>
     <td>yes</td>
-    <td>变动表id</td>
+    <td>变动id</td>
     <td> - </td>
 
     
@@ -441,9 +1001,9 @@ RESTful API文档
 
 ### PUT
 
-<a id="updateChanges">更新变动表</a>
+<a id="updateChanges">更新变动</a>
 
-更新变动表信息
+更新变动信息
 
 
 
@@ -473,7 +1033,7 @@ RESTful API文档
     <th>id</th>
     <td>path</td>
     <td>yes</td>
-    <td>变动表id</td>
+    <td>变动id</td>
     <td> - </td>
 
     
@@ -486,7 +1046,7 @@ RESTful API文档
     <th>body</th>
     <td>body</td>
     <td>yes</td>
-    <td>变动表信息</td>
+    <td>变动信息</td>
     <td> - </td>
 
     <td>
@@ -521,9 +1081,9 @@ RESTful API文档
 
 ### DELETE
 
-<a id="deleteChange">删除变动表</a>
+<a id="deleteChange">删除变动</a>
 
-通过id删除变动表
+通过id删除变动
 
 
 
@@ -553,7 +1113,7 @@ RESTful API文档
     <th>id</th>
     <td>path</td>
     <td>yes</td>
-    <td>变动表id</td>
+    <td>变动id</td>
     <td> - </td>
 
     
@@ -1101,6 +1661,726 @@ RESTful API文档
     <td>path</td>
     <td>yes</td>
     <td>班级id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/courses
+
+
+### GET
+
+<a id="getCourses">获取课程列表</a>
+
+通过查询条件获取课程列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>courseNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>课程编号</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>name</th>
+    <td>query</td>
+    <td>no</td>
+    <td>课程名称</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>learnHours</th>
+    <td>query</td>
+    <td>no</td>
+    <td>学时</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>credit</th>
+    <td>query</td>
+    <td>no</td>
+    <td>学分</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>avgFraction</th>
+    <td>query</td>
+    <td>no</td>
+    <td>平均分</td>
+    <td> - </td>
+
+    
+            <td>number </td>
+    
+
+</tr>
+
+<tr>
+    <th>preCourse</th>
+    <td>query</td>
+    <td>no</td>
+    <td>先修课id号</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+### POST
+
+
+<a id="createCourse">创建课程</a>
+
+创建一个课程
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>课程</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/CourseView">CourseView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 201    | successful operation |  - |
+| 409    | conflict |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteCourses">删除课程</a>
+
+批量删除课程
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>课程ids，样例 - 1,2,3</td>
+    <td> - </td>
+
+    <td>
+    
+    
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/courses/avgFraction
+
+
+
+
+### PUT
+
+<a id="updateCoursesAvgFraction">更新课程平均成绩</a>
+
+更新课程平均成绩
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+
+
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/courses/preCourses/all
+
+
+### GET
+
+<a id="getAllPreCourses">获取课程列表</a>
+
+通过查询条件获取课程列表
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+
+
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/courses/search
+
+
+### GET
+
+<a id="getCourseByKeyword">通过关键字搜索课程</a>
+
+通过关键字搜索课程
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>keyword</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>关键字</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>pageNumber</th>
+    <td>query</td>
+    <td>no</td>
+    <td>页数</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
+    <th>pageSize</th>
+    <td>query</td>
+    <td>no</td>
+    <td>每页加载量</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/courses/{id}
+
+
+### GET
+
+<a id="getCourse">获取单个课程</a>
+
+通过id获取课程
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>课程id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful request |  - |
+| 500    | internal server error |  - |
+
+
+
+
+
+### PUT
+
+<a id="updateCourses">更新课程</a>
+
+更新课程信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>课程id</td>
+    <td> - </td>
+
+    
+            <td>integer (int64)</td>
+    
+
+</tr>
+
+<tr>
+    <th>body</th>
+    <td>body</td>
+    <td>yes</td>
+    <td>课程信息</td>
+    <td> - </td>
+
+    <td>
+    
+    <a href="#/definitions/CourseView">CourseView</a> 
+    </td>
+
+</tr>
+
+
+</table>
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
+
+
+
+### DELETE
+
+<a id="deleteCourse">删除课程</a>
+
+通过id删除课程
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Located in</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Schema</th>
+    </tr>
+
+
+
+<tr>
+    <th>id</th>
+    <td>path</td>
+    <td>yes</td>
+    <td>课程id</td>
     <td> - </td>
 
     
@@ -2125,553 +3405,6 @@ RESTful API文档
 
 
 
-## /api/v1/grades
-
-
-### GET
-
-<a id="getGrades">获取年级列表</a>
-
-通过查询条件获取年级列表
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>grade</th>
-    <td>query</td>
-    <td>no</td>
-    <td>年级</td>
-    <td> - </td>
-
-    
-            <td>string </td>
-    
-
-</tr>
-
-<tr>
-    <th>pageNumber</th>
-    <td>query</td>
-    <td>no</td>
-    <td>页数</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-<tr>
-    <th>pageSize</th>
-    <td>query</td>
-    <td>no</td>
-    <td>每页加载量</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-### POST
-
-
-<a id="createGrade">创建年级</a>
-
-创建一个年级
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>年级</td>
-    <td> - </td>
-
-    <td>
-    
-    <a href="#/definitions/GradeView">GradeView</a> 
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 201    | successful operation |  - |
-| 409    | conflict |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-### DELETE
-
-<a id="deleteGrades">删除年级</a>
-
-批量删除年级
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>年级ids，样例 - 1,2,3</td>
-    <td> - </td>
-
-    <td>
-    
-    
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-## /api/v1/grades/search
-
-
-### GET
-
-<a id="getGradeByKeyword">通过关键字搜索年级</a>
-
-通过关键字搜索年级
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>keyword</th>
-    <td>query</td>
-    <td>yes</td>
-    <td>关键字</td>
-    <td> - </td>
-
-    
-            <td>string </td>
-    
-
-</tr>
-
-<tr>
-    <th>pageNumber</th>
-    <td>query</td>
-    <td>no</td>
-    <td>页数</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-<tr>
-    <th>pageSize</th>
-    <td>query</td>
-    <td>no</td>
-    <td>每页加载量</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## /api/v1/grades/{id}
-
-
-### GET
-
-<a id="getGrade">获取单个年级</a>
-
-通过id获取年级
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>id</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>年级id</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-### PUT
-
-<a id="updateGrades">更新年级</a>
-
-更新年级信息
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>id</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>年级id</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>年级信息</td>
-    <td> - </td>
-
-    <td>
-    
-    <a href="#/definitions/GradeView">GradeView</a> 
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful |  - |
-| 404    | not found |  - |
-| 409    | conflict |  - |
-| 500    | internal Server Error |  - |
-
-
-
-
-
-
-
-### DELETE
-
-<a id="deleteGrade">删除年级</a>
-
-通过id删除年级
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>id</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>年级id</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
 ## /api/v1/scholarships
 
 
@@ -2714,19 +3447,6 @@ RESTful API文档
 
     
             <td>integer (int32)</td>
-    
-
-</tr>
-
-<tr>
-    <th>money</th>
-    <td>query</td>
-    <td>no</td>
-    <td>奖学金数目</td>
-    <td> - </td>
-
-    
-            <td>number </td>
     
 
 </tr>
@@ -3305,10 +4025,62 @@ RESTful API文档
 </tr>
 
 <tr>
+    <th>studentName</th>
+    <td>query</td>
+    <td>no</td>
+    <td>学生姓名</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>className</th>
+    <td>query</td>
+    <td>no</td>
+    <td>学生班级</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>grade</th>
+    <td>query</td>
+    <td>no</td>
+    <td>年级</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
     <th>courseNumber</th>
     <td>query</td>
     <td>no</td>
     <td>课程号</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>courseName</th>
+    <td>query</td>
+    <td>no</td>
+    <td>课程名称</td>
     <td> - </td>
 
     
@@ -3325,7 +4097,7 @@ RESTful API文档
     <td> - </td>
 
     
-            <td>number </td>
+            <td>integer (int32)</td>
     
 
 </tr>
@@ -3378,6 +4150,32 @@ RESTful API文档
 
     
             <td>number </td>
+    
+
+</tr>
+
+<tr>
+    <th>sort</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>排序方式</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
+    <th>sortDirection</th>
+    <td>query</td>
+    <td>yes</td>
+    <td>升序或降序</td>
+    <td> - </td>
+
+    
+            <td>string </td>
     
 
 </tr>
@@ -3546,13 +4344,68 @@ RESTful API文档
 
 #### Response
 
-**Content-Type: ** text/plain
+**Content-Type: ** application/json;charset=UTF-8
 
 
 | Status Code | Reason      | Response Model |
 |-------------|-------------|----------------|
 | 200    | successful request |  - |
 | 500    | internal server error |  - |
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/scs/ranking/update
+
+
+
+
+### PUT
+
+<a id="updateScRankings">更新成绩排行</a>
+
+更新成绩信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+
+
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
+
+
+
+
 
 
 
@@ -6197,6 +7050,58 @@ RESTful API文档
 
 # Definitions
 
+## <a name="/definitions/AvgFractionView">AvgFractionView</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>courseNumber</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>avgFraction</td>
+            <td>
+                
+                    
+                    number
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
 ## <a name="/definitions/ChangeView">ChangeView</a>
 
 <table border="1">
@@ -6222,7 +7127,7 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>scChange</td>
+            <td>changeName</td>
             <td>
                 
                     
@@ -6235,20 +7140,7 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>studentChange</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>courseChange</td>
+            <td>isChange</td>
             <td>
                 
                     
@@ -6288,6 +7180,240 @@ RESTful API文档
     
         <tr>
             <td>className</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>grade</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
+## <a name="/definitions/Course">Course</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>courseNumber</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>name</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>learnHours</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>credit</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>avgFraction</td>
+            <td>
+                
+                    
+                    number
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>preCourse</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
+## <a name="/definitions/CourseView">CourseView</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>courseNumber</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>name</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>learnHours</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>credit</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>avgFraction</td>
+            <td>
+                
+                    
+                    number
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>preCourse</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>preCourseName</td>
             <td>
                 
                     
@@ -6392,45 +7518,6 @@ RESTful API文档
     
 </table>
 
-## <a name="/definitions/GradeView">GradeView</a>
-
-<table border="1">
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>required</th>
-        <th>description</th>
-        <th>example</th>
-    </tr>
-    
-        <tr>
-            <td>id</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>grade</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-</table>
-
 ## <a name="/definitions/ScView">ScView</a>
 
 <table border="1">
@@ -6482,11 +7569,11 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>studentNumber</td>
+            <td>student</td>
             <td>
                 
+                    <a href="#/definitions/Student">Student</a>
                     
-                    string
                 
             </td>
             <td>optional</td>
@@ -6495,11 +7582,11 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>courseNumber</td>
+            <td>course</td>
             <td>
                 
+                    <a href="#/definitions/Course">Course</a>
                     
-                    string
                 
             </td>
             <td>optional</td>
@@ -6626,6 +7713,136 @@ RESTful API文档
     
 </table>
 
+## <a name="/definitions/Student">Student</a>
+
+<table border="1">
+    <tr>
+        <th>name</th>
+        <th>type</th>
+        <th>required</th>
+        <th>description</th>
+        <th>example</th>
+    </tr>
+    
+        <tr>
+            <td>id</td>
+            <td>
+                
+                    
+                    integer (int64)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>studentNumber</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>name</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>gender</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>nativePlace</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>grade</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>className</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>scholarshipLevel</td>
+            <td>
+                
+                    
+                    integer (int32)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>sumFraction</td>
+            <td>
+                
+                    
+                    integer (int32)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+</table>
+
 ## <a name="/definitions/StudentView">StudentView</a>
 
 <table border="1">
@@ -6730,6 +7947,19 @@ RESTful API文档
     
         <tr>
             <td>scholarshipLevel</td>
+            <td>
+                
+                    
+                    integer (int32)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>sumFraction</td>
             <td>
                 
                     

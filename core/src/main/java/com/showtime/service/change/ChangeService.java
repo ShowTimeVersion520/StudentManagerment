@@ -12,7 +12,7 @@ import java.util.List;
 * <p/>
 * Change的具体实现
 * <p/>
-* <b>Creation Time:</b> Tue Oct 03 11:57:14 CST 2017.
+* <b>Creation Time:</b> Fri Oct 06 20:01:08 CST 2017.
 *
 * @author qinJianLun
 * @version 1.0.0
@@ -22,11 +22,13 @@ import java.util.List;
 public interface ChangeService extends BaseService<ChangeView> {
 
     /**
-    * 通过 keyword 获取变动表分页
+    * 通过 keyword 获取变动分页
     * @param currentPage
     * @param pageSize
     * @return
     */
     Page<ChangeView> getChangeByKeyword(String keyword, int currentPage, int pageSize);
+
+    ChangeView getByChangeName(String changeName);
 
 }

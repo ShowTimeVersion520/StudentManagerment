@@ -1,11 +1,16 @@
 package com.showtime.service.student.impl;
 
+import com.showtime.dao.change.ChangeDao;
 import com.showtime.dao.student.*;
+import com.showtime.model.entity.change.Change;
 import com.showtime.model.entity.student.Student;
 import com.showtime.model.view.student.StudentView;
+import com.showtime.service.commons.constants.change.ChangeNameConstant;
+import com.showtime.service.commons.constants.change.IsChangeConstant;
 import com.showtime.service.commons.utils.ReflectUtils;
 import com.showtime.service.commons.utils.CommonUtils;
 import com.showtime.service.exception.ApplicationException;
+import com.showtime.service.exception.ServiceException;
 import com.showtime.service.student.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,9 +57,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private ClassNameDao classNameDao;
     @Autowired
-    private GradeDao gradeDao;
-    @Autowired
     private GenderDao genderDao;
+    @Autowired
+    private ChangeDao changeDao;
 
     private BeanCopier viewToDaoCopier = BeanCopier.create(StudentView.class, Student.class,
             false);
@@ -253,21 +258,47 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<String> getAllClassNames() {
-        return classNameDao.getAllClassNames();
+        List<String> list = new ArrayList<>();
+        list.add("全部");
+        list.addAll(classNameDao.getAllClassNames());
+        return list;
     }
 
     @Override
     public List<String> getAllGrades() {
-        return gradeDao.getAllGrades();
+        List<String> list = new ArrayList<>();
+        list.add("全部");
+        list.addAll(classNameDao.getAllGrades());
+        return list;
     }
 
     @Override
     public List<String> getAllGenders() {
-        return genderDao.getAllGenders();
+        List<String> list = new ArrayList<>();
+        list.add("全部");
+        list.addAll(genderDao.getAllGenders());
+        return list;
     }
 
     @Override
     public List<String> getAllScholarshipLevels() {
-        return scholarshipDao.getAllScholarshipLevels();
+        List<String> list = new ArrayList<>();
+        list.add("全部");
+        list.addAll(scholarshipDao.getAllScholarshipLevels());
+        return list;
+    }
+
+    @Override
+    @Transactional(rollbackOn = {Exception.class})
+    public void updateStudentSumFractions() {
+        Change change = changeDao.getByChangeName(ChangeNameConstant.STUDENT_CHANGE);
+        if(ObjectUtils.isEmpty(change)){
+            throw new ServiceException("change is empty");
+        }
+        if(IsChangeConstant.CHANGE.equals(change.getIsChange())){
+            studentDao.updateStudentSumFractions();
+            change.setIsChange(IsChangeConstant.NOT_CHANGE);
+            changeDao.save(change);
+        }
     }
 }

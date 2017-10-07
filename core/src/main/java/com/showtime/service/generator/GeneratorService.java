@@ -18,10 +18,10 @@ import org.springframework.stereotype.Service;
 @Service
 public interface GeneratorService extends BaseService<GeneratorView> {
 
-//    /**
-//     * 获取采购单编号后缀
-//     */
-//    public String getPurchaseNumberSuffix();
+    /**
+     * 获取课程编号后缀
+     */
+    public String getCourseNumberSuffix();
 
     /**
      * 清理Generator表

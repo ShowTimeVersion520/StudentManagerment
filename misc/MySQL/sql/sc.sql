@@ -14,3 +14,23 @@ CREATE TABLE IF NOT EXISTS `t_sc`(
 
   UNIQUE(`student_number`,`course_number`)
 )ENGINE INNODB DEFAULT CHARSET=utf8 COMMENT='成绩' AUTO_INCREMENT=1;
+
+DROP VIEW IF EXISTS v_course_avg_fraction;
+CREATE VIEW v_course_avg_fraction
+  AS
+    SELECT
+      course_number,
+      avg(fraction) AS avg_fraction
+    FROM
+      t_sc AS sc
+    GROUP BY course_number;
+
+DROP VIEW IF EXISTS v_student_sum_fraction;
+CREATE VIEW v_student_sum_fraction
+  AS
+    SELECT
+      student_number,
+      sum(fraction) AS sum_fraction
+    FROM
+      t_sc AS sc
+    GROUP BY student_number;

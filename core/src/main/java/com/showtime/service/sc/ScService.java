@@ -12,7 +12,7 @@ import java.util.List;
 * <p/>
 * Sc的具体实现
 * <p/>
-* <b>Creation Time:</b> Tue Oct 03 12:14:16 CST 2017.
+* <b>Creation Time:</b> Fri Oct 06 11:02:15 CST 2017.
 *
 * @author qinJianLun
 * @version 1.0.0
@@ -29,4 +29,16 @@ public interface ScService extends BaseService<ScView> {
     */
     Page<ScView> getScByKeyword(String keyword, int currentPage, int pageSize);
 
+    /**
+     * 多条件查询
+     * @param fraction
+     * @param scView
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    Page<ScView> getEntitiesByParms(String sortType, String sortDirection,Integer fraction, ScView scView, int pageNumber, int pageSize);
+
+    //设置排名
+    void setRanking();
 }

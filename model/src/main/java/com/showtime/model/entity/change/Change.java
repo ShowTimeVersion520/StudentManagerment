@@ -13,7 +13,7 @@ import java.io.Serializable;
  * <p/>
  * Change的具体实现
  * <p/>
- * <b>Creation Time:</b> Tue Oct 03 12:01:41 CST 2017.
+ * <b>Creation Time:</b> Fri Oct 06 20:01:08 CST 2017.
  *
  * @author qinJianLun
  * @version 1.0.0
@@ -33,36 +33,26 @@ public class Change extends BaseEntity implements Serializable {
     public Change(){
         super();
     }
-    //成绩变动 0-未变动 1-已变动
-    @Column(name = "sc_change")
-    private String scChange;
-    //学生信息变动 0-未变动 1-已变动
-    @Column(name = "student_change")
-    private String studentChange;
-    //课程信息变动 0-未变动 1-已变动
-    @Column(name = "course_change")
-    private String courseChange;
+    //变动
+    @Column(name = "change_name")
+    private String changeName;
+    //0-未变动 1-已变动
+    @Column(name = "is_change")
+    private String isChange;
 
-    public String getScChange() {
-        return scChange;
+    public String getChangeName() {
+        return changeName;
     }
 
-    public void setScChange(String scChange) {
-        this.scChange = scChange;
+    public void setChangeName(String changeName) {
+        this.changeName = changeName;
     }
-    public String getStudentChange() {
-        return studentChange;
-    }
-
-    public void setStudentChange(String studentChange) {
-        this.studentChange = studentChange;
-    }
-    public String getCourseChange() {
-        return courseChange;
+    public String getIsChange() {
+        return isChange;
     }
 
-    public void setCourseChange(String courseChange) {
-        this.courseChange = courseChange;
+    public void setIsChange(String isChange) {
+        this.isChange = isChange;
     }
 
 }

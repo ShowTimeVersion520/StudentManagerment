@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,4 +26,7 @@ public interface ClassNameDao extends JpaRepository<ClassName, Long>, JpaSpecifi
 
     @Query("select distinct c.className from ClassName as c")
     List<String> getAllClassNames();
+
+    @Query("select distinct c.grade from ClassName as c")
+    List<String> getAllGrades();
 }

@@ -2,8 +2,11 @@ package com.showtime.model.entity.sc;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.showtime.model.entity.base.BaseEntity;
+import com.showtime.model.entity.course.Course;
+import com.showtime.model.entity.student.Student;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +17,7 @@ import java.math.BigDecimal;
  * <p/>
  * Sc的具体实现
  * <p/>
- * <b>Creation Time:</b> Tue Oct 03 12:14:16 CST 2017.
+ * <b>Creation Time:</b> Fri Oct 06 11:02:15 CST 2017.
  *
  * @author qinJianLun
  * @version 1.0.0
@@ -41,11 +44,13 @@ public class Sc extends BaseEntity implements Serializable {
     @Column(name = "update_time")
     private Long updateTime;
     //学号
-    @Column(name = "student_number")
-    private String studentNumber;
+    @ManyToOne
+    @JoinColumn(name = "student_number",referencedColumnName = "student_number")
+    private Student student;
     //课程号
-    @Column(name = "course_number")
-    private String courseNumber;
+    @ManyToOne
+    @JoinColumn(name = "course_number",referencedColumnName = "course_number")
+    private Course course;
     //成绩
     @Column(name = "fraction")
     private BigDecimal fraction;
@@ -76,20 +81,23 @@ public class Sc extends BaseEntity implements Serializable {
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
-    public String getStudentNumber() {
-        return studentNumber;
+
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentNumber(String studentNumber) {
-        this.studentNumber = studentNumber;
-    }
-    public String getCourseNumber() {
-        return courseNumber;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public void setCourseNumber(String courseNumber) {
-        this.courseNumber = courseNumber;
+    public Course getCourse() {
+        return course;
     }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     public BigDecimal getFraction() {
         return fraction;
     }

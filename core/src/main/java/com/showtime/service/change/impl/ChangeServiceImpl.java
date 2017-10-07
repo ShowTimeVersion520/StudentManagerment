@@ -32,7 +32,7 @@ import java.util.List;
 * <p/>
 * Change的具体实现
 * <p/>
-* <b>Creation Time:</b> Tue Oct 03 11:57:14 CST 2017.
+* <b>Creation Time:</b> Fri Oct 06 20:01:08 CST 2017.
 *
 * @author qinJianLun
 * @version 1.0.0
@@ -87,15 +87,15 @@ public class ChangeServiceImpl implements ChangeService {
             @Override
             public Predicate toPredicate(Root<Change> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
-                                // 成绩变动 0-未变动 1-已变动
-                if(!"".equals(changeView.getScChange())){
-                    predicates.add(criteriaBuilder.equal(root.get("scChange").as(String.class), changeView.getScChange()));
-                }
-                                // 学生信息变动 0-未变动 1-已变动
-                if(!"".equals(changeView.getStudentChange())){
-                    predicates.add(criteriaBuilder.equal(root.get("studentChange").as(String.class), changeView.getStudentChange()));
-                }
-                                criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
+                                                    // 变动
+                    if(!"".equals(changeView.getChangeName())){
+                    predicates.add(criteriaBuilder.equal(root.get("changeName").as(String.class), changeView.getChangeName()));
+                    }
+                                                                                    // 0-未变动 1-已变动
+                    if(!"".equals(changeView.getIsChange())){
+                    predicates.add(criteriaBuilder.equal(root.get("isChange").as(String.class), changeView.getIsChange()));
+                    }
+                                                                criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
                 return criteriaQuery.getRestriction();
             }
         };
@@ -233,5 +233,14 @@ public class ChangeServiceImpl implements ChangeService {
             }
         };
         return changes.map(c);
+    }
+
+    @Override
+    public ChangeView getByChangeName(String changeName) {
+        Change change =  changeDao.getByChangeName(changeName);
+
+        ChangeView changeView = new ChangeView();
+        daoToViewCopier.copy(change, changeView, null);
+        return changeView;
     }
 }

@@ -170,6 +170,7 @@ public class StudentController {
             @ApiParam(value = "性别", defaultValue = "", required = false) @RequestParam(value = "gender", defaultValue = "",  required = false) String gender,
             @ApiParam(value = "籍贯", defaultValue = "", required = false) @RequestParam(value = "nativePlace", defaultValue = "",  required = false) String nativePlace,
             @ApiParam(value = "班级名称", defaultValue = "", required = false) @RequestParam(value = "className", defaultValue = "",  required = false) String className,
+            @ApiParam(value = "是否导出", defaultValue = "0", required = false) @RequestParam(value = "isOutPut", defaultValue = "0", required = false) int isOutPut,
             @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
@@ -179,12 +180,25 @@ public class StudentController {
                     studentView.setGender(gender);
                     studentView.setNativePlace(nativePlace);
                     studentView.setClassName(className);
-        
-            Page<StudentView> studentViews = studentService
-                    .getEntitiesByParms(studentView, pageNumber, pageSize);
-            // 封装返回信息
-            Message<Page<StudentView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, studentViews);
-            return new ResponseEntity<>(message, HttpStatus.OK);
+//            if(isOutPut == 0){
+                Page<StudentView> studentViews = studentService
+                        .getEntitiesByParms(studentView, pageNumber, pageSize);
+                // 封装返回信息
+                Message<Page<StudentView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, studentViews);
+                return new ResponseEntity<>(message, HttpStatus.OK);
+//            }
+//            if(isOutPut == 1){
+//                HttpHeaders headers = new HttpHeaders();
+//                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+//                headers.setContentDispositionFormData("attachment", "students.xls");
+//                Page<StudentView> studentViews = studentService
+//                        .exportExcelByStudent(studentView);
+//                // 封装返回信息
+//                Message<Page<StudentView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, studentViews);
+//                return new ResponseEntity<>(message, HttpStatus.OK);
+//            }
+
+
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_QUERY_FAILURE;
             LOG.error(error, t);
@@ -286,6 +300,26 @@ public class StudentController {
             return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_QUERY_FAILURE;
+            LOG.error(error, t);
+            Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
+            return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);
+        }
+    }
+
+    @ApiOperation(value = "更新学生", notes = "更新学生信息")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "successful"),
+            @ApiResponse(code = 404, message = "not found"),
+            @ApiResponse(code = 409, message = "conflict"),
+            @ApiResponse(code = 500, message = "internal Server Error") })
+    @RequestMapping(value = "/students/sumFraction", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> updateStudentSumFractions() {
+        try {
+            studentService.updateStudentSumFractions();
+            // 封装返回信息
+            Message<StudentView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_UPDATE_SUCCESS, null);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Throwable t) {
+            String error = MessageDescription.OPERATION_UPDATE_FAILURE;
             LOG.error(error, t);
             Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
             return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);

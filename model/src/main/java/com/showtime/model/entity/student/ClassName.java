@@ -36,6 +36,17 @@ public class ClassName extends BaseEntity implements Serializable {
     //班级名称
     @Column(name = "class_name")
     private String className;
+    //年级
+    @Column(name = "grade")
+    private String grade;
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
 
     public String getClassName() {
         return className;

@@ -1,7 +1,9 @@
 package com.showtime.service.change;
 
+import com.showtime.model.entity.change.Change;
 import com.showtime.model.view.change.ChangeView;
 import com.showtime.service.change.ChangeService;
+import com.showtime.service.commons.constants.change.ChangeNameConstant;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -26,7 +28,7 @@ import org.junit.Before;
 * <p/>
 * Change的具体实现
 * <p/>
-* <b>Creation Time:</b> Tue Oct 03 11:57:14 CST 2017.
+* <b>Creation Time:</b> Fri Oct 06 20:01:08 CST 2017.
 *
 * @author qinJianLun
 * @version 1.0.0
@@ -105,4 +107,14 @@ public class ChangeServiceImplTest {
     public void test6DeleteChangesById() throws Exception {
         changeService.deleteEntity(Long.valueOf(id));
     }
+    @Test
+    public void testGetByChangeName() throws Exception {
+        changeService.getByChangeName(ChangeNameConstant.SC_CHANGE);
+    }
+    @Test
+    public void testFindAll() throws Exception {
+        List<ChangeView> changeViews = changeService.findAll();
+        System.out.println(changeViews);
+    }
+
 }

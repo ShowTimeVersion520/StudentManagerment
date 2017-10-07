@@ -1,5 +1,7 @@
 package com.showtime.controller.sc;
 
+import com.showtime.model.entity.course.Course;
+import com.showtime.model.entity.student.Student;
 import com.showtime.model.message.ErrorResponseMessage;
 import com.showtime.model.message.Message;
 import com.showtime.model.view.sc.ScView;
@@ -28,7 +30,7 @@ import java.math.BigDecimal;
  * <p/>
  * Sc的具体实现
  * <p/>
- * <b>Creation Time:</b> Tue Oct 03 12:14:16 CST 2017.
+ * <b>Creation Time:</b> Fri Oct 06 11:02:15 CST 2017.
  *
  * @author qinJianLun
  * @version 1.0.0
@@ -100,7 +102,7 @@ public class ScController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful request"),
             @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/scs", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/scs", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> deleteScs(
             @ApiParam(value = "成绩ids，样例 - 1,2,3", required = true) @RequestBody String ids) {
         try {
@@ -168,28 +170,41 @@ public class ScController {
                     @ApiParam(value = "添加时间", defaultValue = "", required = false) @RequestParam(value = "createTime", defaultValue = "-2147483648",  required = false) Long createTime,
                     @ApiParam(value = "更新时间", defaultValue = "", required = false) @RequestParam(value = "updateTime", defaultValue = "-2147483648",  required = false) Long updateTime,
                     @ApiParam(value = "学号", defaultValue = "", required = false) @RequestParam(value = "studentNumber", defaultValue = "",  required = false) String studentNumber,
+                    @ApiParam(value = "学生姓名", defaultValue = "", required = false) @RequestParam(value = "studentName", defaultValue = "",  required = false) String studentName,
+                    @ApiParam(value = "学生班级", defaultValue = "", required = false) @RequestParam(value = "className", defaultValue = "",  required = false) String className,
+                    @ApiParam(value = "年级", defaultValue = "", required = false) @RequestParam(value = "grade", defaultValue = "",  required = false) String grade,
                     @ApiParam(value = "课程号", defaultValue = "", required = false) @RequestParam(value = "courseNumber", defaultValue = "",  required = false) String courseNumber,
-                    @ApiParam(value = "成绩", defaultValue = "", required = false) @RequestParam(value = "fraction",   required = false) BigDecimal fraction,
+                    @ApiParam(value = "课程名称", defaultValue = "", required = false) @RequestParam(value = "courseName", defaultValue = "",  required = false) String courseName,
+                    @ApiParam(value = "成绩", defaultValue = "", required = false) @RequestParam(value = "fraction", defaultValue = "-2147483648",  required = false) Integer fraction,
                     @ApiParam(value = "全级排名", defaultValue = "", required = false) @RequestParam(value = "gradeRanking", defaultValue = "-2147483648",  required = false) Integer gradeRanking,
                     @ApiParam(value = "全级排名百分比", defaultValue = "", required = false) @RequestParam(value = "gradeRankingPercent",   required = false) BigDecimal gradeRankingPercent,
                     @ApiParam(value = "班级排名", defaultValue = "", required = false) @RequestParam(value = "classRanking", defaultValue = "-2147483648",  required = false) Integer classRanking,
                     @ApiParam(value = "班级排名百分比", defaultValue = "", required = false) @RequestParam(value = "classRankingPercent",   required = false) BigDecimal classRankingPercent,
+                    @ApiParam(value = "排序方式", required = true) @RequestParam(value = "sort",   required = true)  String sort,
+                    @ApiParam(value = "升序或降序", required = true) @RequestParam(value = "sortDirection",   required = true)  String sortDirection,
                     @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
             ScView scView = new ScView();
+            Student student = new Student();
+            Course course = new Course();
+            student.setStudentNumber(studentNumber);
+            student.setName(studentName);
+            student.setClassName(className);
+            student.setGrade(grade);
+            course.setCourseNumber(courseNumber);
+            course.setName(courseName);
                     scView.setCreateTime(createTime);
                     scView.setUpdateTime(updateTime);
-                    scView.setStudentNumber(studentNumber);
-                    scView.setCourseNumber(courseNumber);
-                    scView.setFraction(fraction);
+                    scView.setStudent(student);
+                    scView.setCourse(course);
                     scView.setGradeRanking(gradeRanking);
                     scView.setGradeRankingPercent(gradeRankingPercent);
                     scView.setClassRanking(classRanking);
                     scView.setClassRankingPercent(classRankingPercent);
         
             Page<ScView> scViews = scService
-                    .getEntitiesByParms(scView, pageNumber, pageSize);
+                    .getEntitiesByParms(sort,sortDirection,fraction, scView, pageNumber, pageSize);
             // 封装返回信息
             Message<Page<ScView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, scViews);
                 return new ResponseEntity<>(message, HttpStatus.OK);
@@ -224,4 +239,23 @@ public class ScController {
         }
     }
 
+    @ApiOperation(value = "更新成绩排行", notes = "更新成绩信息")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "successful"),
+            @ApiResponse(code = 404, message = "not found"),
+            @ApiResponse(code = 409, message = "conflict"),
+            @ApiResponse(code = 500, message = "internal Server Error") })
+    @RequestMapping(value = "/scs/ranking/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> updateScRankings() {
+        try {
+            scService.setRanking();
+            // 封装返回信息
+            Message<ScView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_UPDATE_SUCCESS, null);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Throwable t) {
+            String error = MessageDescription.OPERATION_UPDATE_FAILURE;
+            LOG.error(error, t);
+            Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
+            return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);
+        }
+    }
 }

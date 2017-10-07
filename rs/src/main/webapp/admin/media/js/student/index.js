@@ -154,7 +154,12 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
                 title: '奖学金等级',
                 align: 'left',
                 width: 165,
-            }, {
+            },{
+                    field: 'sumFraction',
+                    title: '总成绩',
+                    align: 'left',
+                    width: 165,
+                }, {
             field: 'ss',
             title: '操作',
             align: 'center',
@@ -287,6 +292,21 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
             });
 
         }
+    });
+
+    // 批量更新学生总成绩 - 调用模态框，这样用旧的模板，直接使用jquery进行处理，后期可改进
+    $("#update-sumFraction-multi-btn").click(function() {
+        $.ajax({
+            url: apiUrl + "/sumFraction",
+            contentType: "text/plain",
+            type: 'put',
+            success: function(message) {
+                table.bootstrapTable('refresh'); //删除后重新刷新表格
+            },
+            error: function(error) {
+                $scope.process = "更新数据失败！";
+            }
+        });
     });
 
     // 调用bootstrap-table

@@ -2,16 +2,19 @@
 INSERT INTO `t_gender`(`gender`) VALUE('男');
 INSERT INTO `t_gender`(`gender`) VALUE('女');
 
--- 添加年级
-INSERT INTO `t_grade`(`grade`) VALUE('14级');
-INSERT INTO `t_grade`(`grade`) VALUE('15级');
-INSERT INTO `t_grade`(`grade`) VALUE('16级');
-
 -- 添加班级
-INSERT INTO `t_class_name`(`class_name`) VALUE('1班');
-INSERT INTO `t_class_name`(`class_name`) VALUE('2班');
-INSERT INTO `t_class_name`(`class_name`) VALUE('3班');
-INSERT INTO `t_class_name`(`class_name`) VALUE('4班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('14级','1班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('14级','2班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('14级','3班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('14级','4班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('15级','1班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('15级','2班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('15级','3班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('15级','4班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('16级','1班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('16级','2班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('16级','3班');
+INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('16级','4班');
 
 -- 添加奖学金
 INSERT INTO `t_scholarship`(`scholarship_level`, `money`) VALUE(1,1000);
@@ -36,6 +39,7 @@ INSERT INTO `t_student`(`student_number`, `name`, `gender`, `native_place`,`grad
 INSERT INTO `t_student`(`student_number`, `name`, `gender`, `native_place`,`grade`, `class_name`, `scholarship_level`) VALUE(6,'赵六','男','黑龙江省','14级','3班',NULL);
 INSERT INTO `t_student`(`student_number`, `name`, `gender`, `native_place`,`grade`, `class_name`, `scholarship_level`) VALUE(7,'孙七','男','黑龙江省','14级','3班',NULL);
 INSERT INTO `t_student`(`student_number`, `name`, `gender`, `native_place`,`grade`, `class_name`, `scholarship_level`) VALUE(8,'周八','男','台湾省', '14级','4班',NULL);
+INSERT INTO `t_student`(`student_number`, `name`, `gender`, `native_place`,`grade`, `class_name`, `scholarship_level`) VALUE(9,'吴九','女','广东省', '14级','4班',NULL);
 INSERT INTO `t_student`(`student_number`, `name`, `gender`, `native_place`,`grade`, `class_name`, `scholarship_level`) VALUE(10,'郑十','男','台湾省','14级','4班',NULL);
 
 -- 添加成绩
@@ -99,3 +103,8 @@ INSERT INTO `t_sc`(student_number,course_number,fraction) VALUE(10,3,90);
 INSERT INTO `t_sc`(student_number,course_number,fraction) VALUE(10,4,70);
 INSERT INTO `t_sc`(student_number,course_number,fraction) VALUE(10,5,90);
 INSERT INTO `t_sc`(student_number,course_number,fraction) VALUE(10,6,90);
+
+-- 添加变动
+INSERT INTO `t_change`(change_name,is_change) VALUE('sc_change', 1);
+INSERT INTO `t_change`(change_name,is_change) VALUE('student_change', 1);
+INSERT INTO `t_change`(change_name,is_change) VALUE('course_change', 1);
