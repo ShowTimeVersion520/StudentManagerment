@@ -17,9 +17,9 @@ INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('16级','3班');
 INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('16级','4班');
 
 -- 添加奖学金
-INSERT INTO `t_scholarship`(`scholarship_level`, `money`) VALUE(1,1000);
-INSERT INTO `t_scholarship`(`scholarship_level`, `money`) VALUE(2,500);
-INSERT INTO `t_scholarship`(`scholarship_level`, `money`) VALUE(3,200);
+INSERT INTO `t_scholarship`(`scholarship_level`, `money`,`number`) VALUE(1,1000,1);
+INSERT INTO `t_scholarship`(`scholarship_level`, `money`,`number`) VALUE(2,500, 3);
+INSERT INTO `t_scholarship`(`scholarship_level`, `money`,`number`) VALUE(3,200, 10);
 
 -- 添加课程
 INSERT INTO `t_course`(`course_number`, `name`, `learn_hours`, `credit`, `pre_course`) VALUE(1,'英语',80,4,NULL);

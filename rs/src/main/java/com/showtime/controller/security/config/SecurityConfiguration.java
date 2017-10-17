@@ -77,26 +77,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/oauth/**").permitAll()
-                .antMatchers("/admin/login/index.html").permitAll()
-                .anyRequest().hasRole("ADMIN")
+					.antMatchers("/oauth/**").permitAll()
+					.antMatchers("/admin/login/index.html").permitAll()
+					.anyRequest().hasRole("ADMIN")
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/admin/login/index.html?authorization_error=true&access=denied")
                 .and()
-                // TODO: put CSRF protection back into this endpoint
-                .csrf()
-                .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/**"))
-                .disable()
-                .logout()
-                .logoutUrl("/showtime/logout")
-                .logoutSuccessUrl("/admin/login/index.html")
+					.csrf()//启用防跨站伪请求攻击，默认启用
+						.requireCsrfProtectionMatcher(new AntPathRequestMatcher("/**"))
+						.disable()
+					.logout()
+						.logoutUrl("/showtime/logout")
+						.logoutSuccessUrl("/admin/login/index.html")
                 .and()
-                .formLogin()
-                .defaultSuccessUrl("/admin/index.html")
-                .loginProcessingUrl("/showtime/login")
-                .failureUrl("/admin/login/index.html?authentication_error=true&access=fail")
-                .loginPage("/admin/login/index.html");
+					.formLogin()
+						.defaultSuccessUrl("/admin/index.html")//登录成功后默认跳转的路径
+						.loginProcessingUrl("/showtime/login")//登录页面下表单提交的路径
+						.failureUrl("/admin/login/index.html?authentication_error=true&access=fail")//登录失败后跳转的路径
+						.loginPage("/admin/login/index.html");//登录页面的访问路径
         // @formatter:on
     }
 

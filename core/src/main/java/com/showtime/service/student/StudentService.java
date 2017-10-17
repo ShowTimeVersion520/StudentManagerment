@@ -1,5 +1,6 @@
 package com.showtime.service.student;
 
+import com.showtime.model.view.student.ClassNameView;
 import com.showtime.model.view.student.StudentView;
 import com.showtime.service.base.BaseService;
 import org.springframework.stereotype.Service;
@@ -54,8 +55,8 @@ public interface StudentService extends BaseService<StudentView> {
     List<String> getAllScholarshipLevels();
 
     /**
-     * 更新学生总成绩
+     * 更新学生总成绩和奖学金等级
      * @return
      */
-    void updateStudentSumFractions();
+    void updateStudentSumFractionAndScholarships();
 }

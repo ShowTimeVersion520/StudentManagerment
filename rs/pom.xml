@@ -45,7 +45,7 @@
             </resource>
             <resource>
                 <directory>/src/main/resources/</directory>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
                 <includes>
                     <include>springmvc-servlet.xml</include>
                     <include>application-context.xml</include>

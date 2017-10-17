@@ -295,9 +295,9 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
     });
 
     // 批量更新学生总成绩 - 调用模态框，这样用旧的模板，直接使用jquery进行处理，后期可改进
-    $("#update-sumFraction-multi-btn").click(function() {
+    $("#update-sumFraction-scholarship-multi-btn").click(function() {
         $.ajax({
-            url: apiUrl + "/sumFraction",
+            url: apiUrl + "/sumFraction/scholarship",
             contentType: "text/plain",
             type: 'put',
             success: function(message) {

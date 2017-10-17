@@ -3,7 +3,10 @@ package com.showtime.service.student.impl;
 import com.showtime.dao.change.ChangeDao;
 import com.showtime.dao.student.*;
 import com.showtime.model.entity.change.Change;
+import com.showtime.model.entity.student.Scholarship;
 import com.showtime.model.entity.student.Student;
+import com.showtime.model.entity.student.ClassName;
+import com.showtime.model.view.student.ClassNameView;
 import com.showtime.model.view.student.StudentView;
 import com.showtime.service.commons.constants.change.ChangeNameConstant;
 import com.showtime.service.commons.constants.change.IsChangeConstant;
@@ -27,6 +30,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -259,7 +263,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<String> getAllClassNames() {
         List<String> list = new ArrayList<>();
-        list.add("全部");
+        list.add("");
         list.addAll(classNameDao.getAllClassNames());
         return list;
     }
@@ -267,7 +271,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<String> getAllGrades() {
         List<String> list = new ArrayList<>();
-        list.add("全部");
+        list.add("");
         list.addAll(classNameDao.getAllGrades());
         return list;
     }
@@ -275,7 +279,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<String> getAllGenders() {
         List<String> list = new ArrayList<>();
-        list.add("全部");
+        list.add("");
         list.addAll(genderDao.getAllGenders());
         return list;
     }
@@ -283,20 +287,34 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<String> getAllScholarshipLevels() {
         List<String> list = new ArrayList<>();
-        list.add("全部");
+        list.add("");
         list.addAll(scholarshipDao.getAllScholarshipLevels());
         return list;
     }
 
     @Override
     @Transactional(rollbackOn = {Exception.class})
-    public void updateStudentSumFractions() {
+    public void updateStudentSumFractionAndScholarships() {
         Change change = changeDao.getByChangeName(ChangeNameConstant.STUDENT_CHANGE);
         if(ObjectUtils.isEmpty(change)){
             throw new ServiceException("change is empty");
         }
         if(IsChangeConstant.CHANGE.equals(change.getIsChange())){
+            //update sumFraction
             studentDao.updateStudentSumFractions();
+
+            //update scholarship
+            List<String> grades = classNameDao.getAllGrades();
+
+            Sort sort = new Sort(Sort.Direction.DESC, "scholarshipLevel");
+            List<Scholarship> scholarships = scholarshipDao.findAll(sort);
+            for(Scholarship scholarship: scholarships){
+                for(String grade:grades){
+                    //System.out.println("-----> grade = " + grade + "scholarshipLevel = " + scholarship.getScholarshipLevel() + " number = " + scholarship.getNumber());
+                    studentDao.updateScholarship(grade, scholarship.getScholarshipLevel(), scholarship.getNumber()-1);
+                }
+            }
+
             change.setIsChange(IsChangeConstant.NOT_CHANGE);
             changeDao.save(change);
         }

@@ -27,7 +27,8 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
     $scope.sorts = [
         {id:"fraction", value: "成绩"},
         {id:"gradeRanking", value: "全级排名"},
-        {id:"classRanking", value: "班级排名"}
+        {id:"classRanking", value: "班级排名"},
+        {id: "student.studentNumber", value:"学号"}
     ];
     $scope.sortDirections = [
         {id:"ASC", value: "升序"},
@@ -107,7 +108,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
                     //,gradeRanking:""
                     //,classRanking:""
                     ,sortDirection:"ASC"
-                    ,sort:"fraction"
+                    ,sort:"student.studentNumber"
         ,className:""
         ,grade:""
             };

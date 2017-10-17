@@ -87,7 +87,11 @@ public class ClassNameServiceImpl implements ClassNameService {
             @Override
             public Predicate toPredicate(Root<ClassName> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
-                                // 班级名称
+                // 年级
+                if(!"".equals(classNameView.getGrade())){
+                    predicates.add(criteriaBuilder.equal(root.get("grade").as(String.class), classNameView.getGrade()));
+                }
+                // 班级名称
                 if(!"".equals(classNameView.getClassName())){
                     predicates.add(criteriaBuilder.equal(root.get("className").as(String.class), classNameView.getClassName()));
                 }

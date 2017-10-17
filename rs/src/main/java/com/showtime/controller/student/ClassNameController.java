@@ -163,13 +163,14 @@ public class ClassNameController {
             @ApiResponse(code = 500, message = "internal server error") })
     @RequestMapping(value = "/classnames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> getClassNames(
+                    @ApiParam(value = "年级", defaultValue = "", required = false) @RequestParam(value = "grade", defaultValue = "",  required = false) String grade,
                     @ApiParam(value = "班级名称", defaultValue = "", required = false) @RequestParam(value = "className", defaultValue = "",  required = false) String className,
                     @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
             ClassNameView classNameView = new ClassNameView();
                     classNameView.setClassName(className);
-        
+                    classNameView.setGrade(grade);
             Page<ClassNameView> classNameViews = classNameService
                     .getEntitiesByParms(classNameView, pageNumber, pageSize);
             // 封装返回信息

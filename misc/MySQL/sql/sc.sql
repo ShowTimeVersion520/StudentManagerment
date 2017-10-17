@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `t_sc`(
   `create_time` BIGINT COMMENT '添加时间',
   `update_time` BIGINT COMMENT '更新时间',
 
-  `student_number` VARCHAR(64) COMMENT '学号',
+  `student_number` INT COMMENT '学号',
   `course_number` VARCHAR(64) COMMENT '课程号',
   `fraction` DECIMAL(10,2) COMMENT '成绩',
   `grade_ranking` INT COMMENT '全级排名',

@@ -162,6 +162,7 @@ public class ScServiceImpl implements ScService {
             }
         };
         Sort sort = null;
+
         // 设置排序
         if("ASC".equals(sortDirection)){
             sort = new Sort(Sort.Direction.ASC, sortType);

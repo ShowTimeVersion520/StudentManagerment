@@ -34,4 +34,8 @@ public interface StudentDao extends JpaRepository<Student, Long>, JpaSpecificati
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE t_student AS s INNER JOIN v_student_sum_fraction AS sf ON s.student_number = sf.student_number SET s.sum_fraction = sf.sum_fraction", nativeQuery = true)
     int updateStudentSumFractions();
+
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE t_student SET scholarship_level = ?2 WHERE grade = ?1 AND sum_fraction >= (SELECT stable.sum_fraction FROM (SELECT sum_fraction FROM t_student ORDER BY sum_fraction DESC LIMIT ?3,1)stable)", nativeQuery = true)
+    int updateScholarship(String grade, Integer scholarshipLevel, Integer number);
 }

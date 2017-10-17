@@ -41,6 +41,18 @@ public class Scholarship extends BaseEntity implements Serializable {
     @Column(name = "money")
     private BigDecimal money;
 
+    //全年级前几名可以得到该奖学金
+    @Column(name = "number")
+    private Integer number;
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     public Integer getScholarshipLevel() {
         return scholarshipLevel;
     }

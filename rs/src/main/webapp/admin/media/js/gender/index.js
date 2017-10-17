@@ -22,9 +22,8 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
 
     $scope.lists = [
         {id:0, value: "性别列表"},
-        {id:1, value: "年级列表"},
-        {id:2,value: "班级列表"},
-        {id:3,value: "奖学金列表"}
+        {id:1, value: "年级班级列表"},
+        {id:2,value: "奖学金列表"}
     ];
 //    $http({
 //    method: 'GET',
@@ -48,12 +47,9 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
             //alert("/admin/gender/index.html")
             window.location.href = "/admin/gender/index.html";
         }else if($scope.formData.list == 1){
-            //alert("/admin/grade/index.html")
-            window.location.href = "/admin/grade/index.html";
-        }else if($scope.formData.list == 2){
             //alert("/admin/className/index.html")
             window.location.href = "/admin/className/index.html";
-        }else if($scope.formData.list == 3){
+        }else if($scope.formData.list == 2){
            // alert("/admin/scholarship/index.html")
             window.location.href = "/admin/scholarship/index.html";
         }

@@ -1182,6 +1182,19 @@ RESTful API文档
 
 
 <tr>
+    <th>grade</th>
+    <td>query</td>
+    <td>no</td>
+    <td>年级</td>
+    <td> - </td>
+
+    
+            <td>string </td>
+    
+
+</tr>
+
+<tr>
     <th>className</th>
     <td>query</td>
     <td>no</td>
@@ -4835,6 +4848,19 @@ RESTful API文档
 </tr>
 
 <tr>
+    <th>isOutPut</th>
+    <td>query</td>
+    <td>no</td>
+    <td>是否导出</td>
+    <td> - </td>
+
+    
+            <td>integer (int32)</td>
+    
+
+</tr>
+
+<tr>
     <th>pageNumber</th>
     <td>query</td>
     <td>no</td>
@@ -5317,6 +5343,61 @@ RESTful API文档
 | 500    | internal server error |  - |
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## /api/v1/students/sumFraction/scholarship
+
+
+
+
+### PUT
+
+<a id="updateStudentSumFractionAndScholarships">更新学生</a>
+
+更新学生信息
+
+
+
+
+
+
+
+#### Request
+
+
+
+##### Parameters
+
+
+
+
+
+
+#### Response
+
+**Content-Type: ** application/json;charset=UTF-8
+
+
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 200    | successful |  - |
+| 404    | not found |  - |
+| 409    | conflict |  - |
+| 500    | internal Server Error |  - |
 
 
 
@@ -7711,6 +7792,19 @@ RESTful API文档
             <td></td>
         </tr>
     
+        <tr>
+            <td>number</td>
+            <td>
+                
+                    
+                    integer (int32)
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
 </table>
 
 ## <a name="/definitions/Student">Student</a>
@@ -7833,7 +7927,7 @@ RESTful API文档
             <td>
                 
                     
-                    integer (int32)
+                    number
                 
             </td>
             <td>optional</td>
@@ -7963,7 +8057,7 @@ RESTful API文档
             <td>
                 
                     
-                    integer (int32)
+                    number
                 
             </td>
             <td>optional</td>

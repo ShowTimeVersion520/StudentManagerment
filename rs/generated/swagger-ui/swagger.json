@@ -505,6 +505,12 @@
         "operationId" : "getClassNames",
         "produces" : [ "application/json;charset=UTF-8" ],
         "parameters" : [ {
+          "name" : "grade",
+          "in" : "query",
+          "description" : "年级",
+          "required" : false,
+          "type" : "string"
+        }, {
           "name" : "className",
           "in" : "query",
           "description" : "班级名称",
@@ -2012,6 +2018,14 @@
           "required" : false,
           "type" : "string"
         }, {
+          "name" : "isOutPut",
+          "in" : "query",
+          "description" : "是否导出",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
           "name" : "pageNumber",
           "in" : "query",
           "description" : "页数",
@@ -2199,6 +2213,29 @@
           },
           "500" : {
             "description" : "internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/students/sumFraction/scholarship" : {
+      "put" : {
+        "tags" : [ "学生接口" ],
+        "summary" : "更新学生",
+        "description" : "更新学生信息",
+        "operationId" : "updateStudentSumFractionAndScholarships",
+        "produces" : [ "application/json;charset=UTF-8" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "404" : {
+            "description" : "not found"
+          },
+          "409" : {
+            "description" : "conflict"
+          },
+          "500" : {
+            "description" : "internal Server Error"
           }
         }
       }
@@ -3079,6 +3116,10 @@
         },
         "money" : {
           "type" : "number"
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
         }
       }
     },
@@ -3112,8 +3153,7 @@
           "format" : "int32"
         },
         "sumFraction" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "number"
         }
       }
     },
@@ -3147,8 +3187,7 @@
           "format" : "int32"
         },
         "sumFraction" : {
-          "type" : "integer",
-          "format" : "int32"
+          "type" : "number"
         }
       }
     },

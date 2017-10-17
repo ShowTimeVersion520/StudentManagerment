@@ -2,6 +2,7 @@ package com.showtime.controller.student;
 
 import com.showtime.model.message.ErrorResponseMessage;
 import com.showtime.model.message.Message;
+import com.showtime.model.view.student.ClassNameView;
 import com.showtime.model.view.student.StudentView;
 import com.showtime.service.commons.utils.message.MessageCode;
 import com.showtime.service.commons.utils.message.MessageDescription;
@@ -311,10 +312,10 @@ public class StudentController {
             @ApiResponse(code = 404, message = "not found"),
             @ApiResponse(code = 409, message = "conflict"),
             @ApiResponse(code = 500, message = "internal Server Error") })
-    @RequestMapping(value = "/students/sumFraction", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> updateStudentSumFractions() {
+    @RequestMapping(value = "/students/sumFraction/scholarship", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> updateStudentSumFractionAndScholarships() {
         try {
-            studentService.updateStudentSumFractions();
+            studentService.updateStudentSumFractionAndScholarships();
             // 封装返回信息
             Message<StudentView> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_UPDATE_SUCCESS, null);
             return new ResponseEntity<>(message, HttpStatus.OK);
