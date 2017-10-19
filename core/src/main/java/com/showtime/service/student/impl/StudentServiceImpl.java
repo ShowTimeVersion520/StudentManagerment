@@ -118,10 +118,19 @@ public class StudentServiceImpl implements StudentService {
                 if(!"".equals(studentView.getNativePlace())){
                     predicates.add(criteriaBuilder.equal(root.get("nativePlace").as(String.class), studentView.getNativePlace()));
                 }
-                                // 班级名称
+                // 年级
+                if(!"".equals(studentView.getGrade())){
+                    predicates.add(criteriaBuilder.equal(root.get("grade").as(String.class), studentView.getGrade()));
+                }
+                // 班级名称
                 if(!"".equals(studentView.getClassName())){
                     predicates.add(criteriaBuilder.equal(root.get("className").as(String.class), studentView.getClassName()));
                 }
+                // 奖学金
+                if(studentView.getScholarshipLevel() != Integer.MIN_VALUE){
+                    predicates.add(criteriaBuilder.equal(root.get("scholarshipLevel").as(String.class), studentView.getScholarshipLevel()));
+                }
+
                 criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
                 return criteriaQuery.getRestriction();
             }

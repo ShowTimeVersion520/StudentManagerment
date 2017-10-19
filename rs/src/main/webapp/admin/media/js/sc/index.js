@@ -28,7 +28,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
         {id:"fraction", value: "成绩"},
         {id:"gradeRanking", value: "全级排名"},
         {id:"classRanking", value: "班级排名"},
-        {id: "student.studentNumber", value:"学号"}
+        {id: "studentNumber", value:"学号"}
     ];
     $scope.sortDirections = [
         {id:"ASC", value: "升序"},
@@ -108,7 +108,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
                     //,gradeRanking:""
                     //,classRanking:""
                     ,sortDirection:"ASC"
-                    ,sort:"student.studentNumber"
+                    ,sort:"studentNumber"
         ,className:""
         ,grade:""
             };
@@ -160,25 +160,25 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
             align: 'center'
             },
                         {
-                field: 'student.studentNumber',
+                field: 'studentNumber',
                 title: '学号',
                 align: 'left',
                 width: 165,
             },
                         {
-                field: 'student.name',
+                field: 'studentName',
                 title: '学生姓名',
                 align: 'left',
                 width: 165,
             },
                         {
-                field: 'course.courseNumber',
+                field: 'courseNumber',
                 title: '课程号',
                 align: 'left',
                 width: 165,
             },
                         {
-                field: 'course.name',
+                field: 'courseName',
                 title: '课程名称',
                 align: 'left',
                 width: 165,

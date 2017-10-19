@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 @Table(name="t_course")
 @DynamicInsert
 @DynamicUpdate
+@Cacheable
 public class Course extends BaseEntity implements Serializable {
 
     /**

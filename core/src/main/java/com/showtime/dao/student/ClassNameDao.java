@@ -30,4 +30,5 @@ public interface ClassNameDao extends JpaRepository<ClassName, Long>, JpaSpecifi
     @Query("select distinct c.grade from ClassName as c")
     List<String> getAllGrades();
 
+
 }

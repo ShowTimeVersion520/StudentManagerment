@@ -2012,11 +2012,24 @@
           "required" : false,
           "type" : "string"
         }, {
+          "name" : "grade",
+          "in" : "query",
+          "description" : "年级",
+          "required" : false,
+          "type" : "string"
+        }, {
           "name" : "className",
           "in" : "query",
           "description" : "班级名称",
           "required" : false,
           "type" : "string"
+        }, {
+          "name" : "scholarshipLevel",
+          "in" : "query",
+          "description" : "奖学金等级",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
         }, {
           "name" : "isOutPut",
           "in" : "query",

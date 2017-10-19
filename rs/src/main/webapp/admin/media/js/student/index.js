@@ -66,7 +66,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
         className: "", // 初始化select的值，1为启用，参考 $scope.enableds
         grade:"",
         gender:"",
-        scholarshipLevel:""
+        scholarshipLevel:"-2147483648"
     };
 
 

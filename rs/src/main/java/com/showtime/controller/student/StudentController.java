@@ -170,7 +170,9 @@ public class StudentController {
             @ApiParam(value = "姓名", defaultValue = "", required = false) @RequestParam(value = "name", defaultValue = "",  required = false) String name,
             @ApiParam(value = "性别", defaultValue = "", required = false) @RequestParam(value = "gender", defaultValue = "",  required = false) String gender,
             @ApiParam(value = "籍贯", defaultValue = "", required = false) @RequestParam(value = "nativePlace", defaultValue = "",  required = false) String nativePlace,
+            @ApiParam(value = "年级", defaultValue = "", required = false) @RequestParam(value = "grade", defaultValue = "",  required = false) String grade,
             @ApiParam(value = "班级名称", defaultValue = "", required = false) @RequestParam(value = "className", defaultValue = "",  required = false) String className,
+            @ApiParam(value = "奖学金等级", defaultValue = "", required = false) @RequestParam(value = "scholarshipLevel", defaultValue = "-2147483648",  required = false) Integer scholarshipLevel,
             @ApiParam(value = "是否导出", defaultValue = "0", required = false) @RequestParam(value = "isOutPut", defaultValue = "0", required = false) int isOutPut,
             @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
@@ -181,6 +183,8 @@ public class StudentController {
                     studentView.setGender(gender);
                     studentView.setNativePlace(nativePlace);
                     studentView.setClassName(className);
+                    studentView.setGrade(grade);
+                    studentView.setScholarshipLevel(scholarshipLevel);
 //            if(isOutPut == 0){
                 Page<StudentView> studentViews = studentService
                         .getEntitiesByParms(studentView, pageNumber, pageSize);

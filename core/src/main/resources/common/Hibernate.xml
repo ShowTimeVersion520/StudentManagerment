@@ -39,6 +39,10 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop> <!-- 设置控制台是否显示sql true 显示  false 不显示 -->
+                <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+                <prop key="javax.persistence.sharedCache.mode">${javax.persistence.sharedCache.mode}</prop>
+                <prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+                <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
             </props>
         </property>
     </bean>

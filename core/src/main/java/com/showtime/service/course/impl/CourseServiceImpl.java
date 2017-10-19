@@ -278,7 +278,7 @@ public class CourseServiceImpl implements CourseService {
         //放入一个空的
         PreCourseView preCourseView = new PreCourseView();
         preCourseView.setId(Long.valueOf(Integer.MIN_VALUE));
-        preCourseView.setName("全部");
+        preCourseView.setName("");
         preCourseViews.add(preCourseView);
 
         for (Course course : courses){

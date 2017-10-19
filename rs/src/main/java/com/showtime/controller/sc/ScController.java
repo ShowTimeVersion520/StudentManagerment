@@ -186,22 +186,16 @@ public class ScController {
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
             ScView scView = new ScView();
-            Student student = new Student();
-            Course course = new Course();
-            student.setStudentNumber(studentNumber);
-            student.setName(studentName);
-            student.setClassName(className);
-            student.setGrade(grade);
-            course.setCourseNumber(courseNumber);
-            course.setName(courseName);
-                    scView.setCreateTime(createTime);
-                    scView.setUpdateTime(updateTime);
-                    scView.setStudent(student);
-                    scView.setCourse(course);
-                    scView.setGradeRanking(gradeRanking);
-                    scView.setGradeRankingPercent(gradeRankingPercent);
-                    scView.setClassRanking(classRanking);
-                    scView.setClassRankingPercent(classRankingPercent);
+            scView.setCreateTime(createTime);
+            scView.setUpdateTime(updateTime);
+            scView.setGrade(grade);
+            scView.setClassName(className);
+            scView.setCourseName(courseName);
+            scView.setStudentName(studentName);
+            scView.setGradeRanking(gradeRanking);
+            scView.setGradeRankingPercent(gradeRankingPercent);
+            scView.setClassRanking(classRanking);
+            scView.setClassRankingPercent(classRankingPercent);
         
             Page<ScView> scViews = scService
                     .getEntitiesByParms(sort,sortDirection,fraction, scView, pageNumber, pageSize);

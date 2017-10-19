@@ -3,6 +3,7 @@ package com.showtime.model.entity.student;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.showtime.model.entity.base.BaseEntity;
 import com.showtime.model.excel.ExcelVOAttribute;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -25,6 +26,7 @@ import java.math.BigDecimal;
 @Table(name="t_student")
 @DynamicInsert
 @DynamicUpdate
+@Cacheable
 public class Student extends BaseEntity implements Serializable {
 
     /**

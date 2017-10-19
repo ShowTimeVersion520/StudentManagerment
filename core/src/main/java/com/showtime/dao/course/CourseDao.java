@@ -27,4 +27,9 @@ public interface CourseDao extends JpaRepository<Course, Long>, JpaSpecification
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE t_course AS c INNER JOIN v_course_avg_fraction AS a ON c.course_number = a.course_number SET c.avg_fraction = a.avg_fraction", nativeQuery = true)
     int updateCoursesAvgFraction();
+
+    @Query("select c.courseNumber from Course c where c.name = ?1")
+    List<String> getCourseNumberByName(String courseName);
+
+    Course getByCourseNumber(String courseNumber);
 }

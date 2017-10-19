@@ -44,13 +44,11 @@ public class Sc extends BaseEntity implements Serializable {
     @Column(name = "update_time")
     private Long updateTime;
     //学号
-    @ManyToOne
-    @JoinColumn(name = "student_number",referencedColumnName = "student_number")
-    private Student student;
+    @Column(name = "student_number")
+    private String studentNumber;
     //课程号
-    @ManyToOne
-    @JoinColumn(name = "course_number",referencedColumnName = "course_number")
-    private Course course;
+    @Column(name = "course_number")
+    private String courseNumber;
     //成绩
     @Column(name = "fraction")
     private BigDecimal fraction;
@@ -82,20 +80,20 @@ public class Sc extends BaseEntity implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
 
-    public Course getCourse() {
-        return course;
+    public String getCourseNumber() {
+        return courseNumber;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseNumber(String courseNumber) {
+        this.courseNumber = courseNumber;
     }
 
     public BigDecimal getFraction() {
