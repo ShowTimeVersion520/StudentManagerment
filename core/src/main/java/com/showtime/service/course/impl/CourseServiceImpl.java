@@ -116,9 +116,9 @@ public class CourseServiceImpl implements CourseService {
                     predicates.add(criteriaBuilder.equal(root.get("credit").as(String.class), courseView.getCredit()));
                     }
                                                                                                                                                     // 先修课id号
-                    if(courseView.getPreCourse() != Integer.MIN_VALUE){
-                    predicates.add(criteriaBuilder.equal(root.get("preCourse").as(Long.class), courseView.getPreCourse()));
-                    }
+//                    if(courseView.getPreCourse() != Integer.MIN_VALUE){
+//                    predicates.add(criteriaBuilder.equal(root.get("preCourse").as(Long.class), courseView.getPreCourse()));
+//                    }
                                                 criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
                 return criteriaQuery.getRestriction();
             }
@@ -137,11 +137,11 @@ public class CourseServiceImpl implements CourseService {
             public CourseView convert(Course course) {
                 CourseView courseView = new CourseView();
                 daoToViewCopier.copy(course, courseView, null);
-                if(!ObjectUtils.isEmpty(course.getPreCourse())){
-                Course pre = new Course();
-                pre = courseDao.findOne(course.getPreCourse());
-                    courseView.setPreCourseName(pre.getName());
-                }
+//                if(!ObjectUtils.isEmpty(course.getPreCourse())){
+//                Course pre = new Course();
+//                pre = courseDao.findOne(course.getPreCourse());
+//                    courseView.setPreCourseName(pre.getName());
+//                }
                 return courseView;
             }
         };
@@ -220,9 +220,9 @@ public class CourseServiceImpl implements CourseService {
         //course.setCreateTime(course1.getCreateTime());
         //course1.setSysRole(course.getSysRole());
         ReflectUtils.flushModel(course,course1);
-        if(Integer.MIN_VALUE == course.getPreCourse()){
-            course.setPreCourse(null);
-        }
+//        if(Integer.MIN_VALUE == course.getPreCourse()){
+//            course.setPreCourse(null);
+//        }
         courseDao.save(course);
     }
 
@@ -268,27 +268,27 @@ public class CourseServiceImpl implements CourseService {
         return courses.map(c);
     }
 
-    @Override
-    public List<PreCourseView> getAllPreCourses() {
-        List<Course> courses =  courseDao.findAll();
-
-        // 转换成View对象
-        List<PreCourseView> preCourseViews = new ArrayList<>();
-
-        //放入一个空的
-        PreCourseView preCourseView = new PreCourseView();
-        preCourseView.setId(Long.valueOf(Integer.MIN_VALUE));
-        preCourseView.setName("");
-        preCourseViews.add(preCourseView);
-
-        for (Course course : courses){
-            PreCourseView preCourseView2 = new PreCourseView();
-            preCourseView2.setId(course.getId());
-            preCourseView2.setName(course.getName());
-            preCourseViews.add(preCourseView2);
-        }
-        return preCourseViews;
-    }
+//    @Override
+//    public List<PreCourseView> getAllPreCourses() {
+//        List<Course> courses =  courseDao.findAll();
+//
+//        // 转换成View对象
+//        List<PreCourseView> preCourseViews = new ArrayList<>();
+//
+//        //放入一个空的
+//        PreCourseView preCourseView = new PreCourseView();
+//        preCourseView.setId(Long.valueOf(Integer.MIN_VALUE));
+//        preCourseView.setName("");
+//        preCourseViews.add(preCourseView);
+//
+//        for (Course course : courses){
+//            PreCourseView preCourseView2 = new PreCourseView();
+//            preCourseView2.setId(course.getId());
+//            preCourseView2.setName(course.getName());
+//            preCourseViews.add(preCourseView2);
+//        }
+//        return preCourseViews;
+//    }
 
     @Transactional(rollbackOn = {Exception.class})
     @Override

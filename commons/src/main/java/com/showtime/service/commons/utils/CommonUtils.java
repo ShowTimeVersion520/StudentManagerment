@@ -16,6 +16,8 @@ public class CommonUtils {
 
     public static String MFSTR = "yyyy-MM-dd HH:mm";
 
+    public static String SSFSTR = "yyyy-MM-dd HH:mm:ss";
+
     public static String COMMA = ",";
 
     public static String URL="http://jdxb.torinosrc.com";

@@ -182,7 +182,6 @@ public class CourseController {
                     courseView.setLearnHours(learnHours);
                     courseView.setCredit(credit);
                     courseView.setAvgFraction(avgFraction);
-                    courseView.setPreCourse(preCourse);
         
             Page<CourseView> courseViews = courseService
                     .getEntitiesByParms(courseView, pageNumber, pageSize);
@@ -220,24 +219,24 @@ public class CourseController {
         }
     }
 
-    @ApiOperation(value = "获取课程列表", notes = "通过查询条件获取课程列表")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "successful request"),
-            @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/courses/preCourses/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getAllPreCourses() {
-        try {
-            List<PreCourseView> preCourseViews = courseService.getAllPreCourses();
-            // 封装返回信息
-            Message<List<PreCourseView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, preCourseViews);
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        } catch (Throwable t) {
-            String error = MessageDescription.OPERATION_QUERY_FAILURE;
-            LOG.error(error, t);
-            Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
-            return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);
-        }
-    }
+//    @ApiOperation(value = "获取课程列表", notes = "通过查询条件获取课程列表")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "successful request"),
+//            @ApiResponse(code = 500, message = "internal server error") })
+//    @RequestMapping(value = "/courses/preCourses/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    public ResponseEntity<?> getAllPreCourses() {
+//        try {
+//            List<PreCourseView> preCourseViews = courseService.getAllPreCourses();
+//            // 封装返回信息
+//            Message<List<PreCourseView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, preCourseViews);
+//            return new ResponseEntity<>(message, HttpStatus.OK);
+//        } catch (Throwable t) {
+//            String error = MessageDescription.OPERATION_QUERY_FAILURE;
+//            LOG.error(error, t);
+//            Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
+//            return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);
+//        }
+//    }
 
     @ApiOperation(value = "更新课程平均成绩", notes = "更新课程平均成绩")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "successful"),

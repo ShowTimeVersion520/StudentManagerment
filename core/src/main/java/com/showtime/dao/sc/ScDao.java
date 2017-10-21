@@ -1,8 +1,10 @@
 package com.showtime.dao.sc;
 
 
+import com.showtime.dao.base.BaseDao;
 import com.showtime.dao.base.BatchDao;
 import com.showtime.model.entity.sc.Sc;
+import com.showtime.model.view.sc.ScView;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,7 +28,7 @@ import java.util.List;
  * @since andy-core 1.0.0
  */
 @Repository
-public interface ScDao extends JpaRepository<Sc, Long>, JpaSpecificationExecutor<Sc>, BatchDao {
+public interface ScDao extends JpaRepository<Sc, Long>, JpaSpecificationExecutor<Sc>, BatchDao, BaseDao<ScView> {
 
     @Query(value = "SELECT * FROM t_sc sc INNER JOIN t_student student ON sc.student_number = student.student_number WHERE sc.course_number = ?1 AND student.class_name = ?2 AND student.grade = ?3 ORDER BY ?4 DESC", nativeQuery = true)
     @QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value ="true") })

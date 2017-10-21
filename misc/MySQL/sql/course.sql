@@ -6,8 +6,7 @@ CREATE TABLE IF NOT EXISTS `t_course`(
   `name` VARCHAR(64) COMMENT '课程名称',
   `learn_hours` VARCHAR(10) COMMENT '学时',
   `credit`	VARCHAR(10) COMMENT '学分',
-  `avg_fraction` DECIMAL(11,3) COMMENT '平均分',
-  `pre_course` BIGINT UNSIGNED COMMENT '先修课id号'
+  `avg_fraction` DECIMAL(11,3) COMMENT '平均分'
 )ENGINE INNODB DEFAULT CHARSET=utf8 COMMENT='课程' AUTO_INCREMENT=1;
 
 

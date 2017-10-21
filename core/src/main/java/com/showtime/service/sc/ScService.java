@@ -1,5 +1,6 @@
 package com.showtime.service.sc;
 
+import com.showtime.model.view.sc.ScResultView;
 import com.showtime.model.view.sc.ScView;
 import com.showtime.service.base.BaseService;
 import org.springframework.stereotype.Service;
@@ -32,12 +33,12 @@ public interface ScService extends BaseService<ScView> {
     /**
      * 多条件查询
      * @param fraction
-     * @param scView
+     * @param scResultView
      * @param pageNumber
      * @param pageSize
      * @return
      */
-    Page<ScView> getEntitiesByParms(String sortType, String sortDirection,Integer fraction, ScView scView, int pageNumber, int pageSize);
+    Page<ScResultView> getEntitiesByParms(String sortType, String sortDirection, Integer fraction, ScResultView scResultView, int pageNumber, int pageSize);
 
     //设置排名
     void setRanking();

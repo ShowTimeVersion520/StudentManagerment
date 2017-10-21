@@ -30,11 +30,11 @@ public interface CourseService extends BaseService<CourseView> {
     */
     Page<CourseView> getCourseByKeyword(String keyword, int currentPage, int pageSize);
 
-    /**
-     * 获取先修课列表
-     * @return
-     */
-    List<PreCourseView> getAllPreCourses();
+//    /**
+//     * 获取先修课列表
+//     * @return
+//     */
+//    List<PreCourseView> getAllPreCourses();
 
     /**
      * 更新课程平均成绩
