@@ -1,12 +1,9 @@
 package com.showtime.service.course;
 
 import com.showtime.model.view.course.CourseView;
-import com.showtime.model.view.course.PreCourseView;
 import com.showtime.service.base.BaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
-
-import java.util.List;
 
 /**
 * <b><code>Course</code></b>

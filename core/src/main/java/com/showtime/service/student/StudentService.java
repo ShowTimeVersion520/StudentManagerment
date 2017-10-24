@@ -43,12 +43,6 @@ public interface StudentService extends BaseService<StudentView> {
     List<String> getAllGrades();
 
     /**
-     * 获取全部性别信息
-     * @return
-     */
-    List<String> getAllGenders();
-
-    /**
      * 获取全部奖学金等级信息
      * @return
      */

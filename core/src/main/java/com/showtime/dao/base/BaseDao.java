@@ -7,4 +7,6 @@ import org.springframework.data.domain.Sort;
 
 public interface BaseDao<T> {
     Page<T> getByMultiCondition(String sortType, String sortDirection,Pageable pageable, T entity, Object condition);
+
+    T getById(long id);
 }

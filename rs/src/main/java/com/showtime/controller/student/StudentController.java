@@ -177,8 +177,11 @@ public class StudentController {
             @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
+            if("".equals(studentNumber)){
+                studentNumber = "-2147483648";
+            }
             StudentView studentView = new StudentView();
-                    studentView.setStudentNumber(studentNumber);
+                    studentView.setStudentNumber(Integer.valueOf(studentNumber));
                     studentView.setName(name);
                     studentView.setGender(gender);
                     studentView.setNativePlace(nativePlace);
@@ -262,25 +265,6 @@ public class StudentController {
     public ResponseEntity<?> getAllGrades() {
         try {
             List<String> studentViews = studentService.getAllGrades();
-            // 封装返回信息
-            Message<List<String>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, studentViews);
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        } catch (Throwable t) {
-            String error = MessageDescription.OPERATION_QUERY_FAILURE;
-            LOG.error(error, t);
-            Message<ErrorResponseMessage> message = MessageUtils.setMessage(MessageCode.FAILURE, MessageStatus.ERROR, error, new ErrorResponseMessage(t.toString()));
-            return ServiceExceptionUtils.getHttpStatusWithResponseMessage(message, t);
-        }
-    }
-
-    @ApiOperation(value = "获取性别列表", notes = "获取性别列表")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "successful request"),
-            @ApiResponse(code = 500, message = "internal server error") })
-    @RequestMapping(value = "/students/genders/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> getAllGenders() {
-        try {
-            List<String> studentViews = studentService.getAllGenders();
             // 封装返回信息
             Message<List<String>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, studentViews);
             return new ResponseEntity<>(message, HttpStatus.OK);

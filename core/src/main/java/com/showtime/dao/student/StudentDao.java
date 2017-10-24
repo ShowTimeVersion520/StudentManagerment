@@ -51,4 +51,7 @@ public interface StudentDao extends JpaRepository<Student, Long>, JpaSpecificati
     List<String> getStudentNumberByName(String name);
 
     Student getByStudentNumber(String studentNumber);
+
+    @Query(value = "select s from Student s where id in (?1)")
+    List<Student> getByIds(List<Long> ids);
 }

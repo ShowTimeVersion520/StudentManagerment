@@ -1,8 +1,6 @@
 package com.showtime.service.sc;
 
 import com.showtime.model.view.sc.ScView;
-import com.showtime.service.sc.ScService;
-import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,15 +8,13 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import com.showtime.service.commons.utils.ReflectUtils;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.junit.Before;
 
 /**

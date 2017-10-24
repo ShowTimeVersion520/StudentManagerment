@@ -65,6 +65,47 @@ public class Sc extends BaseEntity implements Serializable {
     @Column(name = "class_ranking_percent")
     private Integer classRankingPercent;
 
+    @Transient
+    private String studentName;
+    @Transient
+    private String className;
+    @Transient
+    private String grade;
+    @Transient
+    private String courseName;
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
     public Long getCreateTime() {
         return createTime;
     }
@@ -149,5 +190,20 @@ public class Sc extends BaseEntity implements Serializable {
         this.classRankingPercent = classRankingPercent;
     }
 
+    public Sc(Sc sc, String studentName, String className, String grade, String courseName) {
+        this.createTime = sc.getCreateTime();
+        this.updateTime = sc.getUpdateTime();
+        this.studentNumber = sc.getStudentNumber();
+        this.courseNumber = sc.getCourseNumber();
+        this.fraction = sc.getFraction();
+        this.gradeRanking = sc.getGradeRanking();
+        this.gradeRankingPercent = sc.getGradeRankingPercent();
+        this.classRanking = sc.getClassRanking();
+        this.classRankingPercent = sc.getClassRankingPercent();
 
+        this.studentName = studentName;
+        this.className = className;
+        this.grade = grade;
+        this.courseName = courseName;
+    }
 }

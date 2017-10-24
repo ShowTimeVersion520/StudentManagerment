@@ -21,7 +21,6 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
     $scope.process = "初始化控件";
 
     $scope.lists = [
-        {id:0, value: "性别列表"},
         {id:1, value: "年级班级列表"},
         {id:2,value: "奖学金列表"}
     ];
@@ -53,10 +52,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
 
     $scope.search = function () {
         //alert($scope.formData.list)
-        if($scope.formData.list == 0){
-            //alert("/admin/gender/index.html")
-            window.location.href = "/admin/gender/index.html";
-        }else if($scope.formData.list == 1){
+        if($scope.formData.list == 1){
             //alert("/admin/className/index.html")
             window.location.href = "/admin/className/index.html";
         }else if($scope.formData.list == 2){

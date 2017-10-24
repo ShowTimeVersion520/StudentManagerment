@@ -1,7 +1,3 @@
--- 添加性别
-INSERT INTO `t_gender`(`gender`) VALUE('男');
-INSERT INTO `t_gender`(`gender`) VALUE('女');
-
 -- 添加班级
 INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('14级','1班');
 INSERT INTO `t_class_name`(`grade`,`class_name`) VALUE('14级','2班');

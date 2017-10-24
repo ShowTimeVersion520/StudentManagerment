@@ -1,10 +1,7 @@
 package com.showtime.controller.sc;
 
-import com.showtime.model.entity.course.Course;
-import com.showtime.model.entity.student.Student;
 import com.showtime.model.message.ErrorResponseMessage;
 import com.showtime.model.message.Message;
-import com.showtime.model.view.sc.ScResultView;
 import com.showtime.model.view.sc.ScView;
 import com.showtime.service.commons.utils.message.MessageCode;
 import com.showtime.service.commons.utils.message.MessageDescription;
@@ -23,9 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * <b><code>ScController</code></b>
@@ -183,20 +177,20 @@ public class ScController {
                     @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
-            ScResultView scResultView = new ScResultView();
-            scResultView.setGrade(grade);
-            scResultView.setClassName(className);
-            scResultView.setCourseNumber(courseNumber);
-            scResultView.setCourseName(courseName);
-            scResultView.setStudentNumber(studentNumber);
-            scResultView.setStudentName(studentName);
-            scResultView.setGradeRanking(gradeRanking);
-            scResultView.setClassRanking(classRanking);
+            ScView scView = new ScView();
+            scView.setGrade(grade);
+            scView.setClassName(className);
+            scView.setCourseNumber(courseNumber);
+            scView.setCourseName(courseName);
+            scView.setStudentNumber(studentNumber);
+            scView.setStudentName(studentName);
+            scView.setGradeRanking(gradeRanking);
+            scView.setClassRanking(classRanking);
 
-            Page<ScResultView> scResultViews = scService
-                    .getEntitiesByParms(sort,sortDirection,fraction, scResultView, pageNumber, pageSize);
+            Page<ScView> scResultViews = scService
+                    .getEntitiesByParms(sort,sortDirection,fraction, scView, pageNumber, pageSize);
             // 封装返回信息
-            Message<Page<ScResultView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, scResultViews);
+            Message<Page<ScView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, scResultViews);
                 return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_QUERY_FAILURE;

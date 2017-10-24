@@ -40,7 +40,7 @@ public class Student extends BaseEntity implements Serializable {
     //学号
     @ExcelVOAttribute(name = "学号", column = "A")
     @Column(name = "student_number")
-    private String studentNumber;
+    private Integer studentNumber;
     //姓名
     @ExcelVOAttribute(name = "姓名", column = "B")
     @Column(name = "name")
@@ -78,13 +78,14 @@ public class Student extends BaseEntity implements Serializable {
         this.sumFraction = sumFraction;
     }
 
-    public String getStudentNumber() {
+    public Integer getStudentNumber() {
         return studentNumber;
     }
 
-    public void setStudentNumber(String studentNumber) {
+    public void setStudentNumber(Integer studentNumber) {
         this.studentNumber = studentNumber;
     }
+
     public String getName() {
         return name;
     }

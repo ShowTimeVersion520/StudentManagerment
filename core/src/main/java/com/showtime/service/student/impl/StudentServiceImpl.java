@@ -1,6 +1,7 @@
 package com.showtime.service.student.impl;
 
 import com.showtime.dao.change.ChangeDao;
+import com.showtime.dao.sc.ScDao;
 import com.showtime.dao.student.*;
 import com.showtime.model.entity.change.Change;
 import com.showtime.model.entity.student.Scholarship;
@@ -61,9 +62,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private ClassNameDao classNameDao;
     @Autowired
-    private GenderDao genderDao;
-    @Autowired
     private ChangeDao changeDao;
+    @Autowired
+    private ScDao scDao;
 
     private BeanCopier viewToDaoCopier = BeanCopier.create(StudentView.class, Student.class,
             false);
@@ -103,8 +104,8 @@ public class StudentServiceImpl implements StudentService {
             public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
                 // 学号
-                if(!"".equals(studentView.getStudentNumber())){
-                    predicates.add(criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentView.getStudentNumber()));
+                if(studentView.getStudentNumber() != Integer.MIN_VALUE){
+                    predicates.add(criteriaBuilder.equal(root.get("studentNumber").as(Integer.class), studentView.getStudentNumber()));
                 }
                                 // 姓名
                 if(!"".equals(studentView.getName())){
@@ -191,15 +192,22 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional(rollbackOn = { Exception.class })
     public void deleteEntities(String ids) {
-        String[] entityIds= CommonUtils.splitString(ids,
+        String[] tmps= CommonUtils.splitString(ids,
                 CommonUtils.COMMA);
-        List<Student> students = new ArrayList<>();
-        for(String entityId : entityIds){
-            Student student = new Student();
-            student.setId(Long.valueOf(entityId));
-            students.add(student);
+        ArrayList<Long> entityIds = new ArrayList<>();
+        for(int i=0;i<tmps.length; ++i){
+            Long entityId = Long.valueOf(tmps[i]);
+            entityIds.add(entityId);
         }
+        List<Student> students = studentDao.getByIds(entityIds);
+
         studentDao.deleteInBatch(students);
+
+        ArrayList<Integer> numbers = new ArrayList<>();
+        for(Student student:students){
+            numbers.add(student.getStudentNumber());
+        }
+        scDao.deleteInBatchByStudentNumber(numbers);
     }
 
     @Override
@@ -282,14 +290,6 @@ public class StudentServiceImpl implements StudentService {
         List<String> list = new ArrayList<>();
         list.add("");
         list.addAll(classNameDao.getAllGrades());
-        return list;
-    }
-
-    @Override
-    public List<String> getAllGenders() {
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.addAll(genderDao.getAllGenders());
         return list;
     }
 
