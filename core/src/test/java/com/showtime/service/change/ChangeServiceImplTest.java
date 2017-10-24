@@ -4,9 +4,7 @@ import com.showtime.model.entity.change.Change;
 import com.showtime.model.view.change.ChangeView;
 import com.showtime.service.change.ChangeService;
 import com.showtime.service.commons.constants.change.ChangeNameConstant;
-import org.junit.Assert;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ import com.showtime.service.commons.utils.ReflectUtils;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Before;
 
 /**
 * <b><code>ChangeServiceImplTest</code></b>
@@ -40,6 +37,7 @@ import org.junit.Before;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 //@Rollback(false)
 @Transactional
+@Ignore
 public class ChangeServiceImplTest {
     /**
      * JdbcTemplate

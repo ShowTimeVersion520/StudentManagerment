@@ -4,6 +4,7 @@ import com.showtime.model.view.generator.GeneratorView;
 import com.showtime.service.commons.utils.ReflectUtils;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -24,6 +25,7 @@ import java.util.List;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 //@Rollback(false)
 @Transactional
+@Ignore
 public class GeneratorServiceImplTest {
     /**
      * JdbcTemplate

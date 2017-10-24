@@ -1,6 +1,8 @@
 package com.showtime.service.sc;
 
+import com.showtime.model.view.course.CourseView;
 import com.showtime.model.view.sc.AvgFractionView;
+import com.showtime.service.course.CourseService;
 import com.showtime.service.sc.AvgFractionService;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -17,6 +19,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.showtime.service.commons.utils.ReflectUtils;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -47,42 +50,43 @@ public class AvgFractionServiceImplTest {
 
     @Autowired
     AvgFractionService avgFractionService;
+    @Autowired
+    CourseService courseService;
+
 
     private static String id = "999999";
+    private static String courseId = "999999";
 
     @Before
     public void init() throws Exception {
-        AvgFractionView avgFractionView =new AvgFractionView();
-        //avgFractionView.setUserName("lvxin_test@andy.com");
-        //avgFractionView.setPassword("123");
-        ReflectUtils.fillModel(avgFractionView);
-        id = avgFractionService.saveEntity(avgFractionView);
-    }
+        CourseView courseView =new CourseView();
+        courseView.setLearnHours("64");
+        courseView.setCredit("2.5");
+        courseView.setName("test");
 
-    @Test
-    public void test1SaveAvgFractions() throws Exception {
+        courseId = courseService.saveEntity(courseView);
+
         AvgFractionView avgFractionView =new AvgFractionView();
-        //avgFractionView.setUserName("lvxin_test@andy.com");
-        //avgFractionView.setPassword("123");
-        ReflectUtils.fillModel(avgFractionView);
+        avgFractionView.setCourseNumber(courseService.getEntity(Long.valueOf(courseId)).getCourseNumber());
+        avgFractionView.setAvgFraction(new BigDecimal(65.5).setScale(2));
         id = avgFractionService.saveEntity(avgFractionView);
     }
 
     @Test
     public void test2GetAvgFractions() throws Exception {
         AvgFractionView avgFractionView = avgFractionService.getEntity(Long.valueOf(id));
-        //Assert.assertEquals("lvxin_test@andy.com", avgFractionView.getUserName());
+        Assert.assertEquals(new BigDecimal(65.5).setScale(2), avgFractionView.getAvgFraction());
     }
 
     @Test
     public void test3UpdateAvgFractions() throws Exception {
         AvgFractionView avgFractionView = new AvgFractionView();
         avgFractionView.setId(Long.valueOf(id));
-        //avgFractionView.setUserName("lvxin_test1@andy.com");
+        avgFractionView.setAvgFraction(new BigDecimal(60));
         avgFractionService.updateEntity(avgFractionView);
 
         avgFractionView = avgFractionService.getEntity(Long.valueOf(id));
-        //Assert.assertEquals("lvxin_test1@andy.com", avgFractionView.getUserName());
+        Assert.assertEquals(new BigDecimal(60), avgFractionView.getAvgFraction());
 
 
     }

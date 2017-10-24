@@ -53,40 +53,33 @@ public class StudentServiceImplTest {
     @Before
     public void init() throws Exception {
         StudentView studentView =new StudentView();
-        //studentView.setUserName("lvxin_test@andy.com");
-        //studentView.setPassword("123");
+        studentView.setStudentNumber(100);
+        studentView.setGrade("14级");
+        studentView.setClassName("1班");
         studentView.setGender("男");
-        studentView.setStudentNumber(99);
-        ReflectUtils.fillModel(studentView);
-        id = studentService.saveEntity(studentView);
-    }
-
-    @Test
-    public void test1SaveStudents() throws Exception {
-        StudentView studentView =new StudentView();
-        //studentView.setUserName("lvxin_test@andy.com");
-        //studentView.setPassword("123");
-        ReflectUtils.fillModel(studentView);
+        studentView.setNativePlace("广东省");
         id = studentService.saveEntity(studentView);
     }
 
     @Test
     public void test2GetStudents() throws Exception {
         StudentView studentView = studentService.getEntity(Long.valueOf(id));
-        //Assert.assertEquals("lvxin_test@andy.com", studentView.getUserName());
+        Assert.assertEquals("广东省", studentView.getNativePlace());
+        Assert.assertEquals("男", studentView.getGender());
+        Assert.assertEquals("1班", studentView.getClassName());
+        Assert.assertEquals("14级", studentView.getGrade());
+        Assert.assertEquals(Integer.valueOf(100), studentView.getStudentNumber());
     }
 
     @Test
     public void test3UpdateStudents() throws Exception {
         StudentView studentView = new StudentView();
         studentView.setId(Long.valueOf(id));
-        //studentView.setUserName("lvxin_test1@andy.com");
+        studentView.setNativePlace("四川省");
         studentService.updateEntity(studentView);
 
         studentView = studentService.getEntity(Long.valueOf(id));
-        //Assert.assertEquals("lvxin_test1@andy.com", studentView.getUserName());
-
-
+        Assert.assertEquals("四川省", studentView.getNativePlace());
     }
 
     @Test

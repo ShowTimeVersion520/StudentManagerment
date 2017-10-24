@@ -1,6 +1,11 @@
 package com.showtime.service.sc;
 
+import com.showtime.model.view.course.CourseView;
 import com.showtime.model.view.sc.ScView;
+import com.showtime.model.view.student.StudentView;
+import com.showtime.service.course.CourseService;
+import com.showtime.service.student.StudentService;
+import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +21,8 @@ import com.showtime.service.commons.utils.ReflectUtils;
 import javax.transaction.Transactional;
 
 import org.junit.Before;
+
+import java.math.BigDecimal;
 
 /**
 * <b><code>ScServiceImplTest</code></b>
@@ -43,42 +50,54 @@ public class ScServiceImplTest {
 
     @Autowired
     ScService scService;
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    CourseService courseService;
 
     private static String id = "999999";
+    private static String studentId = "999999";
+    private static String courseId = "999999";
 
     @Before
     public void init() throws Exception {
+        StudentView studentView =new StudentView();
+        studentView.setStudentNumber(100);
+        studentView.setGrade("14级");
+        studentView.setClassName("1班");
+        studentView.setGender("男");
+        studentView.setNativePlace("广东省");
+        studentId = studentService.saveEntity(studentView);
+
+        CourseView courseView =new CourseView();
+        courseView.setLearnHours("64");
+        courseView.setCredit("2.5");
+        courseView.setName("test");
+
+        courseId = courseService.saveEntity(courseView);
+
+
         ScView scView =new ScView();
-        //scView.setUserName("lvxin_test@andy.com");
-        //scView.setPassword("123");
-        ReflectUtils.fillModel(scView);
+        scView.setCourseName(courseService.getEntity(Long.valueOf(courseId)).getCourseNumber());
+        scView.setStudentNumber(studentService.getEntity(Long.valueOf(studentId)).getStudentNumber());
+        scView.setFraction(new BigDecimal(60.50).setScale(2));
         id = scService.saveEntity(scView);
     }
-
-    @Test
-    public void test1SaveScs() throws Exception {
-        ScView scView =new ScView();
-        //scView.setUserName("lvxin_test@andy.com");
-        //scView.setPassword("123");
-        ReflectUtils.fillModel(scView);
-        id = scService.saveEntity(scView);
-    }
-
     @Test
     public void test2GetScs() throws Exception {
         ScView scView = scService.getEntity(Long.valueOf(id));
-        //Assert.assertEquals("lvxin_test@andy.com", scView.getUserName());
+        Assert.assertEquals(new BigDecimal(60.50).setScale(2), scView.getFraction());
     }
 
     @Test
     public void test3UpdateScs() throws Exception {
         ScView scView = new ScView();
         scView.setId(Long.valueOf(id));
-        //scView.setUserName("lvxin_test1@andy.com");
+        scView.setFraction(new BigDecimal(100.00).setScale(2));
         scService.updateEntity(scView);
 
         scView = scService.getEntity(Long.valueOf(id));
-        //Assert.assertEquals("lvxin_test1@andy.com", scView.getUserName());
+        Assert.assertEquals(new BigDecimal(100.00).setScale(2), scView.getFraction());
 
 
     }

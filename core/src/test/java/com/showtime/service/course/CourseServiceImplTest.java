@@ -53,36 +53,28 @@ public class CourseServiceImplTest {
     @Before
     public void init() throws Exception {
         CourseView courseView =new CourseView();
-        //courseView.setUserName("lvxin_test@andy.com");
-        //courseView.setPassword("123");
-        ReflectUtils.fillModel(courseView);
-        id = courseService.saveEntity(courseView);
-    }
+        courseView.setLearnHours("64");
+        courseView.setCredit("2.5");
+        courseView.setName("test");
 
-    @Test
-    public void test1SaveCourses() throws Exception {
-        CourseView courseView =new CourseView();
-        //courseView.setUserName("lvxin_test@andy.com");
-        //courseView.setPassword("123");
-        ReflectUtils.fillModel(courseView);
         id = courseService.saveEntity(courseView);
     }
 
     @Test
     public void test2GetCourses() throws Exception {
         CourseView courseView = courseService.getEntity(Long.valueOf(id));
-        //Assert.assertEquals("lvxin_test@andy.com", courseView.getUserName());
+        Assert.assertEquals("test", courseView.getName());
     }
 
     @Test
     public void test3UpdateCourses() throws Exception {
         CourseView courseView = new CourseView();
         courseView.setId(Long.valueOf(id));
-        //courseView.setUserName("lvxin_test1@andy.com");
+        courseView.setName("test1");
         courseService.updateEntity(courseView);
 
         courseView = courseService.getEntity(Long.valueOf(id));
-        //Assert.assertEquals("lvxin_test1@andy.com", courseView.getUserName());
+        Assert.assertEquals("test1", courseView.getName());
 
 
     }
@@ -93,6 +85,7 @@ public class CourseServiceImplTest {
         int pageSize = 10;
         CourseView courseView = new CourseView();
         ReflectUtils.fillModelByDefault(courseView);
+        courseView.setAvgFraction(null);
         Page<CourseView>  courseViews =  courseService.getEntitiesByParms(courseView,pageNumber,pageSize);
     }
 

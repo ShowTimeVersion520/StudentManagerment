@@ -3,6 +3,7 @@ package com.showtime.service.sysrole;
 import com.showtime.model.view.sysrole.SysRoleView;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -20,6 +21,7 @@ import javax.transaction.Transactional;
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @Transactional
+@Ignore
 public class SysRoleServiceImplTest {
     /**
      * JdbcTemplate
