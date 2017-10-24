@@ -1807,19 +1807,6 @@ RESTful API文档
 </tr>
 
 <tr>
-    <th>preCourse</th>
-    <td>query</td>
-    <td>no</td>
-    <td>先修课id号</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-<tr>
     <th>pageNumber</th>
     <td>query</td>
     <td>no</td>
@@ -2041,59 +2028,6 @@ RESTful API文档
 | 404    | not found |  - |
 | 409    | conflict |  - |
 | 500    | internal Server Error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## /api/v1/courses/preCourses/all
-
-
-### GET
-
-<a id="getAllPreCourses">获取课程列表</a>
-
-通过查询条件获取课程列表
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-
-
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
 
 
 
@@ -2394,553 +2328,6 @@ RESTful API文档
     <td>path</td>
     <td>yes</td>
     <td>课程id</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-## /api/v1/genders
-
-
-### GET
-
-<a id="getGenders">获取性别列表</a>
-
-通过查询条件获取性别列表
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>gender</th>
-    <td>query</td>
-    <td>no</td>
-    <td>性别</td>
-    <td> - </td>
-
-    
-            <td>string </td>
-    
-
-</tr>
-
-<tr>
-    <th>pageNumber</th>
-    <td>query</td>
-    <td>no</td>
-    <td>页数</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-<tr>
-    <th>pageSize</th>
-    <td>query</td>
-    <td>no</td>
-    <td>每页加载量</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-### POST
-
-
-<a id="createGender">创建性别</a>
-
-创建一个性别
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>性别</td>
-    <td> - </td>
-
-    <td>
-    
-    <a href="#/definitions/GenderView">GenderView</a> 
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 201    | successful operation |  - |
-| 409    | conflict |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-### DELETE
-
-<a id="deleteGenders">删除性别</a>
-
-批量删除性别
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>性别ids，样例 - 1,2,3</td>
-    <td> - </td>
-
-    <td>
-    
-    
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-## /api/v1/genders/search
-
-
-### GET
-
-<a id="getGenderByKeyword">通过关键字搜索性别</a>
-
-通过关键字搜索性别
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>keyword</th>
-    <td>query</td>
-    <td>yes</td>
-    <td>关键字</td>
-    <td> - </td>
-
-    
-            <td>string </td>
-    
-
-</tr>
-
-<tr>
-    <th>pageNumber</th>
-    <td>query</td>
-    <td>no</td>
-    <td>页数</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-<tr>
-    <th>pageSize</th>
-    <td>query</td>
-    <td>no</td>
-    <td>每页加载量</td>
-    <td> - </td>
-
-    
-            <td>integer (int32)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## /api/v1/genders/{id}
-
-
-### GET
-
-<a id="getGender">获取单个性别</a>
-
-通过id获取性别
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>id</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>性别id</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-### PUT
-
-<a id="updateGenders">更新性别</a>
-
-更新性别信息
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>id</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>性别id</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-<tr>
-    <th>body</th>
-    <td>body</td>
-    <td>yes</td>
-    <td>性别信息</td>
-    <td> - </td>
-
-    <td>
-    
-    <a href="#/definitions/GenderView">GenderView</a> 
-    </td>
-
-</tr>
-
-
-</table>
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful |  - |
-| 404    | not found |  - |
-| 409    | conflict |  - |
-| 500    | internal Server Error |  - |
-
-
-
-
-
-
-
-### DELETE
-
-<a id="deleteGender">删除性别</a>
-
-通过id删除性别
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Located in</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Default</th>
-        <th>Schema</th>
-    </tr>
-
-
-
-<tr>
-    <th>id</th>
-    <td>path</td>
-    <td>yes</td>
-    <td>性别id</td>
     <td> - </td>
 
     
@@ -3999,32 +3386,6 @@ RESTful API文档
 
 
 <tr>
-    <th>createTime</th>
-    <td>query</td>
-    <td>no</td>
-    <td>添加时间</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-<tr>
-    <th>updateTime</th>
-    <td>query</td>
-    <td>no</td>
-    <td>更新时间</td>
-    <td> - </td>
-
-    
-            <td>integer (int64)</td>
-    
-
-</tr>
-
-<tr>
     <th>studentNumber</th>
     <td>query</td>
     <td>no</td>
@@ -4032,7 +3393,7 @@ RESTful API文档
     <td> - </td>
 
     
-            <td>string </td>
+            <td>integer (int32)</td>
     
 
 </tr>
@@ -4129,19 +3490,6 @@ RESTful API文档
 </tr>
 
 <tr>
-    <th>gradeRankingPercent</th>
-    <td>query</td>
-    <td>no</td>
-    <td>全级排名百分比</td>
-    <td> - </td>
-
-    
-            <td>number </td>
-    
-
-</tr>
-
-<tr>
     <th>classRanking</th>
     <td>query</td>
     <td>no</td>
@@ -4150,19 +3498,6 @@ RESTful API文档
 
     
             <td>integer (int32)</td>
-    
-
-</tr>
-
-<tr>
-    <th>classRankingPercent</th>
-    <td>query</td>
-    <td>no</td>
-    <td>班级排名百分比</td>
-    <td> - </td>
-
-    
-            <td>number </td>
     
 
 </tr>
@@ -5077,59 +4412,6 @@ RESTful API文档
 <a id="getAllClassNames">获取班级列表</a>
 
 获取班级列表
-
-
-
-
-
-
-
-#### Request
-
-
-
-##### Parameters
-
-
-
-
-
-
-#### Response
-
-**Content-Type: ** application/json;charset=UTF-8
-
-
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 200    | successful request |  - |
-| 500    | internal server error |  - |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## /api/v1/students/genders/all
-
-
-### GET
-
-<a id="getAllGenders">获取性别列表</a>
-
-获取性别列表
 
 
 
@@ -7313,110 +6595,6 @@ RESTful API文档
     
 </table>
 
-## <a name="/definitions/Course">Course</a>
-
-<table border="1">
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>required</th>
-        <th>description</th>
-        <th>example</th>
-    </tr>
-    
-        <tr>
-            <td>id</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>courseNumber</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>name</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>learnHours</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>credit</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>avgFraction</td>
-            <td>
-                
-                    
-                    number
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>preCourse</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-</table>
-
 ## <a name="/definitions/CourseView">CourseView</a>
 
 <table border="1">
@@ -7507,59 +6685,7 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>preCourse</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
             <td>preCourseName</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-</table>
-
-## <a name="/definitions/GenderView">GenderView</a>
-
-<table border="1">
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>required</th>
-        <th>description</th>
-        <th>example</th>
-    </tr>
-    
-        <tr>
-            <td>id</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>gender</td>
             <td>
                 
                     
@@ -7654,7 +6780,7 @@ RESTful API文档
             <td>
                 
                     
-                    integer (int64)
+                    string (date-time)
                 
             </td>
             <td>optional</td>
@@ -7667,7 +6793,7 @@ RESTful API文档
             <td>
                 
                     
-                    integer (int64)
+                    string (date-time)
                 
             </td>
             <td>optional</td>
@@ -7676,11 +6802,11 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>student</td>
+            <td>studentNumber</td>
             <td>
                 
-                    <a href="#/definitions/Student">Student</a>
                     
+                    integer (int32)
                 
             </td>
             <td>optional</td>
@@ -7689,11 +6815,11 @@ RESTful API文档
         </tr>
     
         <tr>
-            <td>course</td>
+            <td>courseNumber</td>
             <td>
                 
-                    <a href="#/definitions/Course">Course</a>
                     
+                    string
                 
             </td>
             <td>optional</td>
@@ -7732,7 +6858,7 @@ RESTful API文档
             <td>
                 
                     
-                    number
+                    string
                 
             </td>
             <td>optional</td>
@@ -7758,7 +6884,59 @@ RESTful API文档
             <td>
                 
                     
-                    number
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>studentName</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>className</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>grade</td>
+            <td>
+                
+                    
+                    string
+                
+            </td>
+            <td>optional</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+    
+        <tr>
+            <td>courseName</td>
+            <td>
+                
+                    
+                    string
                 
             </td>
             <td>optional</td>
@@ -7833,136 +7011,6 @@ RESTful API文档
     
 </table>
 
-## <a name="/definitions/Student">Student</a>
-
-<table border="1">
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>required</th>
-        <th>description</th>
-        <th>example</th>
-    </tr>
-    
-        <tr>
-            <td>id</td>
-            <td>
-                
-                    
-                    integer (int64)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>studentNumber</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>name</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>gender</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>nativePlace</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>grade</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>className</td>
-            <td>
-                
-                    
-                    string
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>scholarshipLevel</td>
-            <td>
-                
-                    
-                    integer (int32)
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-        <tr>
-            <td>sumFraction</td>
-            <td>
-                
-                    
-                    number
-                
-            </td>
-            <td>optional</td>
-            <td>-</td>
-            <td></td>
-        </tr>
-    
-</table>
-
 ## <a name="/definitions/StudentView">StudentView</a>
 
 <table border="1">
@@ -7992,7 +7040,7 @@ RESTful API文档
             <td>
                 
                     
-                    string
+                    integer (int32)
                 
             </td>
             <td>optional</td>

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,4 +33,7 @@ public interface CourseDao extends JpaRepository<Course, Long>, JpaSpecification
     List<String> getCourseNumberByName(String courseName);
 
     Course getByCourseNumber(String courseNumber);
+
+    @Query("select c from Course c where id in (?1)")
+    List<Course> getByIds(ArrayList<Long> ids);
 }

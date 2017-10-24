@@ -5,8 +5,6 @@ import com.showtime.service.base.BaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
-
 /**
 * <b><code>Sc</code></b>
 * <p/>
@@ -37,7 +35,7 @@ public interface ScService extends BaseService<ScView> {
      * @param pageSize
      * @return
      */
-    Page<ScView> getEntitiesByParms(String sortType, String sortDirection,Integer fraction, ScView scView, int pageNumber, int pageSize);
+    Page<ScView> getEntitiesByParms(String sortType, String sortDirection, Integer fraction, ScView scView, int pageNumber, int pageSize);
 
     //设置排名
     void setRanking();

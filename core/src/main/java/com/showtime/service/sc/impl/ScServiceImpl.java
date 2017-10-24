@@ -9,19 +9,14 @@ import com.showtime.model.entity.change.Change;
 import com.showtime.model.entity.course.Course;
 import com.showtime.model.entity.student.ClassName;
 import com.showtime.model.entity.sc.Sc;
-import com.showtime.model.entity.student.Student;
 import com.showtime.model.view.sc.ScView;
-import com.showtime.model.view.student.CountStudentView;
 import com.showtime.service.commons.constants.change.ChangeNameConstant;
-import com.showtime.service.commons.constants.FractionConstant;
 import com.showtime.service.commons.constants.change.IsChangeConstant;
 import com.showtime.service.commons.utils.ReflectUtils;
 import com.showtime.service.commons.utils.CommonUtils;
 import com.showtime.service.exception.ApplicationException;
 import com.showtime.service.exception.ServiceException;
 import com.showtime.service.sc.ScService;
-import org.hibernate.Hibernate;
-import org.hibernate.jpa.internal.EntityManagerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,21 +24,16 @@ import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.text.FieldPosition;
-import java.text.Format;
-import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -87,11 +77,9 @@ public class ScServiceImpl implements ScService {
     @Override
     public ScView getEntity(long id) {
         // 获取Entity
-        Sc sc = scDao.getOne(id);
+        Sc sc = scDao.getById(id);
         // 复制Dao层属性到view属性
-        ScView scView = new ScView();
-        daoToViewCopier.copy(sc, scView,null);
-        return scView;
+        return scToScView(sc);
     }
 
     @Override
@@ -115,124 +103,217 @@ public class ScServiceImpl implements ScService {
     }
 
     @Override
-    public Page<ScView> getEntitiesByParms(String sortType, String sortDirection, Integer fraction,ScView scView, int currentPage, int pageSize) {
-        Specification<Sc> scSpecification = new Specification<Sc>() {
-            @Override
-            public Predicate toPredicate(Root<Sc> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicates = new ArrayList<>();
-                                                                    // 添加时间
-                    if(scView.getCreateTime() != Integer.MIN_VALUE){
-                    predicates.add(criteriaBuilder.equal(root.get("createTime").as(Long.class), scView.getCreateTime()));
-                    }
-                                                                                    // 更新时间
-                    if(scView.getUpdateTime() != Integer.MIN_VALUE){
-                    predicates.add(criteriaBuilder.equal(root.get("updateTime").as(Long.class), scView.getUpdateTime()));
-                    }
-                                                                    // 学号
-                    if(!"".equals(scView.getStudentNumber())){
-                    predicates.add(criteriaBuilder.equal(root.get("studentNumber").as(String.class), scView.getStudentNumber()));
-                    }
-                     // 学生姓名
-                    if(!"".equals(scView.getStudentName())){
-                        List<String> studentNumbers = studentDao.getStudentNumberByName(scView.getClassName());
-                        Predicate predicate = null;
-                        for(String studentNumber:studentNumbers){
-                            if(predicate == null){
-                                predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
-                            }
-                            predicate = criteriaBuilder.or(predicate,criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
-                        }
-                        predicates.add(predicate);
-                    }
-                    // 学生班级
-                    if(!"".equals(scView.getClassName())){
-                        List<String> studentNumbers = studentDao.getStudentNumberByClassName(scView.getClassName());
-                        Predicate predicate = null;
-                        for(String studentNumber:studentNumbers){
-                            if(predicate == null){
-                                predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
-                            }
-                            predicate = criteriaBuilder.or(predicate,criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
-                        }
-                        predicates.add(predicate);                    }
-                    // 年级
-                    if(!"".equals(scView.getGrade())){
-                        List<String> studentNumbers = studentDao.getStudentNumberByGrade(scView.getGrade());
-                        Predicate predicate = null;
-                        for(String studentNumber:studentNumbers){
-                            if(predicate == null){
-                                predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
-                            }
-                            predicate = criteriaBuilder.or(predicate,criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
-                        }
-                        predicates.add(predicate);
-                    }
-                    // 课程号
-                    if(!"".equals(scView.getCourseNumber())){
-                    predicates.add(criteriaBuilder.equal(root.get("course").get("courseNumber").as(String.class), scView.getCourseNumber()));
-                    }
-                    // 课程名称
-                    if(!"".equals(scView.getCourseName())){
-                        List<String> courseNumbers = courseDao.getCourseNumberByName(scView.getCourseName());
-                        Predicate predicate = null;
-                        for(String courseNumber:courseNumbers){
-                            if(predicate == null){
-                                predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("courseNumber").as(String.class), courseNumber));
-                            }
-                            predicate = criteriaBuilder.or(predicate,criteriaBuilder.equal(root.get("courseNumber").as(String.class), courseNumber));
-                        }
-                        predicates.add(predicate);
-                    }
-                       // 成绩
-                    if(fraction != Integer.MIN_VALUE){
-                        if(fraction == FractionConstant.POOR_FRACTION){
-                            predicates.add(criteriaBuilder.lessThan(root.get("fraction").as(BigDecimal.class), new BigDecimal(60)));
-                        }
-                    }
-                                                                                                                                                    // 全级排名
-                    if(scView.getGradeRanking() != Integer.MIN_VALUE){
-                    predicates.add(criteriaBuilder.equal(root.get("gradeRanking").as(Integer.class), scView.getGradeRanking()));
-                    }
-                                                                                                                                    // 班级排名
-                    if(scView.getClassRanking() != Integer.MIN_VALUE){
-                    predicates.add(criteriaBuilder.equal(root.get("classRanking").as(Integer.class), scView.getClassRanking()));
-                    }
-                criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
-                return criteriaQuery.getRestriction();
-            }
-        };
-        Sort sort = null;
+    public Page<ScView> getEntitiesByParms(String sortType, String sortDirection, Integer fraction, ScView scView, int currentPage, int pageSize) {
+        Pageable pageable = new PageRequest(currentPage,pageSize);
+        Sc sc = this.scViewToSc(scView);
+        Page<Sc> scs = scDao.getByMultiCondition(sortType, sortDirection, pageable, sc, fraction);
 
-        // 设置排序
-        if("ASC".equals(sortDirection)){
-            sort = new Sort(Sort.Direction.ASC, sortType);
-        }else if("DESC".equals(sortDirection)){
-            sort = new Sort(Sort.Direction.DESC, sortType);
-        }
-
-        // 设置分页
-        Pageable pageable = new PageRequest(currentPage, pageSize, sort);
-
-        Page<Sc> scs = scDao.findAll(scSpecification, pageable);
-
-        // 转换成View对象
+//        转换成View对象
         Converter<Sc, ScView> c = new Converter<Sc, ScView>() {
             @Override
             public ScView convert(Sc sc) {
-                ScView scView = new ScView();
-                daoToViewCopier.copy(sc, scView, null);
-                Student student = studentDao.getByStudentNumber(sc.getStudentNumber());
-                Course course = courseDao.getByCourseNumber(sc.getCourseNumber());
-                scView.setClassName(student.getClassName());
-                scView.setGrade(student.getGrade());
-                scView.setStudentName(student.getName());
-                scView.setCourseName(course.getName());
-                return scView;
+                return scToScView(sc);
             }
         };
         return scs.map(c);
+//        Specification<Sc> scSpecification = new Specification<Sc>() {
+//            @Override
+//            public Predicate toPredicate(Root<Sc> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+//                List<Predicate> predicates = new ArrayList<>();
+//                                                                    // 添加时间
+//                    if(scView.getCreateTime() != Integer.MIN_VALUE){
+//                    predicates.add(criteriaBuilder.equal(root.get("createTime").as(Long.class), scView.getCreateTime()));
+//                    }
+//                                                                                    // 更新时间
+//                    if(scView.getUpdateTime() != Integer.MIN_VALUE){
+//                    predicates.add(criteriaBuilder.equal(root.get("updateTime").as(Long.class), scView.getUpdateTime()));
+//                    }
+//                                                                    // 学号
+//                    if(!"".equals(scView.getStudentNumber())){
+//                    predicates.add(criteriaBuilder.equal(root.get("studentNumber").as(String.class), scView.getStudentNumber()));
+//                    }
+//                     // 学生姓名
+//                    if(!"".equals(scView.getStudentName())){
+//                        List<String> studentNumbers = studentDao.getStudentNumberByName(scView.getClassName());
+//                        Predicate predicate = null;
+//                        for(String studentNumber:studentNumbers){
+//                            if(predicate == null){
+//                                predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
+//                            }
+//                            predicate = criteriaBuilder.or(predicate,criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
+//                        }
+//                        predicates.add(predicate);
+//                    }
+//                    // 学生班级
+//                    if(!"".equals(scView.getClassName())){
+//                        List<String> studentNumbers = studentDao.getStudentNumberByClassName(scView.getClassName());
+//                        Predicate predicate = null;
+//                        for(String studentNumber:studentNumbers){
+//                            if(predicate == null){
+//                                predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
+//                            }
+//                            predicate = criteriaBuilder.or(predicate,criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
+//                        }
+//                        predicates.add(predicate);                    }
+//                    // 年级
+//                    if(!"".equals(scView.getGrade())){
+//                        List<String> studentNumbers = studentDao.getStudentNumberByGrade(scView.getGrade());
+//                        Predicate predicate = null;
+//                        for(String studentNumber:studentNumbers){
+//                            if(predicate == null){
+//                                predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
+//                            }
+//                            predicate = criteriaBuilder.or(predicate,criteriaBuilder.equal(root.get("studentNumber").as(String.class), studentNumber));
+//                        }
+//                        predicates.add(predicate);
+//                    }
+//                    // 课程号
+//                    if(!"".equals(scView.getCourseNumber())){
+//                    predicates.add(criteriaBuilder.equal(root.get("courseNumber").as(String.class), scView.getCourseNumber()));
+//                    }
+//                    // 课程名称
+//                    if(!"".equals(scView.getCourseName())){
+//                        List<String> courseNumbers = courseDao.getCourseNumberByName(scView.getCourseName());
+//                        Predicate predicate = null;
+//                        for(String courseNumber:courseNumbers){
+//                            if(predicate == null){
+//                                predicate = criteriaBuilder.or(criteriaBuilder.equal(root.get("courseNumber").as(String.class), courseNumber));
+//                            }
+//                            predicate = criteriaBuilder.or(predicate,criteriaBuilder.equal(root.get("courseNumber").as(String.class), courseNumber));
+//                        }
+//                        predicates.add(predicate);
+//                    }
+//                       // 成绩
+//                    if(fraction != Integer.MIN_VALUE){
+//                        if(fraction == FractionConstant.POOR_FRACTION){
+//                            predicates.add(criteriaBuilder.lessThan(root.get("fraction").as(Integer.class), 60));
+//                        }
+//                    }
+//                                                                                                                                                    // 全级排名
+//                    if(scView.getGradeRanking() != Integer.MIN_VALUE){
+//                    predicates.add(criteriaBuilder.equal(root.get("gradeRanking").as(Integer.class), scView.getGradeRanking()));
+//                    }
+//                                                                                                                                    // 班级排名
+//                    if(scView.getClassRanking() != Integer.MIN_VALUE){
+//                    predicates.add(criteriaBuilder.equal(root.get("classRanking").as(Integer.class), scView.getClassRanking()));
+//                    }
+//                criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
+//                return criteriaQuery.getRestriction();
+//            }
+//        };
+//        Sort sort = null;
+//
+//        // 设置排序
+//        if("ASC".equals(sortDirection)){
+//            sort = new Sort(Sort.Direction.ASC, sortType);
+//        }else if("DESC".equals(sortDirection)){
+//            sort = new Sort(Sort.Direction.DESC, sortType);
+//        }
+//
+//        // 设置分页
+//        Pageable pageable = new PageRequest(currentPage, pageSize, sort);
+//
+//        Page<Sc> scs = scDao.findAll(scSpecification, pageable);
+//
+//        // 转换成View对象
+//        Converter<Sc, ScView> c = new Converter<Sc, ScView>() {
+//            @Override
+//            public ScView convert(Sc sc) {
+//                ScView scView = new ScView();
+//                daoToViewCopier.copy(sc, scView, null);
+//                Student student = studentDao.getByStudentNumber(sc.getStudentNumber());
+//                Course course = courseDao.getByCourseNumber(sc.getCourseNumber());
+//                scView.setClassName(student.getClassName());
+//                scView.setGrade(student.getGrade());
+//                scView.setStudentName(student.getName());
+//                scView.setCourseName(course.getName());
+//                return scView;
+//            }
+//        };
+//        return scs.map(c);
 
     }
+    private ScView scToScView(Sc sc) {
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Integer fraction = sc.getFraction();
+        Long createTime = sc.getCreateTime();
+        Long updateTime = sc.getUpdateTime();
+        Integer gradeRankingPercent = sc.getGradeRankingPercent();
+        Integer classRankingRercent = sc.getClassRankingPercent();
+
+        ScView scView = new ScView();
+
+        scView.setId(sc.getId());
+        if(createTime != null)
+            scView.setCreateTime(new Date(createTime*1000));
+        if(updateTime != null)
+            scView.setUpdateTime(new Date(updateTime*1000));
+        scView.setStudentNumber(sc.getStudentNumber());
+        scView.setCourseNumber(sc.getCourseNumber());
+        if(fraction != null)
+            scView.setFraction(new BigDecimal((double)fraction/100).setScale(2));
+        scView.setGradeRanking(sc.getGradeRanking());
+        if(gradeRankingPercent != null){
+            String s = String.valueOf(gradeRankingPercent);
+            s += "%";
+            //System.out.println("-------->" + s);
+            scView.setGradeRankingPercent(s);
+        }
+        scView.setClassRanking(sc.getClassRanking());
+        if(classRankingRercent != null){
+            String s = String.valueOf(classRankingRercent);
+            s += "%";
+            //System.out.println("-------->" + s);
+            scView.setClassRankingPercent(s);
+        }
+        scView.setStudentName(sc.getStudentName());
+        scView.setClassName(sc.getClassName());
+        scView.setGrade(sc.getGrade());
+        scView.setCourseName(sc.getCourseName());
+
+        return scView;
+    }
+
+    private Sc scViewToSc(ScView scView) {
+        BigDecimal fraction = scView.getFraction();
+        Date createTime = scView.getCreateTime();
+        Date updateTime = scView.getUpdateTime();
+        String gradeRankingPercent = scView.getGradeRankingPercent();
+        String classRankingRercent = scView.getClassRankingPercent();
+
+        Sc sc = new Sc();
+
+        sc.setId(scView.getId());
+        if(createTime != null)
+            sc.setCreateTime(createTime.getTime());
+        if(updateTime != null)
+            sc.setUpdateTime(updateTime.getTime());
+        sc.setStudentNumber(scView.getStudentNumber());
+        sc.setCourseNumber(scView.getCourseNumber());
+        if(fraction != null)
+            sc.setFraction(fraction.multiply(new BigDecimal(100)).intValue());
+        sc.setGradeRanking(scView.getGradeRanking());
+        if(gradeRankingPercent != null){
+            gradeRankingPercent = gradeRankingPercent.replace(".", "");
+            gradeRankingPercent = gradeRankingPercent.replace("%", "");
+            //System.out.println("-------->" + gradeRankingPercent);
+            sc.setGradeRankingPercent(Integer.valueOf(gradeRankingPercent));
+        }
+        sc.setClassRanking(scView.getClassRanking());
+        if(classRankingRercent != null){
+            classRankingRercent = classRankingRercent.replace(".", "");
+            classRankingRercent = classRankingRercent.replace("%", "");
+            //System.out.println("-------->" + classRankingRercent);
+            sc.setClassRankingPercent(Integer.valueOf(classRankingRercent));
+        }
+        sc.setStudentName(scView.getStudentName());
+        sc.setClassName(scView.getClassName());
+        sc.setGrade(scView.getGrade());
+        sc.setCourseName(scView.getCourseName());
+
+        return sc;
+    }
+
     @Transactional(rollbackOn = { Exception.class })
     public void setRanking() {
         Change change = changeDao.getByChangeName(ChangeNameConstant.SC_CHANGE);
@@ -247,31 +328,31 @@ public class ScServiceImpl implements ScService {
             List<Course> courses = courseDao.findAll();
             String sort = "fraction";
             //获取每个班级的人数
-            List<CountStudentView> classNumbers = studentDao.getCountByClassName();
+            //List<CountStudentView> classNumbers = studentDao.getCountByClassName();
             //获取每个年级的人数
-            List<CountStudentView> gradeNumbers = studentDao.getCountByGrade();
+            //List<CountStudentView> gradeNumbers = studentDao.getCountByGrade();
             if(courses.size() != 0){
                 for(Course course:courses) {
                     //更新班级排名
                     if (classNames.size() != 0) {
                         for (ClassName className : classNames) {
-                            //System.out.println("------->courseNumber = " + course.getCourseNumber() + " className = " + className);
+                            //System.out.println("------->courseNumber = " + course.getCourseNumber() + " className = " + className + "grade = " + className.getGrade());
                             List<Sc> scs = scDao.getByCourse_CourseNumberAndStudent_ClassNameAndStudent_Grade(course.getCourseNumber(), className.getClassName(), className.getGrade(), sort);
                             //System.out.println("------->end");
 
                             if(scs.size() != 0){
                                 long count = 0L;
                                 //获取上了这堂课的班级人数
-                                for(CountStudentView countStudentView:classNumbers){
-                                    if(countStudentView.getClassName().equals(className.getClassName())
-                                            && countStudentView.getGrade().equals(className.getGrade())){
-                                        count = countStudentView.getCount();
-                                    }
-                                }
+//                                for(CountStudentView countStudentView:classNumbers){
+//                                    if(countStudentView.getClassName().equals(className.getClassName())
+//                                            && countStudentView.getGrade().equals(className.getGrade())){
+//                                        count = countStudentView.getCount();
+//                                    }
+//                                }
 
                                 //System.out.println("---------->classNameCount = " + count);
                                 //存储成绩
-                                Map<BigDecimal, Integer> map = new HashMap<>();
+                                Map<Integer, Integer> map = new HashMap<>();
                                 for(int i=0; i<scs.size();++i){
                                     //System.out.println("--------->正在更新成绩" + i+" "+scs.size());
                                     Sc sc = scs.get(i);
@@ -280,9 +361,10 @@ public class ScServiceImpl implements ScService {
                                     }
                                     float rank = map.get(sc.getFraction());
                                     sc.setClassRanking((int)rank);
-                                    double percent = rank/(int)count;
+                                    //更新班级排名百分比
+                                    //double percent = rank/(int)count;
                                     //System.out.println("--------->5" + "percent = " + percent);
-                                    sc.setClassRankingPercent(new BigDecimal(percent));
+                                    //sc.setClassRankingPercent((int)(percent*100));
                                     sc.setUpdateTime(new Date().getTime());
                                 }
 
@@ -301,16 +383,16 @@ public class ScServiceImpl implements ScService {
                             //System.out.println("------->end");
 
                             if(scs.size() != 0){
-                                long count = 0L;
+                                //long count = 0L;
                                 //获取上了这堂课的班级人数
-                                for(CountStudentView countStudentView:gradeNumbers){
-                                    if(countStudentView.getGrade().equals(grade)){
-                                        count = countStudentView.getCount();
-                                    }
-                                }
+//                                for(CountStudentView countStudentView:gradeNumbers){
+//                                    if(countStudentView.getGrade().equals(grade)){
+//                                        count = countStudentView.getCount();
+//                                    }
+//                                }
                                 //System.out.println("---------->gradeCount = " + count);
                                 //存储成绩
-                                Map<BigDecimal, Integer> map = new HashMap<>();
+                                Map<Integer, Integer> map = new HashMap<>();
 
                                 for(int i=0; i<scs.size();++i){
                                     //System.out.println("--------->正在更新成绩" + i+" "+scs.size());
@@ -321,7 +403,7 @@ public class ScServiceImpl implements ScService {
                                     float rank = map.get(sc.getFraction());
                                     sc.setGradeRanking((int)rank);
                                     //System.out.println("--------->正在设置年级排名百分比");
-                                    sc.setGradeRankingPercent(new BigDecimal(rank/(int)count));
+                                    //sc.setGradeRankingPercent((int)(rank/(int)count));
                                     //System.out.println("--------->设置年级排名百分比结束");
                                     sc.setUpdateTime(new Date().getTime());
                                 }
@@ -357,14 +439,18 @@ public class ScServiceImpl implements ScService {
     }
 
     @Override
+    @Transactional(rollbackOn = {Exception.class})
     public String saveEntity(ScView scView) {
         // 保存的业务逻辑
-        Sc sc = new Sc();
-        viewToDaoCopier.copy(scView, sc, null);
-        // user数据库映射传给dao进行存储 TODO: 添加Sc相关属性
+        Sc sc = scViewToSc(scView);
+
+        // user数据库映射传给dao进行存储
         //sc.setCreateTime(new Date().getTime());
         //sc.setUpdateTime(new Date().getTime());
         scDao.save(sc);
+
+        changeDao.updateChange(IsChangeConstant.CHANGE);
+
         return String.valueOf(sc.getId());
     }
 
@@ -388,11 +474,10 @@ public class ScServiceImpl implements ScService {
     }
 
     @Override
+    @Transactional(rollbackOn = {Exception.class})
     public void updateEntity(ScView scView) {
         Sc sc = new Sc();
-        BeanCopier copier = BeanCopier.create(ScView.class, Sc.class,
-                false);
-        copier.copy(scView, sc, null);
+        sc = scViewToSc(scView);
         // 获取原有的属性，把变的属性覆盖 TODO: 添加需要更新的字段
         Sc sc1 = scDao.findOne(sc.getId());
         if(ObjectUtils.isEmpty(sc1)){

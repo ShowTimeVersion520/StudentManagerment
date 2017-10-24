@@ -49,10 +49,7 @@ public class Course extends BaseEntity implements Serializable {
     private String credit;
     //平均分
     @Column(name = "avg_fraction")
-    private BigDecimal avgFraction;
-    //先修课id号
-    @Column(name = "pre_course")
-    private Long preCourse;
+    private Integer avgFraction;
 
     public String getCourseNumber() {
         return courseNumber;
@@ -82,19 +79,16 @@ public class Course extends BaseEntity implements Serializable {
     public void setCredit(String credit) {
         this.credit = credit;
     }
-    public BigDecimal getAvgFraction() {
+
+    public Integer getAvgFraction() {
         return avgFraction;
     }
 
-    public void setAvgFraction(BigDecimal avgFraction) {
+    public void setAvgFraction(Integer avgFraction) {
         this.avgFraction = avgFraction;
     }
-    public Long getPreCourse() {
-        return preCourse;
-    }
 
-    public void setPreCourse(Long preCourse) {
-        this.preCourse = preCourse;
+    public void setAvgFraction(BigDecimal avgFraction) {
+        this.avgFraction = avgFraction!=null?avgFraction.multiply(new BigDecimal(100)).intValue():null;
     }
-
 }

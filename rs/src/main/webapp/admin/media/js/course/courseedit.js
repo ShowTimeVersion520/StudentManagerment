@@ -125,15 +125,15 @@ app.controller('form', ['$scope', '$location', '$http', '$window', function($sco
 //    }, function errorCallback(response) {
 //    $scope.process = "提交数据失败！";
 //    });
-   $http({
-   method: 'GET',
-   url:"/api/v1/courses/preCourses/all"
-   }).then(function successCallback(response) {
-   $scope.preCourses = response.data.data;
-   $scope.process = "";
-   }, function errorCallback(response) {
-   $scope.process = "提交数据失败！";
-   });
+//    $http({
+//    method: 'GET',
+//    url:"/api/v1/courses/preCourses/all"
+//    }).then(function successCallback(response) {
+//    $scope.preCourses = response.data.data;
+//    $scope.process = "";
+//    }, function errorCallback(response) {
+//    $scope.process = "提交数据失败！";
+//    });
 
     // 获取url上的参数 - id
     var id =  $location.search().id;

@@ -1,7 +1,5 @@
 package com.showtime.controller.sc;
 
-import com.showtime.model.entity.course.Course;
-import com.showtime.model.entity.student.Student;
 import com.showtime.model.message.ErrorResponseMessage;
 import com.showtime.model.message.Message;
 import com.showtime.model.view.sc.ScView;
@@ -22,8 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.math.BigDecimal;
 
 /**
  * <b><code>ScController</code></b>
@@ -167,9 +163,7 @@ public class ScController {
             @ApiResponse(code = 500, message = "internal server error") })
     @RequestMapping(value = "/scs", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> getScs(
-                    @ApiParam(value = "添加时间", defaultValue = "", required = false) @RequestParam(value = "createTime", defaultValue = "-2147483648",  required = false) Long createTime,
-                    @ApiParam(value = "更新时间", defaultValue = "", required = false) @RequestParam(value = "updateTime", defaultValue = "-2147483648",  required = false) Long updateTime,
-                    @ApiParam(value = "学号", defaultValue = "", required = false) @RequestParam(value = "studentNumber", defaultValue = "",  required = false) String studentNumber,
+                    @ApiParam(value = "学号", defaultValue = "", required = false) @RequestParam(value = "studentNumber", defaultValue = "-2147483648",  required = false) Integer studentNumber,
                     @ApiParam(value = "学生姓名", defaultValue = "", required = false) @RequestParam(value = "studentName", defaultValue = "",  required = false) String studentName,
                     @ApiParam(value = "学生班级", defaultValue = "", required = false) @RequestParam(value = "className", defaultValue = "",  required = false) String className,
                     @ApiParam(value = "年级", defaultValue = "", required = false) @RequestParam(value = "grade", defaultValue = "",  required = false) String grade,
@@ -177,30 +171,26 @@ public class ScController {
                     @ApiParam(value = "课程名称", defaultValue = "", required = false) @RequestParam(value = "courseName", defaultValue = "",  required = false) String courseName,
                     @ApiParam(value = "成绩", defaultValue = "", required = false) @RequestParam(value = "fraction", defaultValue = "-2147483648",  required = false) Integer fraction,
                     @ApiParam(value = "全级排名", defaultValue = "", required = false) @RequestParam(value = "gradeRanking", defaultValue = "-2147483648",  required = false) Integer gradeRanking,
-                    @ApiParam(value = "全级排名百分比", defaultValue = "", required = false) @RequestParam(value = "gradeRankingPercent",   required = false) BigDecimal gradeRankingPercent,
                     @ApiParam(value = "班级排名", defaultValue = "", required = false) @RequestParam(value = "classRanking", defaultValue = "-2147483648",  required = false) Integer classRanking,
-                    @ApiParam(value = "班级排名百分比", defaultValue = "", required = false) @RequestParam(value = "classRankingPercent",   required = false) BigDecimal classRankingPercent,
                     @ApiParam(value = "排序方式", required = true) @RequestParam(value = "sort",   required = true)  String sort,
                     @ApiParam(value = "升序或降序", required = true) @RequestParam(value = "sortDirection",   required = true)  String sortDirection,
                     @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         try {
             ScView scView = new ScView();
-            scView.setCreateTime(createTime);
-            scView.setUpdateTime(updateTime);
             scView.setGrade(grade);
             scView.setClassName(className);
+            scView.setCourseNumber(courseNumber);
             scView.setCourseName(courseName);
+            scView.setStudentNumber(studentNumber);
             scView.setStudentName(studentName);
             scView.setGradeRanking(gradeRanking);
-            scView.setGradeRankingPercent(gradeRankingPercent);
             scView.setClassRanking(classRanking);
-            scView.setClassRankingPercent(classRankingPercent);
-        
-            Page<ScView> scViews = scService
+
+            Page<ScView> scResultViews = scService
                     .getEntitiesByParms(sort,sortDirection,fraction, scView, pageNumber, pageSize);
             // 封装返回信息
-            Message<Page<ScView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, scViews);
+            Message<Page<ScView>> message = MessageUtils.setMessage(MessageCode.SUCCESS, MessageStatus.SUCCESS, MessageDescription.OPERATION_QUERY_SUCCESS, scResultViews);
                 return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Throwable t) {
             String error = MessageDescription.OPERATION_QUERY_FAILURE;

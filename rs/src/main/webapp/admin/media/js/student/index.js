@@ -42,15 +42,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
     }, function errorCallback(response) {
         $scope.process = "提交数据失败！";
     });
-    $http({
-        method: 'GET',
-        url:"/api/v1/students/genders/all"
-    }).then(function successCallback(response) {
-        $scope.genders = response.data.data;
-        $scope.process = "";
-    }, function errorCallback(response) {
-        $scope.process = "提交数据失败！";
-    });
+    $scope.genders = ["","男","女"];
     $http({
         method: 'GET',
         url:"/api/v1/students/scholarshipLevels/all"

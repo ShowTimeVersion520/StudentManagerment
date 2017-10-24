@@ -2,10 +2,10 @@ package com.showtime.service.course.impl;
 
 import com.showtime.dao.change.ChangeDao;
 import com.showtime.dao.course.CourseDao;
+import com.showtime.dao.sc.ScDao;
 import com.showtime.model.entity.change.Change;
 import com.showtime.model.entity.course.Course;
 import com.showtime.model.view.course.CourseView;
-import com.showtime.model.view.course.PreCourseView;
 import com.showtime.service.commons.constants.change.ChangeNameConstant;
 import com.showtime.service.commons.constants.change.IsChangeConstant;
 import com.showtime.service.commons.utils.CreateNumberUtils;
@@ -22,7 +22,6 @@ import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -31,8 +30,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,6 +60,8 @@ public class CourseServiceImpl implements CourseService {
     private GeneratorService generatorService;
     @Autowired
     private ChangeDao changeDao;
+    @Autowired
+    private ScDao scDao;
 
     private BeanCopier viewToDaoCopier = BeanCopier.create(CourseView.class, Course.class,
             false);
@@ -75,6 +76,8 @@ public class CourseServiceImpl implements CourseService {
         // 复制Dao层属性到view属性
         CourseView courseView = new CourseView();
         daoToViewCopier.copy(course, courseView,null);
+        if(course.getAvgFraction() != null)
+            courseView.setAvgFraction(new BigDecimal((float)course.getAvgFraction()/100).setScale(2, BigDecimal.ROUND_HALF_UP));
         return courseView;
     }
 
@@ -116,9 +119,9 @@ public class CourseServiceImpl implements CourseService {
                     predicates.add(criteriaBuilder.equal(root.get("credit").as(String.class), courseView.getCredit()));
                     }
                                                                                                                                                     // 先修课id号
-                    if(courseView.getPreCourse() != Integer.MIN_VALUE){
-                    predicates.add(criteriaBuilder.equal(root.get("preCourse").as(Long.class), courseView.getPreCourse()));
-                    }
+//                    if(courseView.getPreCourse() != Integer.MIN_VALUE){
+//                    predicates.add(criteriaBuilder.equal(root.get("preCourse").as(Long.class), courseView.getPreCourse()));
+//                    }
                                                 criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
                 return criteriaQuery.getRestriction();
             }
@@ -137,11 +140,14 @@ public class CourseServiceImpl implements CourseService {
             public CourseView convert(Course course) {
                 CourseView courseView = new CourseView();
                 daoToViewCopier.copy(course, courseView, null);
-                if(!ObjectUtils.isEmpty(course.getPreCourse())){
-                Course pre = new Course();
-                pre = courseDao.findOne(course.getPreCourse());
-                    courseView.setPreCourseName(pre.getName());
-                }
+                if(course.getAvgFraction() != null)
+                    courseView.setAvgFraction(new BigDecimal((float)course.getAvgFraction()/100).setScale(2, BigDecimal.ROUND_HALF_UP));
+                //courseView.setAvgFraction(course.getAvgFraction());
+//                if(!ObjectUtils.isEmpty(course.getPreCourse())){
+//                Course pre = new Course();
+//                pre = courseDao.findOne(course.getPreCourse());
+//                    courseView.setPreCourseName(pre.getName());
+//                }
                 return courseView;
             }
         };
@@ -171,6 +177,7 @@ public class CourseServiceImpl implements CourseService {
         // 保存的业务逻辑
         Course course = new Course();
         viewToDaoCopier.copy(courseView, course, null);
+        course.setAvgFraction(courseView.getAvgFraction());
         // user数据库映射传给dao进行存储
         course.setCourseNumber(CreateNumberUtils.createCourseNumber(generatorService.getCourseNumberSuffix()));
         //course.setCreateTime(new Date().getTime());
@@ -187,15 +194,20 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional(rollbackOn = { Exception.class })
     public void deleteEntities(String ids) {
-        String[] entityIds= CommonUtils.splitString(ids,
+        String[] tmps= CommonUtils.splitString(ids,
                 CommonUtils.COMMA);
-        List<Course> courses = new ArrayList<>();
-        for(String entityId : entityIds){
-            Course course = new Course();
-            course.setId(Long.valueOf(entityId));
-            courses.add(course);
+        ArrayList<Long> entityIds = new ArrayList<>();
+        for(int i=0;i<tmps.length; ++i){
+            Long entityId = Long.valueOf(tmps[i]);
+            entityIds.add(entityId);
         }
+        List<Course> courses = courseDao.getByIds(entityIds);
         courseDao.deleteInBatch(courses);
+        ArrayList<String> numbers = new ArrayList<>();
+        for(Course course:courses){
+            numbers.add(course.getCourseNumber());
+        }
+        scDao.deleteInBatchByCourseNumber(numbers);
     }
 
     @Override
@@ -204,6 +216,7 @@ public class CourseServiceImpl implements CourseService {
         BeanCopier copier = BeanCopier.create(CourseView.class, Course.class,
                 false);
         copier.copy(courseView, course, null);
+        course.setAvgFraction(courseView.getAvgFraction());
         // 获取原有的属性，把变的属性覆盖 TODO: 添加需要更新的字段
         Course course1 = courseDao.findOne(course.getId());
         if(ObjectUtils.isEmpty(course1)){
@@ -220,9 +233,9 @@ public class CourseServiceImpl implements CourseService {
         //course.setCreateTime(course1.getCreateTime());
         //course1.setSysRole(course.getSysRole());
         ReflectUtils.flushModel(course,course1);
-        if(Integer.MIN_VALUE == course.getPreCourse()){
-            course.setPreCourse(null);
-        }
+//        if(Integer.MIN_VALUE == course.getPreCourse()){
+//            course.setPreCourse(null);
+//        }
         courseDao.save(course);
     }
 
@@ -268,27 +281,27 @@ public class CourseServiceImpl implements CourseService {
         return courses.map(c);
     }
 
-    @Override
-    public List<PreCourseView> getAllPreCourses() {
-        List<Course> courses =  courseDao.findAll();
-
-        // 转换成View对象
-        List<PreCourseView> preCourseViews = new ArrayList<>();
-
-        //放入一个空的
-        PreCourseView preCourseView = new PreCourseView();
-        preCourseView.setId(Long.valueOf(Integer.MIN_VALUE));
-        preCourseView.setName("");
-        preCourseViews.add(preCourseView);
-
-        for (Course course : courses){
-            PreCourseView preCourseView2 = new PreCourseView();
-            preCourseView2.setId(course.getId());
-            preCourseView2.setName(course.getName());
-            preCourseViews.add(preCourseView2);
-        }
-        return preCourseViews;
-    }
+//    @Override
+//    public List<PreCourseView> getAllPreCourses() {
+//        List<Course> courses =  courseDao.findAll();
+//
+//        // 转换成View对象
+//        List<PreCourseView> preCourseViews = new ArrayList<>();
+//
+//        //放入一个空的
+//        PreCourseView preCourseView = new PreCourseView();
+//        preCourseView.setId(Long.valueOf(Integer.MIN_VALUE));
+//        preCourseView.setName("");
+//        preCourseViews.add(preCourseView);
+//
+//        for (Course course : courses){
+//            PreCourseView preCourseView2 = new PreCourseView();
+//            preCourseView2.setId(course.getId());
+//            preCourseView2.setName(course.getName());
+//            preCourseViews.add(preCourseView2);
+//        }
+//        return preCourseViews;
+//    }
 
     @Transactional(rollbackOn = {Exception.class})
     @Override

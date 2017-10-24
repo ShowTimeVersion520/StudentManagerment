@@ -70,15 +70,15 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
 //    }, function errorCallback(response) {
 //    $scope.process = "提交数据失败！";
 //    });
-   $http({
-   method: 'GET',
-   url:"/api/v1/courses/preCourses/all"
-   }).then(function successCallback(response) {
-   $scope.preCourses = response.data.data;
-   $scope.process = "";
-   }, function errorCallback(response) {
-   $scope.process = "提交数据失败！";
-   });
+//    $http({
+//    method: 'GET',
+//    url:"/api/v1/courses/preCourses/all"
+//    }).then(function successCallback(response) {
+//    $scope.preCourses = response.data.data;
+//    $scope.process = "";
+//    }, function errorCallback(response) {
+//    $scope.process = "提交数据失败！";
+//    });
     // 定义form的数据存储地方
     $scope.formData = {
         enabled: "" // 初始化select的值，1为启用，参考 $scope.enableds
@@ -87,7 +87,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
                     //,learnHours:""
                     //,credit:""
                     //,avgFraction:""
-                    ,preCourse:"-2147483648"
+                    //,preCourse:"-2147483648"
             };
 
 
@@ -165,14 +165,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
                 title: '平均分',
                 align: 'left',
                 width: 165,
-            },
-                        {
-                field: 'preCourseName',
-                title: '先修课',
-                align: 'left',
-                width: 165,
-            },
-                        {
+            },{
             field: 'ss',
             title: '操作',
             align: 'center',
@@ -218,7 +211,7 @@ app.controller('dashboard', ['$scope', '$location', '$http',  function($scope, $
                             ,learnHours: $scope.formData.learnHours
                             ,credit: $scope.formData.credit
                             ,avgFraction: $scope.formData.avgFraction
-                            ,preCourse: $scope.formData.preCourse
+                            //,preCourse: $scope.formData.preCourse
                     };
         return temp;
     };

@@ -55,6 +55,8 @@ public class StudentServiceImplTest {
         StudentView studentView =new StudentView();
         //studentView.setUserName("lvxin_test@andy.com");
         //studentView.setPassword("123");
+        studentView.setGender("男");
+        studentView.setStudentNumber(99);
         ReflectUtils.fillModel(studentView);
         id = studentService.saveEntity(studentView);
     }

@@ -198,16 +198,16 @@ app.controller('form', ['$scope', '$location', '$http', '$window', function($sco
             $scope.formData = response.data.data;
 
             $scope.process = "";
-                        $("#createTime").attr("readonly", "readonly")
-                                $("#updateTime").attr("readonly", "readonly")
+                        //$("#createTime").attr("readonly", "readonly")
+                                //$("#updateTime").attr("readonly", "readonly")
                                 $("#studentNumber").attr("readonly", "readonly")
                                 $("#studentName").attr("readonly", "readonly")
                                 $("#courseNumber").attr("readonly", "readonly")
                                 $("#courseName").attr("readonly", "readonly")
                                 $("#gradeRanking").attr("readonly", "readonly")
-                                $("#gradeRanking_percent").attr("readonly", "readonly")
+                                //$("#gradeRanking_percent").attr("readonly", "readonly")
                                 $("#classRanking").attr("readonly", "readonly")
-                                $("#classRankingPercent").attr("readonly", "readonly")
+                                //$("#classRankingPercent").attr("readonly", "readonly")
                     }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
