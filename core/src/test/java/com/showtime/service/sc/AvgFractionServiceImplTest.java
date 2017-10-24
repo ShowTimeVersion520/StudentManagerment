@@ -4,9 +4,7 @@ import com.showtime.model.view.course.CourseView;
 import com.showtime.model.view.sc.AvgFractionView;
 import com.showtime.service.course.CourseService;
 import com.showtime.service.sc.AvgFractionService;
-import org.junit.Assert;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Before;
 
 /**
 * <b><code>AvgFractionServiceImplTest</code></b>
@@ -41,6 +38,7 @@ import org.junit.Before;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 //@Rollback(false)
 @Transactional
+@Ignore
 public class AvgFractionServiceImplTest {
     /**
      * JdbcTemplate

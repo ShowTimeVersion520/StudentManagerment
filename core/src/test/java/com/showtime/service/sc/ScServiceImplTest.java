@@ -5,9 +5,7 @@ import com.showtime.model.view.sc.ScView;
 import com.showtime.model.view.student.StudentView;
 import com.showtime.service.course.CourseService;
 import com.showtime.service.student.StudentService;
-import org.junit.Assert;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.showtime.service.commons.utils.ReflectUtils;
 
 import javax.transaction.Transactional;
-
-import org.junit.Before;
 
 import java.math.BigDecimal;
 
@@ -121,6 +117,7 @@ public class ScServiceImplTest {
         scService.deleteEntity(Long.valueOf(id));
     }
 
+    @Ignore
     @Test
     public void testsetRanking() throws Exception {
         scService.setRanking();
