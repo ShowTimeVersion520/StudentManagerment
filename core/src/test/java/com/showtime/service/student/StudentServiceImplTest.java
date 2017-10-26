@@ -57,6 +57,7 @@ public class StudentServiceImplTest {
         studentView.setGrade("14级");
         studentView.setClassName("1班");
         studentView.setGender("男");
+        studentView.setName("秦");
         studentView.setNativePlace("广东省");
         id = studentService.saveEntity(studentView);
     }

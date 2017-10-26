@@ -84,7 +84,10 @@ public class CourseServiceImplTest {
         int pageNumber = 0;
         int pageSize = 10;
         CourseView courseView = new CourseView();
-        ReflectUtils.fillModelByDefault(courseView);
+        courseView.setName("");
+        courseView.setCredit("");
+        courseView.setLearnHours("");
+        courseView.setCourseNumber("");
         courseView.setAvgFraction(null);
         Page<CourseView>  courseViews =  courseService.getEntitiesByParms(courseView,pageNumber,pageSize);
     }

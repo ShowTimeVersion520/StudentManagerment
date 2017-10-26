@@ -217,35 +217,33 @@ public class ScDaoImpl implements BatchDao, BaseDao<Sc> {
 
         Query query = em.createNativeQuery(sql);
         List<Object[]> objects = query.getResultList();
-        if(objects == null){
-            throw new ServiceException("id cannot find!", MessageCode.LOGIN_USERNAME_NOT_EXIST);
-        }
-        Object[] object = objects.get(0);
         Sc sc = new Sc();
-        sc.setId(((BigInteger)object[0]).longValue());
-        if(object[1] != null)
-            sc.setCreateTime(((BigInteger)object[1]).longValue());
-        if(object[2] != null)
-            sc.setUpdateTime(((BigInteger)object[2]).longValue());
-        if(object[3] != null)
-            sc.setStudentNumber((Integer)object[3]);
-        if(object[4] != null)
-            sc.setCourseNumber((String)object[4]);
-        if(object[5] != null)
-            sc.setFraction((Integer)object[5]);
-        if(object[6] != null)
-            sc.setGradeRanking((Integer)object[6]);
-        if(object[7] != null)
-            sc.setGradeRankingPercent((Integer)object[7]);
-        if(object[8] != null)
-            sc.setClassRanking((Integer)object[8]);
-        if(object[9] != null)
-            sc.setClassRankingPercent((Integer)object[9]);
-        if(object[10] != null)
-            sc.setStudentName((String)object[10]);
-        if(object[11] != null)
-            sc.setCourseName((String)object[11]);
-
+        if(objects.size() != 0){
+            Object[] object = objects.get(0);
+            sc.setId(((BigInteger)object[0]).longValue());
+            if(object[1] != null)
+                sc.setCreateTime(((BigInteger)object[1]).longValue());
+            if(object[2] != null)
+                sc.setUpdateTime(((BigInteger)object[2]).longValue());
+            if(object[3] != null)
+                sc.setStudentNumber((Integer)object[3]);
+            if(object[4] != null)
+                sc.setCourseNumber((String)object[4]);
+            if(object[5] != null)
+                sc.setFraction((Integer)object[5]);
+            if(object[6] != null)
+                sc.setGradeRanking((Integer)object[6]);
+            if(object[7] != null)
+                sc.setGradeRankingPercent((Integer)object[7]);
+            if(object[8] != null)
+                sc.setClassRanking((Integer)object[8]);
+            if(object[9] != null)
+                sc.setClassRankingPercent((Integer)object[9]);
+            if(object[10] != null)
+                sc.setStudentName((String)object[10]);
+            if(object[11] != null)
+                sc.setCourseName((String)object[11]);
+        }
         return sc;
     }
 }

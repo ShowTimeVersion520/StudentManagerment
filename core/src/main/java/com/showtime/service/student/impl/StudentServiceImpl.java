@@ -175,11 +175,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String saveEntity(StudentView studentView) {
+    public String saveEntity(StudentView studentView){
         // 保存的业务逻辑
         Student student = new Student();
         viewToDaoCopier.copy(studentView, student, null);
-        // user数据库映射传给dao进行存储
+
         studentDao.save(student);
         return String.valueOf(student.getId());
     }

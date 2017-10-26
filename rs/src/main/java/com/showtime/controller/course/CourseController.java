@@ -169,7 +169,7 @@ public class CourseController {
                     @ApiParam(value = "课程名称", defaultValue = "", required = false) @RequestParam(value = "name", defaultValue = "",  required = false) String name,
                     @ApiParam(value = "学时", defaultValue = "", required = false) @RequestParam(value = "learnHours", defaultValue = "",  required = false) String learnHours,
                     @ApiParam(value = "学分", defaultValue = "", required = false) @RequestParam(value = "credit", defaultValue = "",  required = false) String credit,
-                    @ApiParam(value = "平均分", defaultValue = "", required = false) @RequestParam(value = "avgFraction",   required = false) BigDecimal avgFraction,
+                    //@ApiParam(value = "平均分", defaultValue = "", required = false) @RequestParam(value = "avgFraction",   required = false) BigDecimal avgFraction,
                     //@ApiParam(value = "先修课id号", defaultValue = "", required = false) @RequestParam(value = "preCourse", defaultValue = "-2147483648",  required = false) Long preCourse,
                     @ApiParam(value = "页数", defaultValue = "0", required = false) @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @ApiParam(value = "每页加载量", defaultValue = "10", required = false) @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
@@ -179,7 +179,7 @@ public class CourseController {
                     courseView.setName(name);
                     courseView.setLearnHours(learnHours);
                     courseView.setCredit(credit);
-                    courseView.setAvgFraction(avgFraction);
+                    //courseView.setAvgFraction(avgFraction);
         
             Page<CourseView> courseViews = courseService
                     .getEntitiesByParms(courseView, pageNumber, pageSize);

@@ -11,6 +11,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -63,6 +64,7 @@ public class ScServiceImplTest {
         studentView.setClassName("1班");
         studentView.setGender("男");
         studentView.setNativePlace("广东省");
+        studentView.setName("秦");
         studentId = studentService.saveEntity(studentView);
 
         CourseView courseView =new CourseView();
@@ -74,7 +76,7 @@ public class ScServiceImplTest {
 
 
         ScView scView =new ScView();
-        scView.setCourseName(courseService.getEntity(Long.valueOf(courseId)).getCourseNumber());
+        scView.setCourseNumber(courseService.getEntity(Long.valueOf(courseId)).getCourseNumber());
         scView.setStudentNumber(studentService.getEntity(Long.valueOf(studentId)).getStudentNumber());
         scView.setFraction(new BigDecimal(60.50).setScale(2));
         id = scService.saveEntity(scView);
