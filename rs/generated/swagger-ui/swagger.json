@@ -2990,34 +2990,6 @@
         }
       }
     },
-    "Course" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "courseNumber" : {
-          "type" : "string"
-        },
-        "name" : {
-          "type" : "string"
-        },
-        "learnHours" : {
-          "type" : "string"
-        },
-        "credit" : {
-          "type" : "string"
-        },
-        "avgFraction" : {
-          "type" : "number"
-        },
-        "preCourse" : {
-          "type" : "integer",
-          "format" : "int64"
-        }
-      }
-    },
     "CourseView" : {
       "type" : "object",
       "properties" : {
@@ -3091,11 +3063,11 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "student" : {
-          "$ref" : "#/definitions/Student"
+        "studentNumber" : {
+          "type" : "string"
         },
-        "course" : {
-          "$ref" : "#/definitions/Course"
+        "courseNumber" : {
+          "type" : "string"
         },
         "fraction" : {
           "type" : "number"
@@ -3113,6 +3085,18 @@
         },
         "classRankingPercent" : {
           "type" : "number"
+        },
+        "studentName" : {
+          "type" : "string"
+        },
+        "className" : {
+          "type" : "string"
+        },
+        "grade" : {
+          "type" : "string"
+        },
+        "courseName" : {
+          "type" : "string"
         }
       }
     },
@@ -3133,40 +3117,6 @@
         "number" : {
           "type" : "integer",
           "format" : "int32"
-        }
-      }
-    },
-    "Student" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "studentNumber" : {
-          "type" : "string"
-        },
-        "name" : {
-          "type" : "string"
-        },
-        "gender" : {
-          "type" : "string"
-        },
-        "nativePlace" : {
-          "type" : "string"
-        },
-        "grade" : {
-          "type" : "string"
-        },
-        "className" : {
-          "type" : "string"
-        },
-        "scholarshipLevel" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "sumFraction" : {
-          "type" : "number"
         }
       }
     },

@@ -169,7 +169,7 @@ public class ScServiceImpl implements ScService {
                     }
                     // 课程号
                     if(!"".equals(scView.getCourseNumber())){
-                    predicates.add(criteriaBuilder.equal(root.get("course").get("courseNumber").as(String.class), scView.getCourseNumber()));
+                    predicates.add(criteriaBuilder.equal(root.get("courseNumber").as(String.class), scView.getCourseNumber()));
                     }
                     // 课程名称
                     if(!"".equals(scView.getCourseName())){
