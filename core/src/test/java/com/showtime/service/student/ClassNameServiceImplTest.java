@@ -59,14 +59,6 @@ public class ClassNameServiceImplTest {
         id = classNameService.saveEntity(classNameView);
     }
 
-    @Test
-    public void test1SaveClassNames() throws Exception {
-        ClassNameView classNameView =new ClassNameView();
-        //classNameView.setUserName("lvxin_test@andy.com");
-        //classNameView.setPassword("123");
-        ReflectUtils.fillModel(classNameView);
-        id = classNameService.saveEntity(classNameView);
-    }
 
     @Test
     public void test2GetClassNames() throws Exception {

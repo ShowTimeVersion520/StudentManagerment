@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 * <b><code>ScServiceImplTest</code></b>
 * <p/>
 * Sc的具体实现
+ * 有关分数的排名，总分等的方法的测试
 * <p/>
 * <b>Creation Time:</b> Fri Oct 06 11:02:15 CST 2017.
 *
