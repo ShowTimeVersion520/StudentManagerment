@@ -40,6 +40,7 @@ import java.util.*;
 * <b><code>ScImpl</code></b>
 * <p/>
 * Sc的具体实现
+ * 有关成绩的处理，排名总分。。
 * <p/>
 * <b>Creation Time:</b> Fri Oct 06 11:02:15 CST 2017.
 *
@@ -476,8 +477,7 @@ public class ScServiceImpl implements ScService {
     @Override
     @Transactional(rollbackOn = {Exception.class})
     public void updateEntity(ScView scView) {
-        Sc sc = new Sc();
-        sc = scViewToSc(scView);
+        Sc sc = scViewToSc(scView);
         // 获取原有的属性，把变的属性覆盖 TODO: 添加需要更新的字段
         Sc sc1 = scDao.findOne(sc.getId());
         if(ObjectUtils.isEmpty(sc1)){

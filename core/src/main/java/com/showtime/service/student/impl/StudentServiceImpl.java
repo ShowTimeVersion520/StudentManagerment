@@ -39,6 +39,7 @@ import java.util.List;
 * <b><code>StudentImpl</code></b>
 * <p/>
 * Student的具体实现
+ * 获得有关的学生的各种信息
 * <p/>
 * <b>Creation Time:</b> Sun Oct 01 17:12:45 CST 2017.
 *

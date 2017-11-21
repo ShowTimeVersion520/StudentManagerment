@@ -32,6 +32,7 @@ import java.util.List;
 * <b><code>ScholarshipImpl</code></b>
 * <p/>
 * Scholarship的具体实现
+ * 奖学金信息的获取展示
 * <p/>
 * <b>Creation Time:</b> Thu Oct 05 16:34:21 CST 2017.
 *
