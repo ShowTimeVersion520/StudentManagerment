@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <import resource="JdbcTemplate.xml"/>
+
+    <jpa:repositories base-package="com.showtime.dao"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager"/>
+
+    <!--配置实体管理对象    -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+        <!--<property name="persistenceUnitName" value="springjpa" />-->
+
+        <!-- 定义entity实体扫描路径 -->
+        <property name="packagesToScan" value="com.showtime.model.entity" />
+        <!--
+         jpaVendorAdapter 用于设置实现厂商JPA实现的特定属性,如设置Hibernate的是否自动生成DDL的属性generateDdl；这些属性是厂商特定的，因此最好在这里设置
+        -->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true"></property>
+                <property name="databasePlatform"   value="org.hibernate.dialect.MySQL5Dialect"></property>
+            </bean>
+        </property>
+        <!--指定JPA属性 如: Hibernate中指定是否显示SQL的-->
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.show_sql">true</prop> <!-- 设置控制台是否显示sql true 显示  false 不显示 -->
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+                <prop key="javax.persistence.sharedCache.mode">ENABLE_SELECTIVE</prop>
+                <prop key="hibernate.generate_statistics">true</prop>
+                <prop key="hibernate.cache.use_query_cache">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--添加JPA事务管理器-->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+        </property>
+    </bean>
+
+    <!-- 开启事务注解支持，这样子，在类中添加@Transactional 才会起做作用 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

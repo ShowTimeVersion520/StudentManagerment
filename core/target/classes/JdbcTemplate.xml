@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- This is for postgresql
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"></property>
+        <property name="url" value="jdbc:mysql://104.238.134.112:3306/test"></property>
+        <property name="username" value="showtime"></property>
+        <property name="password" value="showtime"></property>
+    </bean>
+    -->
+
+    <!-- This is for mysql -->
+    <!--<bean id="dataSource"-->
+          <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>-->
+        <!--<property name="url" value="jdbc:mysql://104.238.134.112:3306/test"></property>-->
+        <!--<property name="username" value="showtime"></property>-->
+        <!--<property name="password" value="showtime"></property>-->
+    <!--</bean>-->
+
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" lazy-init="false">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://104.238.134.112:3306/test"/>
+        <property name="username" value="showtime"/>
+        <property name="password" value="showtime"/>
+        <property name="initialSize" value="5"/>
+        <property name="maxActive" value="2000"/>
+        <property name="maxWait" value="60000"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="validationQuery" value="SELECT 1" />
+        <property name="testOnBorrow" value="true"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+</beans>

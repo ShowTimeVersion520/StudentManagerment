@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<!-- spring扫描的路径 为了使用注解-->
+	<context:component-scan base-package="com.showtime.*" />
+
+	<!-- 引入Hibernate和JdbcTempate -->
+	<import resource="common/*.xml"/>
+
+	<!--Http client Factory
+	<bean id="httpClientFactory"
+		class="org.springframework.http.client.SimpleClientHttpRequestFactory">
+		<property name="connectTimeout" value="10000" />
+		<property name="readTimeout" value="10000" />
+	</bean>-->
+	<!--RestTemplate
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<constructor-arg ref="httpClientFactory" />
+	</bean>-->
+
+	<tx:annotation-driven />
+	<context:annotation-config />
+	<mvc:annotation-driven />
+
+</beans>
