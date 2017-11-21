@@ -328,5 +328,5 @@ public class StudentServiceImpl implements StudentService {
             change.setIsChange(IsChangeConstant.NOT_CHANGE);
             changeDao.save(change);
         }
-    }
+    } 
 }
