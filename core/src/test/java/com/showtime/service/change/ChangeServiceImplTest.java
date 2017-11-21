@@ -37,7 +37,7 @@ import java.util.List;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 //@Rollback(false)
 @Transactional
-@Ignore
+//@Ignore
 public class ChangeServiceImplTest {
     /**
      * JdbcTemplate
@@ -108,7 +108,7 @@ public class ChangeServiceImplTest {
     @Test
     public void testGetByChangeName() throws Exception {
         changeService.getByChangeName(ChangeNameConstant.SC_CHANGE);
-    }
+}
     @Test
     public void testFindAll() throws Exception {
         List<ChangeView> changeViews = changeService.findAll();
