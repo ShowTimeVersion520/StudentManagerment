@@ -61,7 +61,7 @@ public class ScServiceImplTest {
     public void init() throws Exception {
         StudentView studentView =new StudentView();
         studentView.setStudentNumber(100);
-//aa
+//aasfsdfsdfds
         studentView.setGrade("14级");
         studentView.setClassName("1班");
         studentView.setGender("男");
