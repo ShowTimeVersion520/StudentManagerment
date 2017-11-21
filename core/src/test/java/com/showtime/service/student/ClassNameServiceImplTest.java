@@ -72,7 +72,7 @@ public class ClassNameServiceImplTest {
         classNameView.setId(Long.valueOf(id));
         //classNameView.setUserName("lvxin_test1@andy.com");
         classNameService.updateEntity(classNameView);
-//SSSSSaAASSS
+
         classNameView = classNameService.getEntity(Long.valueOf(id));
         //Assert.assertEquals("lvxin_test1@andy.com", classNameView.getUserName());
 
